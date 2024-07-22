@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		DC4A74892C4E2278001C9208 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74882C4E2278001C9208 /* AppDelegate.swift */; };
 		DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A748A2C4E2278001C9208 /* SceneDelegate.swift */; };
-		DC4A748D2C4E2278001C9208 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A748C2C4E2278001C9208 /* ViewController.swift */; };
-		DC4A74902C4E2278001C9208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC4A748E2C4E2278001C9208 /* Main.storyboard */; };
 		DC4A74922C4E227A001C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC4A74912C4E227A001C9208 /* Assets.xcassets */; };
 		DC4A74952C4E227A001C9208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC4A74932C4E227A001C9208 /* LaunchScreen.storyboard */; };
 		DC4A749E2C4E2426001C9208 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A749D2C4E2426001C9208 /* RealmSwift */; };
@@ -29,6 +27,11 @@
 		DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C22C4E27CB001C9208 /* BaseCollectionViewCell.swift */; };
 		DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C42C4E283D001C9208 /* BaseView.swift */; };
 		DC4A74C72C4E28E0001C9208 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */; };
+		DC4A74C92C4E29B9001C9208 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C82C4E29B9001C9208 /* OnBoardingView.swift */; };
+		DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */; };
+		DC4A74CE2C4E2CDF001C9208 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74CD2C4E2CDF001C9208 /* UIViewController+Extension.swift */; };
+		DC4A74D02C4E2CF5001C9208 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74CF2C4E2CF5001C9208 /* UIColor+Extension.swift */; };
+		DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,8 +52,6 @@
 		DC4A74852C4E2278001C9208 /* Avez Vous.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Avez Vous.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC4A74882C4E2278001C9208 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC4A748A2C4E2278001C9208 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DC4A748C2C4E2278001C9208 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DC4A748F2C4E2278001C9208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DC4A74912C4E227A001C9208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC4A74942C4E227A001C9208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC4A74962C4E227A001C9208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,6 +63,11 @@
 		DC4A74C22C4E27CB001C9208 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC4A74C42C4E283D001C9208 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
+		DC4A74C82C4E29B9001C9208 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDesign.swift; sourceTree = "<group>"; };
+		DC4A74CD2C4E2CDF001C9208 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		DC4A74CF2C4E2CF5001C9208 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,16 +110,16 @@
 			children = (
 				DC4A74882C4E2278001C9208 /* AppDelegate.swift */,
 				DC4A748A2C4E2278001C9208 /* SceneDelegate.swift */,
-				DC4A748C2C4E2278001C9208 /* ViewController.swift */,
-				DC4A748E2C4E2278001C9208 /* Main.storyboard */,
 				DC4A74912C4E227A001C9208 /* Assets.xcassets */,
 				DC4A74932C4E227A001C9208 /* LaunchScreen.storyboard */,
 				DC4A74962C4E227A001C9208 /* Info.plist */,
 				DC4A74B52C4E2589001C9208 /* Stuff */,
+				DC4A74CC2C4E2CBD001C9208 /* Extension */,
 				DC4A74BB2C4E2662001C9208 /* Base */,
 				DC4A74BC2C4E266D001C9208 /* Network */,
 				DC4A74BD2C4E2677001C9208 /* Database */,
 				DC4A74B82C4E2625001C9208 /* OnBoarding */,
+				DC4A74D12C4E36E0001C9208 /* ProfileSetting */,
 			);
 			path = "Avez Vous";
 			sourceTree = "<group>";
@@ -123,6 +129,7 @@
 			children = (
 				DC4A74B62C4E259E001C9208 /* APIKey.swift */,
 				DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */,
+				DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */,
 			);
 			path = Stuff;
 			sourceTree = "<group>";
@@ -131,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				DC4A74B92C4E2657001C9208 /* OnBoardingViewController.swift */,
+				DC4A74C82C4E29B9001C9208 /* OnBoardingView.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -158,6 +166,23 @@
 			children = (
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		DC4A74CC2C4E2CBD001C9208 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DC4A74CD2C4E2CDF001C9208 /* UIViewController+Extension.swift */,
+				DC4A74CF2C4E2CF5001C9208 /* UIColor+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DC4A74D12C4E36E0001C9208 /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */,
+			);
+			path = ProfileSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,7 +265,6 @@
 				DC4A74B42C4E257C001C9208 /* .gitignore in Resources */,
 				DC4A74952C4E227A001C9208 /* LaunchScreen.storyboard in Resources */,
 				DC4A74922C4E227A001C9208 /* Assets.xcassets in Resources */,
-				DC4A74902C4E2278001C9208 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,30 +275,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC4A748D2C4E2278001C9208 /* ViewController.swift in Sources */,
+				DC4A74CE2C4E2CDF001C9208 /* UIViewController+Extension.swift in Sources */,
 				DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */,
 				DC4A74C72C4E28E0001C9208 /* ReusableProtocol.swift in Sources */,
 				DC4A74892C4E2278001C9208 /* AppDelegate.swift in Sources */,
 				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
+				DC4A74C92C4E29B9001C9208 /* OnBoardingView.swift in Sources */,
+				DC4A74D02C4E2CF5001C9208 /* UIColor+Extension.swift in Sources */,
 				DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */,
 				DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */,
 				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
 				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
+				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
+				DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DC4A748E2C4E2278001C9208 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC4A748F2C4E2278001C9208 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DC4A74932C4E227A001C9208 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -417,7 +437,6 @@
 				INFOPLIST_FILE = "Avez Vous/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -449,7 +468,6 @@
 				INFOPLIST_FILE = "Avez Vous/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -7,23 +7,25 @@
 
 import UIKit
 
-class OnBoardingViewController: UIViewController {
+class OnBoardingViewController: BaseViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    let mainView = OnBoardingView()
+    
+    override func loadView() {
+        view = mainView
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
     }
-    */
 
+    override func configureAction() {
+        mainView.startButton.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func startButtonClicked() {
+        transitionScreen(vc: ProfileSettingViewController(), style: .push)
+    }
+    
 }
