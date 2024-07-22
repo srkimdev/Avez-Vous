@@ -13,7 +13,37 @@
 		DC4A74902C4E2278001C9208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC4A748E2C4E2278001C9208 /* Main.storyboard */; };
 		DC4A74922C4E227A001C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC4A74912C4E227A001C9208 /* Assets.xcassets */; };
 		DC4A74952C4E227A001C9208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC4A74932C4E227A001C9208 /* LaunchScreen.storyboard */; };
+		DC4A749E2C4E2426001C9208 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A749D2C4E2426001C9208 /* RealmSwift */; };
+		DC4A74A12C4E2432001C9208 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A74A02C4E2432001C9208 /* Kingfisher */; };
+		DC4A74A42C4E2442001C9208 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A74A32C4E2442001C9208 /* Alamofire */; };
+		DC4A74A72C4E245B001C9208 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A74A62C4E245B001C9208 /* Reachability */; };
+		DC4A74AA2C4E2468001C9208 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A74A92C4E2468001C9208 /* Toast */; };
+		DC4A74AD2C4E247E001C9208 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A74AC2C4E247E001C9208 /* SnapKit */; };
+		DC4A74B02C4E248B001C9208 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DC4A74AF2C4E248B001C9208 /* IQKeyboardManagerSwift */; };
+		DC4A74B12C4E24EF001C9208 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DC4A749D2C4E2426001C9208 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DC4A74B42C4E257C001C9208 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DC4A74B32C4E257C001C9208 /* .gitignore */; };
+		DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74B62C4E259E001C9208 /* APIKey.swift */; };
+		DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74B92C4E2657001C9208 /* OnBoardingViewController.swift */; };
+		DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74BE2C4E268B001C9208 /* BaseViewController.swift */; };
+		DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C02C4E2706001C9208 /* BaseTableViewCell.swift */; };
+		DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C22C4E27CB001C9208 /* BaseCollectionViewCell.swift */; };
+		DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C42C4E283D001C9208 /* BaseView.swift */; };
+		DC4A74C72C4E28E0001C9208 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DC4A74B22C4E24EF001C9208 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DC4A74B12C4E24EF001C9208 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DC4A74852C4E2278001C9208 /* Avez Vous.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Avez Vous.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +54,14 @@
 		DC4A74912C4E227A001C9208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC4A74942C4E227A001C9208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC4A74962C4E227A001C9208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC4A74B32C4E257C001C9208 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DC4A74B62C4E259E001C9208 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		DC4A74B92C4E2657001C9208 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		DC4A74BE2C4E268B001C9208 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		DC4A74C02C4E2706001C9208 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		DC4A74C22C4E27CB001C9208 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		DC4A74C42C4E283D001C9208 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +69,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC4A74B02C4E248B001C9208 /* IQKeyboardManagerSwift in Frameworks */,
+				DC4A74A42C4E2442001C9208 /* Alamofire in Frameworks */,
+				DC4A74A72C4E245B001C9208 /* Reachability in Frameworks */,
+				DC4A74A12C4E2432001C9208 /* Kingfisher in Frameworks */,
+				DC4A74AD2C4E247E001C9208 /* SnapKit in Frameworks */,
+				DC4A74AA2C4E2468001C9208 /* Toast in Frameworks */,
+				DC4A749E2C4E2426001C9208 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +85,7 @@
 		DC4A747C2C4E2278001C9208 = {
 			isa = PBXGroup;
 			children = (
+				DC4A74B32C4E257C001C9208 /* .gitignore */,
 				DC4A74872C4E2278001C9208 /* Avez Vous */,
 				DC4A74862C4E2278001C9208 /* Products */,
 			);
@@ -63,8 +109,55 @@
 				DC4A74912C4E227A001C9208 /* Assets.xcassets */,
 				DC4A74932C4E227A001C9208 /* LaunchScreen.storyboard */,
 				DC4A74962C4E227A001C9208 /* Info.plist */,
+				DC4A74B52C4E2589001C9208 /* Stuff */,
+				DC4A74BB2C4E2662001C9208 /* Base */,
+				DC4A74BC2C4E266D001C9208 /* Network */,
+				DC4A74BD2C4E2677001C9208 /* Database */,
+				DC4A74B82C4E2625001C9208 /* OnBoarding */,
 			);
 			path = "Avez Vous";
+			sourceTree = "<group>";
+		};
+		DC4A74B52C4E2589001C9208 /* Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				DC4A74B62C4E259E001C9208 /* APIKey.swift */,
+				DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */,
+			);
+			path = Stuff;
+			sourceTree = "<group>";
+		};
+		DC4A74B82C4E2625001C9208 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				DC4A74B92C4E2657001C9208 /* OnBoardingViewController.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		DC4A74BB2C4E2662001C9208 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DC4A74BE2C4E268B001C9208 /* BaseViewController.swift */,
+				DC4A74C02C4E2706001C9208 /* BaseTableViewCell.swift */,
+				DC4A74C22C4E27CB001C9208 /* BaseCollectionViewCell.swift */,
+				DC4A74C42C4E283D001C9208 /* BaseView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		DC4A74BC2C4E266D001C9208 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DC4A74BD2C4E2677001C9208 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,12 +170,22 @@
 				DC4A74812C4E2278001C9208 /* Sources */,
 				DC4A74822C4E2278001C9208 /* Frameworks */,
 				DC4A74832C4E2278001C9208 /* Resources */,
+				DC4A74B22C4E24EF001C9208 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Avez Vous";
+			packageProductDependencies = (
+				DC4A749D2C4E2426001C9208 /* RealmSwift */,
+				DC4A74A02C4E2432001C9208 /* Kingfisher */,
+				DC4A74A32C4E2442001C9208 /* Alamofire */,
+				DC4A74A62C4E245B001C9208 /* Reachability */,
+				DC4A74A92C4E2468001C9208 /* Toast */,
+				DC4A74AC2C4E247E001C9208 /* SnapKit */,
+				DC4A74AF2C4E248B001C9208 /* IQKeyboardManagerSwift */,
+			);
 			productName = "Avez Vous";
 			productReference = DC4A74852C4E2278001C9208 /* Avez Vous.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +214,15 @@
 				Base,
 			);
 			mainGroup = DC4A747C2C4E2278001C9208;
+			packageReferences = (
+				DC4A749C2C4E2426001C9208 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DC4A749F2C4E2432001C9208 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				DC4A74A22C4E2442001C9208 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DC4A74A52C4E245B001C9208 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				DC4A74A82C4E2468001C9208 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				DC4A74AB2C4E247E001C9208 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				DC4A74AE2C4E248B001C9208 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = DC4A74862C4E2278001C9208 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC4A74B42C4E257C001C9208 /* .gitignore in Resources */,
 				DC4A74952C4E227A001C9208 /* LaunchScreen.storyboard in Resources */,
 				DC4A74922C4E227A001C9208 /* Assets.xcassets in Resources */,
 				DC4A74902C4E2278001C9208 /* Main.storyboard in Resources */,
@@ -139,8 +252,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC4A748D2C4E2278001C9208 /* ViewController.swift in Sources */,
+				DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */,
+				DC4A74C72C4E28E0001C9208 /* ReusableProtocol.swift in Sources */,
 				DC4A74892C4E2278001C9208 /* AppDelegate.swift in Sources */,
+				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
 				DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */,
+				DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */,
+				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
+				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
+				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,8 +418,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,9 +428,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "srkimdev.Avez-Vous";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -326,8 +450,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,9 +460,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "srkimdev.Avez-Vous";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -363,6 +491,103 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DC4A749C2C4E2426001C9208 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.52.1;
+			};
+		};
+		DC4A749F2C4E2432001C9208 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		DC4A74A22C4E2442001C9208 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		DC4A74A52C4E245B001C9208 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.0;
+			};
+		};
+		DC4A74A82C4E2468001C9208 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		DC4A74AB2C4E247E001C9208 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		DC4A74AE2C4E248B001C9208 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC4A749D2C4E2426001C9208 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A749C2C4E2426001C9208 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		DC4A74A02C4E2432001C9208 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A749F2C4E2432001C9208 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		DC4A74A32C4E2442001C9208 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A74A22C4E2442001C9208 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		DC4A74A62C4E245B001C9208 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A74A52C4E245B001C9208 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
+		};
+		DC4A74A92C4E2468001C9208 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A74A82C4E2468001C9208 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		DC4A74AC2C4E247E001C9208 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A74AB2C4E247E001C9208 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		DC4A74AF2C4E248B001C9208 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC4A74AE2C4E248B001C9208 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC4A747D2C4E2278001C9208 /* Project object */;
 }
