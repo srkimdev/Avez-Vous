@@ -34,6 +34,7 @@
 		DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */; };
 		DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */; };
 		DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */; };
+		DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74DA2C4E63A8001C9208 /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +73,7 @@
 		DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		DC4A74DA2C4E63A8001C9208 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				DC4A74B62C4E259E001C9208 /* APIKey.swift */,
 				DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */,
 				DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */,
+				DC4A74DA2C4E63A8001C9208 /* Observable.swift */,
 			);
 			path = Stuff;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */,
 				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
 				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
+				DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */,
 				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
 				DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */,

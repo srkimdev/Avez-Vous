@@ -23,6 +23,7 @@ final class ProfileSettingViewController: BaseViewController {
     lazy var buttonCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     let viewModel = ProfileSettingViewModel()
+    var selectedNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,9 @@ final class ProfileSettingViewController: BaseViewController {
         buttonCollectionView.delegate = self
         buttonCollectionView.dataSource = self
         buttonCollectionView.register(ProfileSettingCollectionViewCell.self, forCellWithReuseIdentifier: ProfileSettingCollectionViewCell.identifier)
+        buttonCollectionView.isScrollEnabled = false
+        
+        bindData()
     }
     
     override func configureHierarchy() {
@@ -106,8 +110,6 @@ final class ProfileSettingViewController: BaseViewController {
             make.height.equalTo(40)
         }
         
-        
-        
         // clearButton issue
         view.setNeedsLayout()
         view.layoutIfNeeded()
@@ -118,7 +120,6 @@ final class ProfileSettingViewController: BaseViewController {
         navigationItem.title = CustomDesign.navigationTitle.profileSetting
         BackButton()
         
-        profileImage.image = UIImage(named: "profile_0")
         profileImage.layer.masksToBounds = true
         profileImage.layer.borderWidth = CustomDesign.BorderWidths.Width3
         profileImage.layer.borderColor = CustomDesign.Colors.Blue.cgColor
@@ -142,12 +143,8 @@ final class ProfileSettingViewController: BaseViewController {
         clearButton.setTitle(CustomDesign.Buttons.save, for: .normal)
         clearButton.setTitleColor(.white, for: .normal)
         clearButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
-        clearButton.backgroundColor = CustomDesign.Colors.Gray
         clearButton.layer.masksToBounds = true
         clearButton.layer.cornerRadius = 20
-        
-        statusLabel.text = "닉네임에 숫자는 포함할 수 없어요"
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -156,15 +153,21 @@ final class ProfileSettingViewController: BaseViewController {
     }
     
     override func configureAction() {
-        
+        profileImageButton.addTarget(self, action: #selector(profileImageButtonClicked), for: .touchUpInside)
+        nicknameTextField.addTarget(self, action: #selector(nicknameChanged), for: .editingChanged)
+        clearButton.addTarget(self, action: #selector(clearButtonClicked), for: .touchUpInside)
     }
     
 }
 
 extension ProfileSettingViewController {
     
+    @objc func nicknameChanged() {
+        viewModel.inputText.value = nicknameTextField.text
+    }
+    
     @objc func clearButtonClicked() {
-        
+        print(#function)
     }
     
     @objc func profileImageButtonClicked() {
@@ -172,13 +175,22 @@ extension ProfileSettingViewController {
     }
     
     @objc func saveButtonClicked() {
-        
+        print(#function)
     }
     
-    private func randomImage() {
+    private func bindData() {
+        viewModel.outputImageNumber.bind { [weak self] value in
+            self?.profileImage.image = UIImage(named: "profile_\(value)")
+        }
         
+        viewModel.outputText.bind { [weak self] value in
+            self?.statusLabel.text = value
+        }
+        
+        viewModel.outputAllow.bind { [weak self] value in
+            self?.clearButton.backgroundColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Gray
+        }
     }
-    
     
 }
 
@@ -191,7 +203,20 @@ extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
         
+        cell.designCell(transition: indexPath.item, selectedNumber: selectedNumber)
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        selectedNumber = indexPath.item
+        
+        let data = indexPath.item
+        
+        buttonCollectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
+        buttonCollectionView.reloadItems(at: [IndexPath(item: data > 3 ? data % 4 : data + 4, section: 0)])
     }
     
 }

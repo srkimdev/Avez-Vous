@@ -42,7 +42,7 @@ final class OnBoardingView: BaseView {
         
         startButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide).inset(20)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
             make.height.equalTo(40)
         }
     }

@@ -39,12 +39,19 @@ final class ProfileSettingCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureUI() {
-    
         backgroundScene.layer.borderWidth = CustomDesign.BorderWidths.Width1
         backgroundScene.layer.borderColor = CustomDesign.Colors.Gray.cgColor
         
         mbtiLabel.text = "I"
         mbtiLabel.textColor = CustomDesign.Colors.Gray
+    }
+
+    func designCell(transition: Int, selectedNumber: Int) {
+        if transition == selectedNumber {
+            backgroundScene.backgroundColor = CustomDesign.Colors.Blue
+        } else if abs(transition - selectedNumber) == 4 {
+            backgroundScene.backgroundColor = .white
+        }
     }
     
 }
