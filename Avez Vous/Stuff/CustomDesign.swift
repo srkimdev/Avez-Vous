@@ -26,12 +26,26 @@ enum CustomDesign {
     }
     
     enum Buttons {
-        static let startButton: String = "시작하기"
+        static let start: String = "시작하기"
+        static let save: String = "완료"
+    }
+    
+    enum BorderWidths {
+        static let Width3: CGFloat = 3
+        static let Width1: CGFloat = 1
+    }
+    
+    enum navigationTitle {
+        static let profileSetting: String = "PROFILE SETTING"
+        
+        
     }
     
 }
 
 enum Literal {
+    
+    
     
     enum onBoarding {
         static let appName: String = "Avez Vous"

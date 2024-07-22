@@ -32,6 +32,8 @@
 		DC4A74CE2C4E2CDF001C9208 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74CD2C4E2CDF001C9208 /* UIViewController+Extension.swift */; };
 		DC4A74D02C4E2CF5001C9208 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74CF2C4E2CF5001C9208 /* UIColor+Extension.swift */; };
 		DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */; };
+		DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */; };
+		DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +70,8 @@
 		DC4A74CD2C4E2CDF001C9208 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DC4A74CF2C4E2CF5001C9208 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
+		DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */,
+				DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */,
+				DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */,
 			);
 			path = ProfileSetting;
 			sourceTree = "<group>";
@@ -282,12 +288,14 @@
 				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
 				DC4A74C92C4E29B9001C9208 /* OnBoardingView.swift in Sources */,
 				DC4A74D02C4E2CF5001C9208 /* UIColor+Extension.swift in Sources */,
+				DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */,
 				DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */,
 				DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */,
 				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
 				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
 				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
+				DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */,
 				DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

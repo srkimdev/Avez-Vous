@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class OnBoardingView: BaseView {
+final class OnBoardingView: BaseView {
     
     let titleLabel = UILabel()
     let imageLabel = UIImageView()
@@ -23,7 +23,7 @@ class OnBoardingView: BaseView {
     
     override func configureLayout() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(70)
+            make.top.equalTo(safeAreaLayoutGuide).offset(40)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(40)
         }
@@ -59,7 +59,7 @@ class OnBoardingView: BaseView {
         nameLabel.textAlignment = .center
         nameLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         
-        startButton.setTitle(CustomDesign.Buttons.startButton, for: .normal)
+        startButton.setTitle(CustomDesign.Buttons.start, for: .normal)
         startButton.setTitleColor(CustomDesign.Colors.White, for: .normal)
         startButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
         startButton.backgroundColor = CustomDesign.Colors.Blue
