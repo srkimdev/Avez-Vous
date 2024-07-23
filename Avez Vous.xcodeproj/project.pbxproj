@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */; };
+		DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */; };
+		DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */; };
 		DC4A74892C4E2278001C9208 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74882C4E2278001C9208 /* AppDelegate.swift */; };
 		DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A748A2C4E2278001C9208 /* SceneDelegate.swift */; };
 		DC4A74922C4E227A001C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC4A74912C4E227A001C9208 /* Assets.xcassets */; };
@@ -35,6 +38,7 @@
 		DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */; };
 		DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */; };
 		DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74DA2C4E63A8001C9208 /* Observable.swift */; };
+		DCE8F2732C4F34C0001C8856 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE8F2722C4F34C0001C8856 /* Enums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +56,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewController.swift; sourceTree = "<group>"; };
+		DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
+		DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewModel.swift; sourceTree = "<group>"; };
 		DC4A74852C4E2278001C9208 /* Avez Vous.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Avez Vous.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC4A74882C4E2278001C9208 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC4A748A2C4E2278001C9208 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +81,7 @@
 		DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC4A74DA2C4E63A8001C9208 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		DCE8F2722C4F34C0001C8856 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC2E51EF2C4FB6180099CB0E /* ProfileSelecting */ = {
+			isa = PBXGroup;
+			children = (
+				DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */,
+				DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */,
+				DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */,
+			);
+			path = ProfileSelecting;
+			sourceTree = "<group>";
+		};
 		DC4A747C2C4E2278001C9208 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +144,7 @@
 				DC4A74BD2C4E2677001C9208 /* Database */,
 				DC4A74B82C4E2625001C9208 /* OnBoarding */,
 				DC4A74D12C4E36E0001C9208 /* ProfileSetting */,
+				DC2E51EF2C4FB6180099CB0E /* ProfileSelecting */,
 			);
 			path = "Avez Vous";
 			sourceTree = "<group>";
@@ -137,6 +156,7 @@
 				DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */,
 				DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */,
 				DC4A74DA2C4E63A8001C9208 /* Observable.swift */,
+				DCE8F2722C4F34C0001C8856 /* Enums.swift */,
 			);
 			path = Stuff;
 			sourceTree = "<group>";
@@ -285,13 +305,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC4A74CE2C4E2CDF001C9208 /* UIViewController+Extension.swift in Sources */,
+				DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */,
 				DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */,
 				DC4A74C72C4E28E0001C9208 /* ReusableProtocol.swift in Sources */,
 				DC4A74892C4E2278001C9208 /* AppDelegate.swift in Sources */,
+				DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */,
 				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
 				DC4A74C92C4E29B9001C9208 /* OnBoardingView.swift in Sources */,
 				DC4A74D02C4E2CF5001C9208 /* UIColor+Extension.swift in Sources */,
 				DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */,
+				DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */,
 				DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */,
 				DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */,
 				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
@@ -300,6 +323,7 @@
 				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
 				DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */,
+				DCE8F2732C4F34C0001C8856 /* Enums.swift in Sources */,
 				DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

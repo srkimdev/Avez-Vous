@@ -11,10 +11,12 @@ final class ProfileSettingViewModel {
     
     var showRandomImage: Observable<Void?> = Observable(nil)
     var inputText: Observable<String?> = Observable("")
+    var inputSelectedMBTI: Observable<Int?> = Observable(nil)
     
     var outputImageNumber: Observable<Int> = Observable(0)
     var outputText: Observable<String> = Observable("")
     var outputAllow: Observable<Bool> = Observable(false)
+    var outputSelectedMBTI: Observable<Int?> = Observable(nil)
     
     init() {
         showRandomImage.bind { value in
@@ -23,6 +25,10 @@ final class ProfileSettingViewModel {
         
         inputText.bind { value in
             self.validation()
+        }
+        
+        inputSelectedMBTI.bind { value in
+            self.outputSelectedMBTI.value = value
         }
     }
     
@@ -65,4 +71,5 @@ final class ProfileSettingViewModel {
         let decimalCharacters = CharacterSet.decimalDigits
         return input.rangeOfCharacter(from: decimalCharacters) != nil
     }
+    
 }

@@ -35,9 +35,14 @@ enum CustomDesign {
         static let Width1: CGFloat = 1
     }
     
+    enum Alpha {
+        static let alphaHalf: CGFloat = 0.5
+        static let alphaOne: CGFloat = 1
+    }
+    
     enum navigationTitle {
         static let profileSetting: String = "PROFILE SETTING"
-        
+        static let profileSelecting: String = "EDIT PROFILE"
         
     }
     
@@ -57,22 +62,5 @@ enum Literal {
     }
     
     
-}
-
-enum TransitionStyle {
-    case present
-    case presentNavigation
-    case presentFullNavigation
-    case push
-}
-
-enum validationError: String, Error {
-    case isNotLength = "2글자 이상 10글자 미만으로 입력해주세요."
-    case isNotAt = "닉네임에 @는 포함할 수 없어요."
-    case isNotHash = "닉네임에 #는 포함할 수 없어요."
-    case isNotDollar = "닉네임에 $는 포함할 수 없어요."
-    case isNotPercent = "닉네임에 %는 포함할 수 없어요."
-    case isNotNumber = "닉네임에 숫자는 포함할 수 없어요."
-    case isNotSpace = "닉네임에 공백은 포함할 수 없어요."
 }
 

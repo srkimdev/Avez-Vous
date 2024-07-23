@@ -23,7 +23,6 @@ final class ProfileSettingViewController: BaseViewController {
     lazy var buttonCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     let viewModel = ProfileSettingViewModel()
-    var selectedNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +33,11 @@ final class ProfileSettingViewController: BaseViewController {
         buttonCollectionView.isScrollEnabled = false
         
         bindData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        profileImage.layer.cornerRadius = profileImage.frame.width / 2
+        cameraImageView.layer.cornerRadius = cameraImageView.frame.width / 2
     }
     
     override func configureHierarchy() {
@@ -147,11 +151,6 @@ final class ProfileSettingViewController: BaseViewController {
         clearButton.layer.cornerRadius = 20
     }
     
-    override func viewDidLayoutSubviews() {
-        profileImage.layer.cornerRadius = profileImage.frame.width / 2
-        cameraImageView.layer.cornerRadius = cameraImageView.frame.width / 2
-    }
-    
     override func configureAction() {
         profileImageButton.addTarget(self, action: #selector(profileImageButtonClicked), for: .touchUpInside)
         nicknameTextField.addTarget(self, action: #selector(nicknameChanged), for: .editingChanged)
@@ -171,7 +170,13 @@ extension ProfileSettingViewController {
     }
     
     @objc func profileImageButtonClicked() {
+        let vc = ProfileSelectingViewController()
+        vc.viewModel.inputSelectedImage.value = viewModel.outputImageNumber.value
+        vc.selectedClosure = { [weak self] value in
+            self?.viewModel.outputImageNumber.value = value
+        }
         
+        transitionScreen(vc: vc, style: .push)
     }
     
     @objc func saveButtonClicked() {
@@ -190,6 +195,15 @@ extension ProfileSettingViewController {
         viewModel.outputAllow.bind { [weak self] value in
             self?.clearButton.backgroundColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Gray
         }
+        
+        viewModel.outputSelectedMBTI.bind { [weak self] value in
+            guard let value else { return }
+            
+            UIView.performWithoutAnimation {
+                self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value, section: 0)])
+                self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])
+            }
+        }
     }
     
 }
@@ -197,26 +211,19 @@ extension ProfileSettingViewController {
 extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return MBTI.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.designCell(transition: indexPath.item, selectedNumber: selectedNumber)
+        cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        
-        selectedNumber = indexPath.item
-        
-        let data = indexPath.item
-        
-        buttonCollectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-        buttonCollectionView.reloadItems(at: [IndexPath(item: data > 3 ? data % 4 : data + 4, section: 0)])
+        viewModel.inputSelectedMBTI.value = indexPath.item
     }
     
 }

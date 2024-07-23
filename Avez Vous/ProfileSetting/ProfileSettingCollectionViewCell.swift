@@ -42,16 +42,19 @@ final class ProfileSettingCollectionViewCell: BaseCollectionViewCell {
         backgroundScene.layer.borderWidth = CustomDesign.BorderWidths.Width1
         backgroundScene.layer.borderColor = CustomDesign.Colors.Gray.cgColor
         
-        mbtiLabel.text = "I"
         mbtiLabel.textColor = CustomDesign.Colors.Gray
     }
 
     func designCell(transition: Int, selectedNumber: Int) {
         if transition == selectedNumber {
             backgroundScene.backgroundColor = CustomDesign.Colors.Blue
+            mbtiLabel.textColor = CustomDesign.Colors.White
         } else if abs(transition - selectedNumber) == 4 {
-            backgroundScene.backgroundColor = .white
+            backgroundScene.backgroundColor = CustomDesign.Colors.White
+            mbtiLabel.textColor = CustomDesign.Colors.Gray
         }
+
+        mbtiLabel.text = MBTI.allCases[transition].rawValue
     }
     
 }
