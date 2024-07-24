@@ -17,6 +17,7 @@ enum CustomDesign {
         static let Gray: UIColor = UIColor(hex: "8C8C8C")
         static let DarkGray: UIColor = UIColor(hex: "4D5652")
         static let LightGray: UIColor = UIColor(hex: "F2F2F2")
+        static let star: UIColor = #colorLiteral(red: 0.9993863702, green: 0.8329697847, blue: 0.3872109652, alpha: 1)
     }
     
     enum Images {

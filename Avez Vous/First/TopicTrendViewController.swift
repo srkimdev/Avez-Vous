@@ -12,10 +12,9 @@ final class TopicTrendViewController: BaseViewController {
     
     let titleLabel = UILabel()
     let topicTableView = UITableView()
-//    var imageList: [[PosterPath]] = [
-    //                                    [PosterPath(poster_path: "")],
-    //                                    [PosterPath(poster_path: "")]
-    //                                    ]
+
+    let viewModel = TopicTrendViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +23,8 @@ final class TopicTrendViewController: BaseViewController {
         topicTableView.register(TopicTrendTableViewCell.self, forCellReuseIdentifier: TopicTrendTableViewCell.identifier)
         topicTableView.rowHeight = 250
         
+        viewModel.inputAPIRequest.value = ()
+        bindData()
     }
     
     override func configureHierarchy() {
@@ -44,32 +45,18 @@ final class TopicTrendViewController: BaseViewController {
     }
     
     override func configureUI() {
+        topicTableView.separatorStyle = .none
+        
         titleLabel.text = "OUR TOPIC"
         titleLabel.font = .systemFont(ofSize: 28, weight: .bold)
     }
-    
-    
-    
+
 }
 
 extension TopicTrendViewController: UITableViewDataSource, UITableViewDelegate {
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 3
-//    }
-//    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if section == 0 {
-//            return "골든 아워"
-//        } else if section == 1 {
-//            return "비즈니스 및 업무"
-//        } else {
-//            return "건축 및 인테리어"
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.outputTableView.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,7 +66,9 @@ extension TopicTrendViewController: UITableViewDataSource, UITableViewDelegate {
         cell.imageCollectionView.dataSource = self
         cell.imageCollectionView.tag = indexPath.row
         cell.imageCollectionView.register(TopicTrendCollectionViewCell.self, forCellWithReuseIdentifier: TopicTrendCollectionViewCell.identifier)
-        //        cell.collectionView.reloadData()
+        
+        cell.imageCollectionView.reloadData()
+        cell.designCell(transition: viewModel.randomTopic[indexPath.row].description)
         
         return cell
     }
@@ -89,59 +78,26 @@ extension TopicTrendViewController: UITableViewDataSource, UITableViewDelegate {
 extension TopicTrendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.outputTableView.value[collectionView.tag].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicTrendCollectionViewCell.identifier, for: indexPath) as? TopicTrendCollectionViewCell else { return UICollectionViewCell() }
         
+        cell.designCell(transition: viewModel.outputTableView.value[collectionView.tag][indexPath.item])
+        
         return cell
     }
     
-    
 }
 
-//extension PosterViewController: UITableViewDelegate, UITableViewDataSource {
-//
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return imageList.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: PosterTableViewCell.identifier, for: indexPath) as! PosterTableViewCell
-//
-//        cell.collectionView.dataSource = self
-//        cell.collectionView.delegate = self
-//        cell.collectionView.tag = indexPath.row
-//        cell.collectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
-//        cell.collectionView.reloadData()
-//
-//        return cell
-//    }
-//
-//}
-//
-//extension PosterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//
-//        return imageList[collectionView.tag].count
-//
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as! PosterCollectionViewCell
-//
-//        let data = imageList[collectionView.tag][indexPath.item]
-//
-//        let url = URL(string: "https://image.tmdb.org/t/p/w780\(data.poster_path ?? "")")
-//
-//        cell.posterImageView.kf.setImage(with: url)
-//
-//        return cell
-//    }
-//
-//}
+extension TopicTrendViewController {
+    
+    func bindData() {
+        viewModel.outputTableView.bind { [weak self] value in
+            guard value.count == 3 else { return }
+            self?.topicTableView.reloadData()
+        }
+    }
+    
+}

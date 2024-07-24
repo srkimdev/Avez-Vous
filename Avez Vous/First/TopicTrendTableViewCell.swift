@@ -46,7 +46,13 @@ final class TopicTrendTableViewCell: BaseTableViewCell {
     }
     
     override func configureUI() {
-        titleLabel.text = "골든 아워"
+        titleLabel.font = .systemFont(ofSize: 16, weight: .heavy)
+    }
+    
+    func designCell(transition: String) {
+        titleLabel.text = transition
     }
     
 }
+
+
