@@ -31,6 +31,7 @@ final class TopicTrendViewModel {
     
     private func fetchData(topicID: String, completionHandler: @escaping ([TopicsPhoto]?) -> Void) {
         let router = RouterPattern.topic(topicID: topicID)
+        
         APIManager.shared.callRequest(router: router, responseType: [TopicsPhoto].self) { response in
             switch response {
             case .success(let value):

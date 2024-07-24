@@ -12,21 +12,21 @@ struct TopicsPhoto: Decodable {
     let created_at: String
     let width: Int
     let height: Int
-    let urls: urlSize
+    let urls: TopicUrlSize
     let likes: Int
-    let user: userInfo
+    let user: TopicUserInfo
 }
 
-struct urlSize: Decodable {
+struct TopicUrlSize: Decodable {
     let raw: String
     let small: String
 }
 
-struct userInfo: Decodable {
+struct TopicUserInfo: Decodable {
     let name: String
-    let profile_image: profileSize
+    let profile_image: TopicProfileSize
 }
 
-struct profileSize: Decodable {
+struct TopicProfileSize: Decodable {
     let medium: String
 }
