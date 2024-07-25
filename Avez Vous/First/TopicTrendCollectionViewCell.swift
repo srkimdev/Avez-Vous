@@ -46,8 +46,7 @@ final class TopicTrendCollectionViewCell: BaseCollectionViewCell {
         }
         
         likeCount.snp.makeConstraints { make in
-            make.leading.equalTo(starImage.snp.trailing).offset(5)
-            make.trailing.equalTo(likeView.snp.trailing).inset(5)
+            make.trailing.equalTo(likeView.snp.trailing).inset(10)
             make.centerY.equalTo(likeView)
         }
         
@@ -62,18 +61,16 @@ final class TopicTrendCollectionViewCell: BaseCollectionViewCell {
         likeView.layer.masksToBounds = true
         likeView.layer.cornerRadius = 10
         
-        starImage.image = UIImage(systemName: "star.fill")
+        starImage.image = CustomDesign.Images.star
         starImage.tintColor = CustomDesign.Colors.star
 
         likeCount.textColor = .white
-        likeCount.textAlignment = .center
         likeCount.font = .systemFont(ofSize: 10)
     }
     
     func designCell(transition: TopicsPhoto) {
-        let placeholderImage = UIImage(named: "placeholderImage")
         let url = URL(string: transition.urls.small)
-        photoImage.kf.setImage(with: url, placeholder: placeholderImage)
+        photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
         
         likeCount.text = NumberFormatterManager.shared.Comma(transition.likes)
     }

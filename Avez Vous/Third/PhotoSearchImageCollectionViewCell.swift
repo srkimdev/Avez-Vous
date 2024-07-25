@@ -7,11 +7,13 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
-final class PhotoSearchCollectionViewCell: BaseCollectionViewCell {
+final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
     
     let photoImage = UIImageView()
-    let likeButtonView = UIImageView()
+    let likeButtonView = UIView()
+    let likeImage = UIImageView()
     let likeButton = UIButton()
     
     let likeView = UIImageView()
@@ -24,7 +26,8 @@ final class PhotoSearchCollectionViewCell: BaseCollectionViewCell {
     
     override func configureHierarchy() {
         contentView.addSubview(photoImage)
-        photoImage.addSubview(likeButtonView)
+        contentView.addSubview(likeButtonView)
+        likeButtonView.addSubview(likeImage)
         likeButtonView.addSubview(likeButton)
         photoImage.addSubview(likeView)
         likeView.addSubview(starImage)
@@ -42,9 +45,13 @@ final class PhotoSearchCollectionViewCell: BaseCollectionViewCell {
             make.size.equalTo(26)
         }
         
-        likeButton.snp.makeConstraints { make in
+        likeImage.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.size.equalTo(likeButtonView.snp.width).multipliedBy(0.7)
+        }
+        
+        likeButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         likeView.snp.makeConstraints { make in
@@ -61,8 +68,7 @@ final class PhotoSearchCollectionViewCell: BaseCollectionViewCell {
         }
         
         likeCount.snp.makeConstraints { make in
-            make.leading.equalTo(starImage.snp.trailing).offset(5)
-            make.trailing.equalTo(likeView.snp.trailing).inset(5)
+            make.trailing.equalTo(likeView.snp.trailing).inset(10)
             make.centerY.equalTo(likeView)
         }
     }
@@ -74,18 +80,22 @@ final class PhotoSearchCollectionViewCell: BaseCollectionViewCell {
         likeButtonView.layer.masksToBounds = true
         likeButtonView.layer.cornerRadius = 13
         
-        likeButton.setImage(UIImage(named: "like"), for: .normal)
+        likeImage.image = UIImage(named: "like")
         
         likeView.backgroundColor = .darkGray
-        starImage.image = UIImage(systemName: "star.fill")
+        likeView.layer.masksToBounds = true
+        likeView.layer.cornerRadius = 10
         
-        likeCount.text = "1,333"
+        starImage.image = CustomDesign.Images.star
+        starImage.tintColor = CustomDesign.Colors.star
+        
+        likeCount.textColor = .white
+        likeCount.font = .systemFont(ofSize: 10)
     }
     
     func designCell(transition: SearchPhoto) {
-        let placeholderImage = UIImage(named: "placeholderImage")
         let url = URL(string: transition.urls.small)
-        photoImage.kf.setImage(with: url, placeholder: placeholderImage)
+        photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
         
         likeCount.text = NumberFormatterManager.shared.Comma(transition.likes)
     }

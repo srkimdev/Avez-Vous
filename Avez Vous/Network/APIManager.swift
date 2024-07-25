@@ -19,14 +19,12 @@ final class APIManager {
         print(router.endpoint)
         AF.request(router.endpoint, method: router.method).responseDecodable(of: responseType) { response in
             switch response.result {
-            
                 
             case .success(let value):
                 completionHandler(.success(value))
                 
             case .failure(let error):
                 print(error)
-                print("here")
 //                if let data = response.data,
 //                   let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
 //                   let errorCode = json["errorCode"] as? String {

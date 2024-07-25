@@ -88,7 +88,7 @@ final class ProfileSelectingViewController: BaseViewController {
         cameraImageView.backgroundColor = CustomDesign.Colors.Blue
         cameraImageView.layer.masksToBounds = true
         
-        cameraImage.image = CustomDesign.Images.Camera
+        cameraImage.image = CustomDesign.Images.camera
         cameraImage.tintColor = .white
     }
     
