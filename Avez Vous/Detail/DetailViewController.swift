@@ -24,9 +24,12 @@ final class DetailViewController: BaseViewController {
     let downloadLabel = UILabel()
     let downloadValue = UILabel()
     
+    let viewModel = DetailViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindData()
     }
     
     override func configureHierarchy() {
@@ -146,18 +149,26 @@ final class DetailViewController: BaseViewController {
         downloadLabel.text = "다운로드"
         downloadLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-        sizeValue.text = "3333 x 2323"
-        
-        seeValue.text = "1,555,555"
-        
-        downloadValue.text = "122,222"
     }
     
     override func configureAction() {
         
     }
     
-    func showData() {
+    private func bindData() {
+        
+        viewModel.outputDetailPhoto.bind { [weak self] value in
+            guard let value else { return }
+            
+            self?.sizeLabel.text = "\(value.width) x \(value.height)"
+        }
+        
+        viewModel.outputStatistics.bind { [weak self] value in
+            guard let value else { return }
+            
+            self?.seeValue.text = "\(value.views.total)"
+            self?.downloadValue.text = "\(value.downloads.total)"
+        }
         
     }
 }

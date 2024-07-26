@@ -144,7 +144,13 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == colorCollectionView {
+        if collectionView == imageCollectionView {
+            let vc = DetailViewController()
+            vc.viewModel.inputDetailPhoto.value = viewModel.outputResult.value[indexPath.item]
+            
+            transitionScreen(vc: vc, style: .push)
+            
+        } else {
             viewModel.inputColor.value = SearchColor.allCases[indexPath.item]
             colorCollectionView.reloadData()
         }

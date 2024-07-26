@@ -14,6 +14,8 @@
 		DC2729692C5365AB00E2815F /* LikeCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */; };
 		DC27296B2C53719800E2815F /* LikeCheckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296A2C53719800E2815F /* LikeCheckCollectionViewCell.swift */; };
 		DC27296E2C537EC300E2815F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296D2C537EC300E2815F /* DetailViewController.swift */; };
+		DC2729702C53932600E2815F /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296F2C53932600E2815F /* DetailViewModel.swift */; };
+		DC2729722C53992400E2815F /* PhotoStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729712C53992400E2815F /* PhotoStatistics.swift */; };
 		DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */; };
 		DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */; };
 		DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */; };
@@ -86,6 +88,8 @@
 		DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCheckViewModel.swift; sourceTree = "<group>"; };
 		DC27296A2C53719800E2815F /* LikeCheckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCheckCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC27296D2C537EC300E2815F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DC27296F2C53932600E2815F /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		DC2729712C53992400E2815F /* PhotoStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStatistics.swift; sourceTree = "<group>"; };
 		DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewController.swift; sourceTree = "<group>"; };
 		DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewModel.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				DC27296D2C537EC300E2815F /* DetailViewController.swift */,
+				DC27296F2C53932600E2815F /* DetailViewModel.swift */,
+				DC2729712C53992400E2815F /* PhotoStatistics.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -438,10 +444,12 @@
 				DC2729692C5365AB00E2815F /* LikeCheckViewModel.swift in Sources */,
 				DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */,
 				DC27296B2C53719800E2815F /* LikeCheckCollectionViewCell.swift in Sources */,
+				DC2729722C53992400E2815F /* PhotoStatistics.swift in Sources */,
 				DC97118C2C50FDD5001DCC8F /* NumberFormatterManager.swift in Sources */,
 				DC2E51F82C4FC5510099CB0E /* TabBarViewController.swift in Sources */,
 				DC27296E2C537EC300E2815F /* DetailViewController.swift in Sources */,
 				DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */,
+				DC2729702C53932600E2815F /* DetailViewModel.swift in Sources */,
 				DC97117F2C50CB26001DCC8F /* APIManager.swift in Sources */,
 				DC97118E2C510E96001DCC8F /* PhotoSearchImageCollectionViewCell.swift in Sources */,
 				DC4A74C72C4E28E0001C9208 /* ReusableProtocol.swift in Sources */,

@@ -68,7 +68,7 @@ final class TopicTrendCollectionViewCell: BaseCollectionViewCell {
         likeCount.font = .systemFont(ofSize: 10)
     }
     
-    func designCell(transition: TopicsPhoto) {
+    func designCell(transition: Photos) {
         let url = URL(string: transition.urls.small)
         photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
         

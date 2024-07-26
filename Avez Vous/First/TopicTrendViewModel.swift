@@ -10,10 +10,10 @@ import Foundation
 final class TopicTrendViewModel {
 
     var inputAPIRequest: Observable<Void?> = Observable(nil)
-    var outputTableView: Observable<[[TopicsPhoto]]> = Observable([])
+    var outputTableView: Observable<[[Photos]]> = Observable([])
     
     let randomTopic = Topic.randomCases()
-    var list: [[TopicsPhoto]] = []
+    var list: [[Photos]] = []
     
     init() {
         inputAPIRequest.bind { [weak self] value in
@@ -29,10 +29,10 @@ final class TopicTrendViewModel {
         }
     }
     
-    private func fetchData(topicID: String, completionHandler: @escaping ([TopicsPhoto]?) -> Void) {
+    private func fetchData(topicID: String, completionHandler: @escaping ([Photos]?) -> Void) {
         let router = RouterPattern.topic(topicID: topicID)
         
-        APIManager.shared.callRequest(router: router, responseType: [TopicsPhoto].self) { response in
+        APIManager.shared.callRequest(router: router, responseType: [Photos].self) { response in
             switch response {
             case .success(let value):
                 completionHandler(value)
