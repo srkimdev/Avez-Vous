@@ -59,7 +59,7 @@ final class PhotoSearchColorCollectionViewCell: BaseCollectionViewCell {
         colorImage.backgroundColor = transition.color
         
         if transition == selectedCell {
-            backView.backgroundColor = .blue
+            backView.backgroundColor = CustomDesign.Colors.Blue
             colorLabel.textColor = .white
         } else {
             backView.backgroundColor = .systemGray5

@@ -12,8 +12,6 @@ import Kingfisher
 final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
     
     let photoImage = UIImageView()
-    let likeButtonView = UIView()
-    let likeImage = UIImageView()
     let likeButton = UIButton()
     
     let likeView = UIImageView()
@@ -26,9 +24,7 @@ final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
     
     override func configureHierarchy() {
         contentView.addSubview(photoImage)
-        contentView.addSubview(likeButtonView)
-        likeButtonView.addSubview(likeImage)
-        likeButtonView.addSubview(likeButton)
+        contentView.addSubview(likeButton)
         photoImage.addSubview(likeView)
         likeView.addSubview(starImage)
         likeView.addSubview(likeCount)
@@ -39,19 +35,10 @@ final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
             make.edges.equalTo(contentView.safeAreaLayoutGuide)
         }
         
-        likeButtonView.snp.makeConstraints { make in
+        likeButton.snp.makeConstraints { make in
             make.trailing.equalTo(photoImage.snp.trailing).inset(12)
             make.bottom.equalTo(photoImage.snp.bottom).inset(12)
             make.size.equalTo(26)
-        }
-        
-        likeImage.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(likeButtonView.snp.width).multipliedBy(0.7)
-        }
-        
-        likeButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
         
         likeView.snp.makeConstraints { make in
@@ -76,11 +63,7 @@ final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
     override func configureUI() {
         photoImage.backgroundColor = .lightGray
         
-        likeButtonView.backgroundColor = .white
-        likeButtonView.layer.masksToBounds = true
-        likeButtonView.layer.cornerRadius = 13
-        
-        likeImage.image = UIImage(named: "like")
+        likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
         
         likeView.backgroundColor = .darkGray
         likeView.layer.masksToBounds = true
@@ -98,6 +81,12 @@ final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
         photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
         
         likeCount.text = NumberFormatterManager.shared.Comma(transition.likes)
+        
+        if UserInfo.shared.getLikeProduct(forkey: transition.id) {
+            likeButton.setImage(CustomDesign.Images.likeActive, for: .normal)
+        } else {
+            likeButton.setImage(CustomDesign.Images.likeInactive, for: .normal)
+        }
     }
 
 }

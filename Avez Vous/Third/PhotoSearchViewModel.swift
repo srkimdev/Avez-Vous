@@ -10,10 +10,10 @@ import Foundation
 final class PhotoSearchViewModel {
     
     var inputText: Observable<String?> = Observable(nil)
-    var inputColor: Observable<SearchColor> = Observable()
+    var inputColor: Observable<SearchColor> = Observable(.black)
     var inputArrayButton: Observable<Void?> = Observable(nil)
     var inputPage: Observable<Void?> = Observable(nil)
-    var inputLike: Observable<Void?> = Observable(nil)
+    var inputLike: Observable<SearchPhoto?> = Observable(nil)
     
     var outputArrayButton: Observable<SearchOrder> = Observable(.relevant)
     var outputResult: Observable<[SearchPhoto]> = Observable([])
@@ -22,6 +22,7 @@ final class PhotoSearchViewModel {
     
     var arrayButtonStatus: Bool = false
     var start = 1
+    let realmrepository = RealmRepository()
     
     init() {
         inputText.bind { [weak self] value in
@@ -40,9 +41,16 @@ final class PhotoSearchViewModel {
         }
         
         inputColor.bind { [weak self] value in
-            guard let value else { return }
+//            guard let value else { return }
             self?.colorFetchData(color: value)
         }
+        
+        inputLike.bind { [weak self] value in
+            guard let value else { return }
+            self?.likeCheck(data: value)
+        }
+        
+        realmrepository.detectRealmURL()
         
     }
     
@@ -108,6 +116,7 @@ final class PhotoSearchViewModel {
     }
     
     private func colorFetchData(color: SearchColor) {
+        start = 1
         let router = RouterPattern.search(keyword: inputText.value ?? "", page: start, order: outputArrayButton.value, color: color)
         
         APIManager.shared.callRequest(router: router, responseType: SearchPhotoTotal.self) { [weak self] response in
@@ -123,6 +132,22 @@ final class PhotoSearchViewModel {
                 print(error)
             }
         }
+    }
+    
+    private func likeCheck(data: SearchPhoto) {
+        var like = UserInfo.shared.getLikeProduct(forkey: data.id)
+        like.toggle()
+        
+        let task = DBTable(id: data.id, url: data.urls.small, likeCount: data.likes)
+        
+        if like {
+            UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
+            realmrepository.createItem(task)
+        } else {
+            UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
+            realmrepository.deleteItem(task, id: data.id)
+        }
+        
     }
     
 }

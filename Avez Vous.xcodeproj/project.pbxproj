@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		DC2729612C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729602C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift */; };
+		DC2729632C5358AE00E2815F /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729622C5358AE00E2815F /* UserInfo.swift */; };
+		DC2729652C5359B600E2815F /* DBTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729642C5359B600E2815F /* DBTable.swift */; };
+		DC2729672C535C7800E2815F /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729662C535C7800E2815F /* RealmRepository.swift */; };
+		DC2729692C5365AB00E2815F /* LikeCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */; };
+		DC27296B2C53719800E2815F /* LikeCheckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296A2C53719800E2815F /* LikeCheckCollectionViewCell.swift */; };
+		DC27296E2C537EC300E2815F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296D2C537EC300E2815F /* DetailViewController.swift */; };
 		DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */; };
 		DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */; };
 		DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */; };
@@ -74,6 +80,12 @@
 
 /* Begin PBXFileReference section */
 		DC2729602C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		DC2729622C5358AE00E2815F /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		DC2729642C5359B600E2815F /* DBTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTable.swift; sourceTree = "<group>"; };
+		DC2729662C535C7800E2815F /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCheckViewModel.swift; sourceTree = "<group>"; };
+		DC27296A2C53719800E2815F /* LikeCheckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCheckCollectionViewCell.swift; sourceTree = "<group>"; };
+		DC27296D2C537EC300E2815F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewController.swift; sourceTree = "<group>"; };
 		DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewModel.swift; sourceTree = "<group>"; };
@@ -136,6 +148,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC27296C2C537EA100E2815F /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				DC27296D2C537EC300E2815F /* DetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		DC2E51EF2C4FB6180099CB0E /* ProfileSelecting */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				DC2E52012C4FC6D80099CB0E /* LikeCheckViewController.swift */,
+				DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */,
+				DC27296A2C53719800E2815F /* LikeCheckCollectionViewCell.swift */,
 			);
 			path = Fourth;
 			sourceTree = "<group>";
@@ -233,6 +255,7 @@
 				DC2E51FA2C4FC6180099CB0E /* Second */,
 				DC2E51FB2C4FC62E0099CB0E /* Third */,
 				DC2E51FC2C4FC63B0099CB0E /* Fourth */,
+				DC27296C2C537EA100E2815F /* Detail */,
 			);
 			path = "Avez Vous";
 			sourceTree = "<group>";
@@ -282,6 +305,8 @@
 		DC4A74BD2C4E2677001C9208 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				DC2729642C5359B600E2815F /* DBTable.swift */,
+				DC2729662C535C7800E2815F /* RealmRepository.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -308,6 +333,7 @@
 		DC97118A2C50FDA9001DCC8F /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
+				DC2729622C5358AE00E2815F /* UserInfo.swift */,
 				DC97118B2C50FDD5001DCC8F /* NumberFormatterManager.swift */,
 			);
 			path = Singleton;
@@ -405,12 +431,16 @@
 			files = (
 				DC4A74CE2C4E2CDF001C9208 /* UIViewController+Extension.swift in Sources */,
 				DC9711852C50D59F001DCC8F /* NetworkError.swift in Sources */,
+				DC2729672C535C7800E2815F /* RealmRepository.swift in Sources */,
 				DC9711812C50CBC8001DCC8F /* RouterPattern.swift in Sources */,
 				DC2E52002C4FC6620099CB0E /* PhotoSearchViewController.swift in Sources */,
 				DC9711922C51309A001DCC8F /* SearchPhoto.swift in Sources */,
+				DC2729692C5365AB00E2815F /* LikeCheckViewModel.swift in Sources */,
 				DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */,
+				DC27296B2C53719800E2815F /* LikeCheckCollectionViewCell.swift in Sources */,
 				DC97118C2C50FDD5001DCC8F /* NumberFormatterManager.swift in Sources */,
 				DC2E51F82C4FC5510099CB0E /* TabBarViewController.swift in Sources */,
+				DC27296E2C537EC300E2815F /* DetailViewController.swift in Sources */,
 				DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */,
 				DC97117F2C50CB26001DCC8F /* APIManager.swift in Sources */,
 				DC97118E2C510E96001DCC8F /* PhotoSearchImageCollectionViewCell.swift in Sources */,
@@ -437,9 +467,11 @@
 				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
 				DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */,
 				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
+				DC2729632C5358AE00E2815F /* UserInfo.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
 				DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */,
 				DCE8F2732C4F34C0001C8856 /* Enums.swift in Sources */,
+				DC2729652C5359B600E2815F /* DBTable.swift in Sources */,
 				DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

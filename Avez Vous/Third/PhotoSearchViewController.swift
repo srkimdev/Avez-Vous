@@ -146,6 +146,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == colorCollectionView {
             viewModel.inputColor.value = SearchColor.allCases[indexPath.item]
+            colorCollectionView.reloadData()
         }
     }
     
@@ -190,6 +191,13 @@ extension PhotoSearchViewController {
 
     @objc func likeButtonClicked(_ sender: UIButton) {
         print(#function)
+        viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
+        
+        UIView.performWithoutAnimation {
+            imageCollectionView.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
+        }
+        
+        
     }
     
     @objc func arrayButtonClicked() {

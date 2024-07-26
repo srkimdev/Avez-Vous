@@ -25,6 +25,8 @@ enum CustomDesign {
         static let launchImage: UIImage = UIImage(named: "launchImage")!
         static let camera: UIImage = UIImage(systemName: "camera.fill")!
         static let star: UIImage = UIImage(systemName: "star.fill")!
+        static let likeActive: UIImage = UIImage(named: "like_circle")!
+        static let likeInactive: UIImage = UIImage(named: "like_circle_inactive")!
     }
     
     enum Buttons {
