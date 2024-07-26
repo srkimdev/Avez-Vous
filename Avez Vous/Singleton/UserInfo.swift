@@ -14,6 +14,33 @@ class UserInfo {
     
     private init() { }
     
+    var userName: String {
+        get {
+            return userDefault.string(forKey: "userName") ?? "DefaultUser"
+        }
+        set {
+            userDefault.set(newValue, forKey: "userName")
+        }
+    }
+    
+    var profileNumber: Int {
+        get {
+            return userDefault.integer(forKey: "profileNumber")
+        }
+        set {
+            userDefault.set(newValue, forKey: "profileNumber")
+        }
+    }
+    
+    var MBTI: [Int] {
+        get {
+            userDefault.array(forKey: "MBTI") as? [Int] ?? []
+        }
+        set {
+            userDefault.set(newValue, forKey: "MBTI")
+        }
+    }
+    
     func getLikeProduct(forkey: String) -> Bool {
         return userDefault.bool(forKey: forkey)
     }

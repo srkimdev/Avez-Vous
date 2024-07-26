@@ -200,7 +200,6 @@ extension PhotoSearchViewController: UICollectionViewDataSourcePrefetching {
 extension PhotoSearchViewController {
 
     @objc func likeButtonClicked(_ sender: UIButton) {
-        print(#function)
         viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
         
         UIView.performWithoutAnimation {

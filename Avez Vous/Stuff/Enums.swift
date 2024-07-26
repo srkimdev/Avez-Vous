@@ -10,7 +10,7 @@ import Foundation
 enum TransitionStyle {
     case present
     case presentNavigation
-    case presentFullNavigation
+    case presentFull
     case push
 }
 

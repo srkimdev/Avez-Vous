@@ -166,12 +166,21 @@ extension ProfileSettingViewController {
     }
     
     @objc func clearButtonClicked() {
-        print(#function)
+        if viewModel.outputAllow.value {
+            let vc = TabBarViewController()
+            
+            UserInfo.shared.userName = viewModel.inputText.value!
+            UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
+            UserInfo.shared.MBTI = viewModel.mbtiArray
+            
+            transitionScreen(vc: vc, style: .presentFull)
+        }
     }
     
     @objc func profileImageButtonClicked() {
         let vc = ProfileSelectingViewController()
         vc.viewModel.inputSelectedImage.value = viewModel.outputImageNumber.value
+        
         vc.selectedClosure = { [weak self] value in
             self?.viewModel.outputImageNumber.value = value
         }

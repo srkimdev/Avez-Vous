@@ -18,6 +18,12 @@ final class ProfileSettingViewModel {
     var outputAllow: Observable<Bool> = Observable(false)
     var outputSelectedMBTI: Observable<Int?> = Observable(nil)
     
+    var currentAllow: Observable<Void?> = Observable(nil)
+    
+    var mbtiArray: [Int] = [-1, -1, -1, -1]
+    var nicknameAllow: Bool = false
+    var mbtiAllow: Bool = false
+    
     init() {
         showRandomImage.bind { value in
             self.randomImage()
@@ -27,8 +33,16 @@ final class ProfileSettingViewModel {
             self.validation()
         }
         
-        inputSelectedMBTI.bind { value in
-            self.outputSelectedMBTI.value = value
+        inputSelectedMBTI.bind { [weak self] value in
+            guard let value else { return }
+            self?.mbtiSave(value: value)
+            
+            print(self?.mbtiArray)
+            self?.outputSelectedMBTI.value = value
+        }
+        
+        currentAllow.bind { _ in
+            self.outputAllow.value = self.nicknameAllow && self.mbtiAllow
         }
     }
     
@@ -43,33 +57,56 @@ final class ProfileSettingViewModel {
         
         if inputText.count < 2 || inputText.count >= 10 {
             outputText.value = validationError.isNotLength.rawValue
-            outputAllow.value = false
+            nicknameAllow = false
         } else if inputText.contains("@") {
             outputText.value = validationError.isNotAt.rawValue
-            outputAllow.value = false
+            nicknameAllow = false
         } else if inputText.contains("#") {
             outputText.value = validationError.isNotHash.rawValue
-            outputAllow.value = false
+            nicknameAllow = false
         } else if inputText.contains("$") {
             outputText.value = validationError.isNotDollar.rawValue
-            outputAllow.value = false
+            nicknameAllow = false
         } else if inputText.contains("%") {
             outputText.value = validationError.isNotPercent.rawValue
-            outputAllow.value = false
+            nicknameAllow = false
         } else if isDigit(input: inputText) {
             outputText.value = validationError.isNotNumber.rawValue
-            outputAllow.value = false
+            nicknameAllow = false
         } else if inputText.contains(" ") {
             outputText.value = validationError.isNotSpace.rawValue
         } else {
             outputText.value = "사용할 수 있는 닉네임이에요"
-            outputAllow.value = true
+            nicknameAllow = true
         }
+        currentAllow.value = ()
     }
     
     private func isDigit(input: String) -> Bool {
         let decimalCharacters = CharacterSet.decimalDigits
         return input.rangeOfCharacter(from: decimalCharacters) != nil
+    }
+    
+    private func mbtiSave(value: Int) {
+        if value % 4 == 0 {
+            mbtiArray[0] = value
+        } else if value % 4 == 1 {
+            mbtiArray[1] = value
+        } else if value % 4 == 2 {
+            mbtiArray[2] = value
+        } else {
+            mbtiArray[3] = value
+        }
+        mbtiValidation()
+    }
+    
+    private func mbtiValidation() {
+        if mbtiArray.contains(-1) {
+            mbtiAllow = false
+        } else {
+            mbtiAllow = true
+        }
+        currentAllow.value = ()
     }
     
 }
