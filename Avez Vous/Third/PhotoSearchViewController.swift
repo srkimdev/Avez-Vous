@@ -148,6 +148,10 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
             let vc = DetailViewController()
             vc.viewModel.inputDetailPhoto.value = viewModel.outputResult.value[indexPath.item]
             
+            vc.likeChange = { () in
+                self.imageCollectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
+            }
+            
             transitionScreen(vc: vc, style: .push)
             
         } else {
@@ -202,8 +206,6 @@ extension PhotoSearchViewController {
         UIView.performWithoutAnimation {
             imageCollectionView.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
         }
-        
-        
     }
     
     @objc func arrayButtonClicked() {

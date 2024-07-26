@@ -7,9 +7,11 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class DetailViewController: BaseViewController {
     
+    let profileView = UIView()
     let writerImage = UIImageView()
     let writerName = UILabel()
     let createLabel = UILabel()
@@ -25,6 +27,7 @@ final class DetailViewController: BaseViewController {
     let downloadValue = UILabel()
     
     let viewModel = DetailViewModel()
+    var likeChange: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,7 @@ final class DetailViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
+        view.addSubview(profileView)
         view.addSubview(writerImage)
         view.addSubview(writerName)
         view.addSubview(createLabel)
@@ -48,6 +52,13 @@ final class DetailViewController: BaseViewController {
     }
     
     override func configureLayout() {
+        
+        profileView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(58)
+        }
+        
         writerImage.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
@@ -123,19 +134,20 @@ final class DetailViewController: BaseViewController {
     
     override func configureUI() {
         
+        BackButton()
+        
+        profileView.backgroundColor = .systemGray5
+        
         writerImage.backgroundColor = .lightGray
         writerImage.layer.masksToBounds = true
         writerImage.layer.cornerRadius = 15
-        
-        writerName.text = "Brayden Prato"
+    
         writerName.font = .systemFont(ofSize: 11)
         
-        createLabel.text = "2024년 7월 3일 게시물"
+        let image = UserInfo.shared.getLikeProduct(forkey: viewModel.inputDetailPhoto.value!.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
+        likeButton.setImage(image, for: .normal)
+        
         createLabel.font = .systemFont(ofSize: 11, weight: .bold)
-        
-        likeButton.setImage(UIImage(named: "like"), for: .normal)
-        
-        photoImage.backgroundColor = .lightGray
         
         informationLabel.text = "정보"
         informationLabel.font = .systemFont(ofSize: 18, weight: .heavy)
@@ -152,23 +164,46 @@ final class DetailViewController: BaseViewController {
     }
     
     override func configureAction() {
-        
+        likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
     }
+    
+}
+
+extension DetailViewController {
     
     private func bindData() {
         
         viewModel.outputDetailPhoto.bind { [weak self] value in
             guard let value else { return }
+    
+            var url = URL(string: value.urls.small)
+            self?.photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
+            self?.sizeValue.text = "\(value.width) x \(value.height)"
+            self?.writerName.text = value.user.name
+            self?.createLabel.text = "\(DateFormatterManager.shared.changeDate(value.created_at)) 게시물"
             
-            self?.sizeLabel.text = "\(value.width) x \(value.height)"
+            url = URL(string: value.user.profile_image.medium)
+            self?.writerImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
         }
         
         viewModel.outputStatistics.bind { [weak self] value in
             guard let value else { return }
             
-            self?.seeValue.text = "\(value.views.total)"
-            self?.downloadValue.text = "\(value.downloads.total)"
+            self?.seeValue.text = NumberFormatterManager.shared.Comma(value.views.total)
+            self?.downloadValue.text = NumberFormatterManager.shared.Comma(value.downloads.total)
         }
         
+        viewModel.outputLike.bind { [weak self] value in
+            guard let value else { return }
+            
+            let image = value ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
+            self?.likeButton.setImage(image, for: .normal)
+        }
+        
+    }
+    
+    @objc func likeButtonClicked() {
+        viewModel.inputLike.value = viewModel.inputDetailPhoto.value
+        likeChange?()
     }
 }

@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct PhotoTotal: Decodable {
+    let total: Int
+    let results: [Photos]
+}
+
 struct Photos: Decodable {
     let id: String
     let created_at: String

@@ -16,6 +16,7 @@
 		DC27296E2C537EC300E2815F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296D2C537EC300E2815F /* DetailViewController.swift */; };
 		DC2729702C53932600E2815F /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296F2C53932600E2815F /* DetailViewModel.swift */; };
 		DC2729722C53992400E2815F /* PhotoStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729712C53992400E2815F /* PhotoStatistics.swift */; };
+		DC2729742C53B6FC00E2815F /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729732C53B6FC00E2815F /* DateFormatterManager.swift */; };
 		DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */; };
 		DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */; };
 		DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */; };
@@ -90,6 +91,7 @@
 		DC27296D2C537EC300E2815F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DC27296F2C53932600E2815F /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		DC2729712C53992400E2815F /* PhotoStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStatistics.swift; sourceTree = "<group>"; };
+		DC2729732C53B6FC00E2815F /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewController.swift; sourceTree = "<group>"; };
 		DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewModel.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 			children = (
 				DC2729622C5358AE00E2815F /* UserInfo.swift */,
 				DC97118B2C50FDD5001DCC8F /* NumberFormatterManager.swift */,
+				DC2729732C53B6FC00E2815F /* DateFormatterManager.swift */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				DC9711902C513015001DCC8F /* PhotoSearchViewModel.swift in Sources */,
 				DC4A74892C4E2278001C9208 /* AppDelegate.swift in Sources */,
 				DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */,
+				DC2729742C53B6FC00E2815F /* DateFormatterManager.swift in Sources */,
 				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
 				DC2E51FE2C4FC6530099CB0E /* TopicTrendViewController.swift in Sources */,
 				DC2729612C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift in Sources */,

@@ -13,10 +13,10 @@ final class PhotoSearchViewModel {
     var inputColor: Observable<SearchColor> = Observable(.black)
     var inputArrayButton: Observable<Void?> = Observable(nil)
     var inputPage: Observable<Void?> = Observable(nil)
-    var inputLike: Observable<SearchPhoto?> = Observable(nil)
+    var inputLike: Observable<Photos?> = Observable(nil)
     
     var outputArrayButton: Observable<SearchOrder> = Observable(.relevant)
-    var outputResult: Observable<[SearchPhoto]> = Observable([])
+    var outputResult: Observable<[Photos]> = Observable([])
     var outputScrollToTop: Observable<Void?> = Observable(nil)
     var outputLike: Observable<Bool> = Observable(false)
     
@@ -58,7 +58,7 @@ final class PhotoSearchViewModel {
         start = 1
         let router = RouterPattern.search(keyword: keyword, page: start, order: outputArrayButton.value, color: inputColor.value)
         
-        APIManager.shared.callRequest(router: router, responseType: SearchPhotoTotal.self) { [weak self] response in
+        APIManager.shared.callRequest(router: router, responseType: PhotoTotal.self) { [weak self] response in
             switch response {
             case .success(let value):
                 self?.outputResult.value = value.results
@@ -85,7 +85,7 @@ final class PhotoSearchViewModel {
     private func arrayFetchData(order: SearchOrder) {
         let router = RouterPattern.search(keyword: inputText.value ?? "", page: start, order: order, color: inputColor.value)
         
-        APIManager.shared.callRequest(router: router, responseType: SearchPhotoTotal.self) { [weak self] response in
+        APIManager.shared.callRequest(router: router, responseType: PhotoTotal.self) { [weak self] response in
             switch response {
             case .success(let value):
                 self?.outputResult.value = value.results
@@ -105,7 +105,7 @@ final class PhotoSearchViewModel {
         
         let router = RouterPattern.search(keyword: inputText.value!, page: start, order: outputArrayButton.value, color: inputColor.value)
         
-        APIManager.shared.callRequest(router: router, responseType: SearchPhotoTotal.self) { [weak self] response in
+        APIManager.shared.callRequest(router: router, responseType: PhotoTotal.self) { [weak self] response in
             switch response {
             case .success(let value):
                 self?.outputResult.value.append(contentsOf: value.results)
@@ -119,7 +119,7 @@ final class PhotoSearchViewModel {
         start = 1
         let router = RouterPattern.search(keyword: inputText.value ?? "", page: start, order: outputArrayButton.value, color: color)
         
-        APIManager.shared.callRequest(router: router, responseType: SearchPhotoTotal.self) { [weak self] response in
+        APIManager.shared.callRequest(router: router, responseType: PhotoTotal.self) { [weak self] response in
             switch response {
             case .success(let value):
                 self?.outputResult.value = value.results
@@ -134,7 +134,7 @@ final class PhotoSearchViewModel {
         }
     }
     
-    private func likeCheck(data: SearchPhoto) {
+    private func likeCheck(data: Photos) {
         var like = UserInfo.shared.getLikeProduct(forkey: data.id)
         like.toggle()
         

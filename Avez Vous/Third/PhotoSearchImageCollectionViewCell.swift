@@ -83,9 +83,9 @@ final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
         likeCount.text = NumberFormatterManager.shared.Comma(transition.likes)
         
         if UserInfo.shared.getLikeProduct(forkey: transition.id) {
-            likeButton.setImage(CustomDesign.Images.likeActive, for: .normal)
+            likeButton.setImage(CustomDesign.Images.likeCircleActive, for: .normal)
         } else {
-            likeButton.setImage(CustomDesign.Images.likeInactive, for: .normal)
+            likeButton.setImage(CustomDesign.Images.likeCircleInactive, for: .normal)
         }
     }
 
