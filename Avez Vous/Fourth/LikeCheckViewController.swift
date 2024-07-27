@@ -127,7 +127,13 @@ extension LikeCheckViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == colorCollectionView {
+        if collectionView == likeCollectionView {
+            let vc = DetailViewController()
+            vc.viewModel.inputFromLike.value = viewModel.outputResult.value[indexPath.item]
+            
+            transitionScreen(vc: vc, style: .push)
+            
+        } else {
 //            viewModel.inputColor.value = SearchColor.allCases[indexPath.item]
             colorCollectionView.reloadData()
         }
@@ -174,13 +180,11 @@ extension LikeCheckViewController {
 
     @objc func likeButtonClicked(_ sender: UIButton) {
         print(#function)
-//        viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
-        
-        UIView.performWithoutAnimation {
-            likeCollectionView.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
-        }
         
         
+        viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
+        
+        likeCollectionView.reloadData()
     }
     
     @objc func arrayButtonClicked() {

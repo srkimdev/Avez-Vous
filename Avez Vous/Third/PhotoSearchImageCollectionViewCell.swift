@@ -63,8 +63,6 @@ final class PhotoSearchImageCollectionViewCell: BaseCollectionViewCell {
     override func configureUI() {
         photoImage.backgroundColor = .lightGray
         
-        likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
-        
         likeView.backgroundColor = .darkGray
         likeView.layer.masksToBounds = true
         likeView.layer.cornerRadius = 10

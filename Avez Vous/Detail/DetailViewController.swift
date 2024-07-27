@@ -27,7 +27,6 @@ final class DetailViewController: BaseViewController {
     let downloadValue = UILabel()
     
     let viewModel = DetailViewModel()
-    var likeChange: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +143,7 @@ final class DetailViewController: BaseViewController {
     
         writerName.font = .systemFont(ofSize: 11)
         
-        let image = UserInfo.shared.getLikeProduct(forkey: viewModel.inputDetailPhoto.value!.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
+        let image = UserInfo.shared.getLikeProduct(forkey: viewModel.outputDetailPhoto.value!.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
         likeButton.setImage(image, for: .normal)
         
         createLabel.font = .systemFont(ofSize: 11, weight: .bold)
@@ -203,7 +202,6 @@ extension DetailViewController {
     }
     
     @objc func likeButtonClicked() {
-        viewModel.inputLike.value = viewModel.inputDetailPhoto.value
-        likeChange?()
+        viewModel.inputLike.value = viewModel.inputFromSearch.value
     }
 }

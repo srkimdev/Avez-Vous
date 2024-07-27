@@ -57,7 +57,7 @@
 		DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74DA2C4E63A8001C9208 /* Observable.swift */; };
 		DC97117F2C50CB26001DCC8F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC97117E2C50CB26001DCC8F /* APIManager.swift */; };
 		DC9711812C50CBC8001DCC8F /* RouterPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711802C50CBC8001DCC8F /* RouterPattern.swift */; };
-		DC9711832C50D108001DCC8F /* TopicsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711822C50D108001DCC8F /* TopicsPhoto.swift */; };
+		DC9711832C50D108001DCC8F /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711822C50D108001DCC8F /* DummyData.swift */; };
 		DC9711852C50D59F001DCC8F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711842C50D59F001DCC8F /* NetworkError.swift */; };
 		DC9711872C50DD5B001DCC8F /* TopicTrendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711862C50DD5B001DCC8F /* TopicTrendViewModel.swift */; };
 		DC97118C2C50FDD5001DCC8F /* NumberFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC97118B2C50FDD5001DCC8F /* NumberFormatterManager.swift */; };
@@ -126,7 +126,7 @@
 		DC4A74DA2C4E63A8001C9208 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		DC97117E2C50CB26001DCC8F /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		DC9711802C50CBC8001DCC8F /* RouterPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterPattern.swift; sourceTree = "<group>"; };
-		DC9711822C50D108001DCC8F /* TopicsPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsPhoto.swift; sourceTree = "<group>"; };
+		DC9711822C50D108001DCC8F /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		DC9711842C50D59F001DCC8F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DC9711862C50DD5B001DCC8F /* TopicTrendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTrendViewModel.swift; sourceTree = "<group>"; };
 		DC97118B2C50FDD5001DCC8F /* NumberFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterManager.swift; sourceTree = "<group>"; };
@@ -189,7 +189,6 @@
 				DC2E52052C4FD7010099CB0E /* TopicTrendTableViewCell.swift */,
 				DC2E52072C4FDB2B0099CB0E /* TopicTrendCollectionViewCell.swift */,
 				DC9711862C50DD5B001DCC8F /* TopicTrendViewModel.swift */,
-				DC9711822C50D108001DCC8F /* TopicsPhoto.swift */,
 			);
 			path = First;
 			sourceTree = "<group>";
@@ -306,6 +305,7 @@
 				DC97117E2C50CB26001DCC8F /* APIManager.swift */,
 				DC9711802C50CBC8001DCC8F /* RouterPattern.swift */,
 				DC9711842C50D59F001DCC8F /* NetworkError.swift */,
+				DC9711822C50D108001DCC8F /* DummyData.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -465,7 +465,7 @@
 				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
 				DC2E51FE2C4FC6530099CB0E /* TopicTrendViewController.swift in Sources */,
 				DC2729612C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift in Sources */,
-				DC9711832C50D108001DCC8F /* TopicsPhoto.swift in Sources */,
+				DC9711832C50D108001DCC8F /* DummyData.swift in Sources */,
 				DC4A74C92C4E29B9001C9208 /* OnBoardingView.swift in Sources */,
 				DC2E52082C4FDB2B0099CB0E /* TopicTrendCollectionViewCell.swift in Sources */,
 				DC4A74D02C4E2CF5001C9208 /* UIColor+Extension.swift in Sources */,

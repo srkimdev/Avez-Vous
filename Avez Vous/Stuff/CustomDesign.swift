@@ -29,6 +29,7 @@ enum CustomDesign {
         static let likeCircleInactive: UIImage = UIImage(named: "like_circle_inactive")!
         static let likeActive: UIImage = UIImage(named: "like")!
         static let likeInactive: UIImage = UIImage(named: "like_inactive")!
+        static let sort: UIImage = UIImage(named: "sort")!
     }
     
     enum Buttons {
@@ -49,14 +50,12 @@ enum CustomDesign {
     enum navigationTitle {
         static let profileSetting: String = "PROFILE SETTING"
         static let profileSelecting: String = "EDIT PROFILE"
-        
+        static let searchPhoto: String = "SEARCH PHOTO"
     }
     
 }
 
 enum Literal {
-    
-    
     
     enum onBoarding {
         static let appName: String = "Avez Vous"

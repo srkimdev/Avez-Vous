@@ -52,6 +52,7 @@ final class PhotoSearchColorCollectionViewCell: BaseCollectionViewCell {
 
         colorLabel.textAlignment = .center
         colorLabel.font = .systemFont(ofSize: 13)
+        
     }
     
     func designCell(transition: SearchColor, selectedCell: SearchColor) {
@@ -65,7 +66,6 @@ final class PhotoSearchColorCollectionViewCell: BaseCollectionViewCell {
             backView.backgroundColor = .systemGray5
             colorLabel.textColor = .black
         }
-        
     }
 
 }

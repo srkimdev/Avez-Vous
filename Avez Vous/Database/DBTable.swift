@@ -11,14 +11,24 @@ import RealmSwift
 class DBTable: Object {
     
     @Persisted(primaryKey: true) var id: String
-    @Persisted var url: String
-    @Persisted var likeCount: Int
+    @Persisted var created_at: String
+    @Persisted var width: Int
+    @Persisted var height: Int
+    @Persisted var urls: String
+    @Persisted var likes: Int
+    @Persisted var writerName: String
+    @Persisted var writerImage: String
     
-    convenience init(id: String, url: String, likeCount: Int) {
+    convenience init(id: String, created_at: String, width: Int, height: Int, urls: String, likes: Int, writerName: String, writerImage: String) {
         self.init()
         self.id = id
-        self.url = url
-        self.likeCount = likeCount
+        self.created_at = created_at
+        self.width = width
+        self.height = height
+        self.urls = urls
+        self.likes = likes
+        self.writerName = writerName
+        self.writerImage = writerImage
     }
     
 }

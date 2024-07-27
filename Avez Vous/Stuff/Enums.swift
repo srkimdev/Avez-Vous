@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum TransitionStyle {
-    case present
-    case presentNavigation
-    case presentFull
-    case push
-}
-
 enum validationError: String, Error {
     case isNotLength = "2글자 이상 10글자 미만으로 입력해주세요."
     case isNotAt = "닉네임에 @는 포함할 수 없어요."
@@ -26,13 +19,13 @@ enum validationError: String, Error {
 
 enum MBTI: String, CaseIterable {
     case E
-    case I
     case S
-    case N
     case T
+    case J
+    case I
+    case N
     case F
     case P
-    case J
 }
 
 enum profileImages: Int, CaseIterable {

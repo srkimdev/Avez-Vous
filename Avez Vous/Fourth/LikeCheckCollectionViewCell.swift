@@ -42,7 +42,7 @@ final class LikeCheckCollectionViewCell: BaseCollectionViewCell {
     }
     
     func designCell(transition: DBTable) {
-        let url = URL(string: transition.url)
+        let url = URL(string: transition.urls)
         photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
         
         if UserInfo.shared.getLikeProduct(forkey: transition.id) {

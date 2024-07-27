@@ -34,4 +34,4 @@ struct WriterInfo: Decodable {
 
 struct ProfileSize: Decodable {
     let medium: String
-}
+} 

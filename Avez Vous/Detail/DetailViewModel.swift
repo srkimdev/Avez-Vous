@@ -10,8 +10,8 @@ import RealmSwift
 
 final class DetailViewModel {
     
-    var inputDetailPhoto: Observable<Photos?> = Observable(nil)
-//    var inputLikePhoto: Observable<DBTable?> = Observable(nil)
+    var inputFromSearch: Observable<Photos?> = Observable(nil)
+    var inputFromLike: Observable<DBTable?> = Observable(nil)
     var inputLike: Observable<Photos?> = Observable(nil)
     
     var outputDetailPhoto: Observable<Photos?> = Observable(nil)
@@ -22,9 +22,15 @@ final class DetailViewModel {
     
     init() {
         
-        inputDetailPhoto.bind { [weak self] value in
+        inputFromSearch.bind { [weak self] value in
             guard let value else { return }
             self?.outputDetailPhoto.value = value
+            self?.fetchData(imageID: value.id)
+        }
+        
+        inputFromLike.bind { [weak self] value in
+            guard let value else { return }
+            self?.outputDetailPhoto.value = self?.toPhotos(data: value)
             self?.fetchData(imageID: value.id)
         }
         
@@ -51,17 +57,25 @@ final class DetailViewModel {
         var like = UserInfo.shared.getLikeProduct(forkey: data.id)
         like.toggle()
         
-        let task = DBTable(id: data.id, url: data.urls.small, likeCount: data.likes)
-        
         if like {
+            let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium)
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.createItem(task)
         } else {
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
-            realmrepository.deleteItem(task, id: data.id)
+            realmrepository.deleteItem(id: data.id)
         }
         
         outputLike.value = like
+        NotificationCenter.default.post(name: NSNotification.Name("update"), object: nil, userInfo: nil)
+    }
+    
+    func toPhotos(data: DBTable) -> Photos {
+        let urlSize = UrlSize(raw: data.urls, small: data.urls)
+        let profileSize = ProfileSize(medium: data.writerImage)
+        let writerInfo = WriterInfo(name: data.writerName, profile_image: profileSize)
+        
+        return Photos(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: urlSize, likes: data.likes, user: writerInfo)
     }
 
 }

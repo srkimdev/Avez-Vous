@@ -138,16 +138,16 @@ final class PhotoSearchViewModel {
         var like = UserInfo.shared.getLikeProduct(forkey: data.id)
         like.toggle()
         
-        let task = DBTable(id: data.id, url: data.urls.small, likeCount: data.likes)
-        
         if like {
+            let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium)
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.createItem(task)
+            
         } else {
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
-            realmrepository.deleteItem(task, id: data.id)
+            realmrepository.deleteItem(id: data.id)
+            
         }
-        
     }
     
 }

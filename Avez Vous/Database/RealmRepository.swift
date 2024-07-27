@@ -24,12 +24,11 @@ final class RealmRepository {
     }
 
     func readAllItem() -> [DBTable] {
-        let list = realm.objects(DBTable.self).sorted(byKeyPath: "id", ascending: false)
+        let list = realm.objects(DBTable.self)
         return Array(list)
     }
     
-    func deleteItem(_ data: DBTable, id: String) {
-        
+    func deleteItem(id: String) {
         let filter = realm.objects(DBTable.self).first(where: {$0.id == id} )
         
         try! realm.write {

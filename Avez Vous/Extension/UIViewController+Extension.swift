@@ -11,6 +11,13 @@ import UIKit
 
 extension UIViewController {
     
+    enum TransitionStyle {
+        case present
+        case presentNavigation
+        case presentFull
+        case push
+    }
+    
     func BackButton() {
         let item = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonClicked))
         item.tintColor = CustomDesign.Colors.Black
@@ -35,5 +42,6 @@ extension UIViewController {
         case .push:
             navigationController?.pushViewController(vc, animated: true)
         }
+        
     }
 }

@@ -33,6 +33,8 @@ final class PhotoSearchViewController: BaseViewController {
         
         photoSearchBar.delegate = self
         
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedNotification), name: NSNotification.Name("update"), object: nil)
+        
         bindData()
     }
     
@@ -79,19 +81,19 @@ final class PhotoSearchViewController: BaseViewController {
     }
     
     override func configureUI() {
-        navigationItem.title = "SEARCH PHOTO"
+        navigationItem.title = CustomDesign.navigationTitle.searchPhoto
         photoSearchBar.searchBarStyle = .minimal
         
         arrayButton.setTitle("관련순", for: .normal)
         arrayButton.setTitleColor(.black, for: .normal)
         arrayButton.titleLabel?.font = .systemFont(ofSize: 15)
-        arrayButton.setImage(UIImage(named: "sort"), for: .normal)
+        arrayButton.setImage(CustomDesign.Images.sort, for: .normal)
         arrayButton.layer.masksToBounds = true
         arrayButton.layer.cornerRadius = 15
         arrayButton.layer.borderWidth = 1
         arrayButton.layer.borderColor = UIColor.lightGray.cgColor
         
-        searchStatusLabel.text = "사진을 검색해보세요."
+//        searchStatusLabel.text = "사진을 검색해보세요."
         searchStatusLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         
         imageCollectionView.isHidden = true
@@ -146,11 +148,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == imageCollectionView {
             let vc = DetailViewController()
-            vc.viewModel.inputDetailPhoto.value = viewModel.outputResult.value[indexPath.item]
-            
-            vc.likeChange = { () in
-                self.imageCollectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-            }
+            vc.viewModel.inputFromSearch.value = viewModel.outputResult.value[indexPath.item]
             
             transitionScreen(vc: vc, style: .push)
             
@@ -209,6 +207,10 @@ extension PhotoSearchViewController {
     
     @objc func arrayButtonClicked() {
         viewModel.inputArrayButton.value = ()
+    }
+    
+    @objc func receivedNotification(notification: NSNotification) {
+        imageCollectionView.reloadData()
     }
     
     private func bindData() {
