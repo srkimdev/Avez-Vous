@@ -17,7 +17,7 @@ final class OnBoardingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserDefaultsManager.shared.mode = Mode.setup.rawValue
     }
 
     override func configureAction() {

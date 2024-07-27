@@ -16,9 +16,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let vc = OnBoardingViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        window?.rootViewController = nav
+        if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
+            let vc = TabBarViewController()
+            window?.rootViewController = vc
+        } else {
+            let vc = OnBoardingViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = nav
+        }
+        
         window?.makeKeyAndVisible()
     }
 

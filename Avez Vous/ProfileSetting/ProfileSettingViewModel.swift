@@ -12,11 +12,13 @@ final class ProfileSettingViewModel {
     var showRandomImage: Observable<Void?> = Observable(nil)
     var inputText: Observable<String?> = Observable("")
     var inputSelectedMBTI: Observable<Int?> = Observable(nil)
+    var inputMBTISetting: Observable<Void?> = Observable(nil)
     
     var outputImageNumber: Observable<Int> = Observable(0)
     var outputText: Observable<String> = Observable("")
     var outputAllow: Observable<Bool> = Observable(false)
     var outputSelectedMBTI: Observable<Int?> = Observable(nil)
+    var outputMBTISetting: Observable<Bool> = Observable(false)
     
     var currentAllow: Observable<Void?> = Observable(nil)
     
@@ -26,6 +28,7 @@ final class ProfileSettingViewModel {
     
     init() {
         showRandomImage.bind { value in
+            guard let value else { return }
             self.randomImage()
         }
         
@@ -43,6 +46,11 @@ final class ProfileSettingViewModel {
         
         currentAllow.bind { _ in
             self.outputAllow.value = self.nicknameAllow && self.mbtiAllow
+        }
+        
+        inputMBTISetting.bind { value in
+            guard let value else { return }
+            self.outputMBTISetting.value = true
         }
     }
     
@@ -88,15 +96,7 @@ final class ProfileSettingViewModel {
     }
     
     private func mbtiSave(value: Int) {
-        if value % 4 == 0 {
-            mbtiArray[0] = value
-        } else if value % 4 == 1 {
-            mbtiArray[1] = value
-        } else if value % 4 == 2 {
-            mbtiArray[2] = value
-        } else {
-            mbtiArray[3] = value
-        }
+        mbtiArray[value % 4] = value
         mbtiValidation()
     }
     

@@ -17,6 +17,8 @@
 		DC2729702C53932600E2815F /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27296F2C53932600E2815F /* DetailViewModel.swift */; };
 		DC2729722C53992400E2815F /* PhotoStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729712C53992400E2815F /* PhotoStatistics.swift */; };
 		DC2729742C53B6FC00E2815F /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729732C53B6FC00E2815F /* DateFormatterManager.swift */; };
+		DC2729762C5504A700E2815F /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729752C5504A700E2815F /* UserDefaultsManager.swift */; };
+		DC2729792C550E1300E2815F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729782C550E1300E2815F /* EditProfileViewController.swift */; };
 		DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */; };
 		DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */; };
 		DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */; };
@@ -92,6 +94,8 @@
 		DC27296F2C53932600E2815F /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		DC2729712C53992400E2815F /* PhotoStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStatistics.swift; sourceTree = "<group>"; };
 		DC2729732C53B6FC00E2815F /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		DC2729752C5504A700E2815F /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		DC2729782C550E1300E2815F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewController.swift; sourceTree = "<group>"; };
 		DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewModel.swift; sourceTree = "<group>"; };
@@ -162,6 +166,14 @@
 				DC2729712C53992400E2815F /* PhotoStatistics.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		DC2729772C550DE200E2815F /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				DC2729782C550E1300E2815F /* EditProfileViewController.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		DC2E51EF2C4FB6180099CB0E /* ProfileSelecting */ = {
@@ -263,6 +275,7 @@
 				DC2E51FB2C4FC62E0099CB0E /* Third */,
 				DC2E51FC2C4FC63B0099CB0E /* Fourth */,
 				DC27296C2C537EA100E2815F /* Detail */,
+				DC2729772C550DE200E2815F /* Edit */,
 			);
 			path = "Avez Vous";
 			sourceTree = "<group>";
@@ -344,6 +357,7 @@
 				DC2729622C5358AE00E2815F /* UserInfo.swift */,
 				DC97118B2C50FDD5001DCC8F /* NumberFormatterManager.swift */,
 				DC2729732C53B6FC00E2815F /* DateFormatterManager.swift */,
+				DC2729752C5504A700E2815F /* UserDefaultsManager.swift */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -476,8 +490,10 @@
 				DC4A748B2C4E2278001C9208 /* SceneDelegate.swift in Sources */,
 				DC4A74C12C4E2706001C9208 /* BaseTableViewCell.swift in Sources */,
 				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
+				DC2729762C5504A700E2815F /* UserDefaultsManager.swift in Sources */,
 				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
 				DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */,
+				DC2729792C550E1300E2815F /* EditProfileViewController.swift in Sources */,
 				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
 				DC2729632C5358AE00E2815F /* UserInfo.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,

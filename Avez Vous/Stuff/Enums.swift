@@ -48,6 +48,11 @@ struct Section {
     let query: String
 }
 
+enum Mode: String {
+    case setup
+    case edit
+}
+
 enum Topic: String, CaseIterable {
     case architecture = "architecture-interior"
     case goldenHour = "golden-hour"

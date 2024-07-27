@@ -19,6 +19,7 @@ final class ProfileSettingViewController: BaseViewController {
     let statusLabel = UILabel()
     let clearButton = UIButton()
     let mbtiLabel = UILabel()
+    let quitButton = UIButton()
     
     lazy var buttonCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
@@ -51,6 +52,7 @@ final class ProfileSettingViewController: BaseViewController {
         view.addSubview(clearButton)
         view.addSubview(mbtiLabel)
         view.addSubview(buttonCollectionView)
+        view.addSubview(quitButton)
     }
     
     override func configureLayout() {
@@ -114,14 +116,41 @@ final class ProfileSettingViewController: BaseViewController {
             make.height.equalTo(40)
         }
         
+        quitButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.size.equalTo(100)
+        }
+        
         // clearButton issue
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
     
     override func configureUI() {
-        
-        navigationItem.title = CustomDesign.navigationTitle.profileSetting
+    
+        if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
+            navigationItem.title = CustomDesign.navigationTitle.profileSelecting
+            let item = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
+            navigationItem.rightBarButtonItem = item
+            
+            statusLabel.text = UserInfo.shared.userName
+            clearButton.isHidden = true
+            quitButton.isHidden = false
+            
+            viewModel.outputImageNumber.value = UserInfo.shared.profileNumber
+            viewModel.inputText.value = UserInfo.shared.userName
+            viewModel.inputMBTISetting.value = ()
+            
+        } else {
+            navigationItem.title = CustomDesign.navigationTitle.profileSetting
+            
+            clearButton.isHidden = false
+            quitButton.isHidden = true
+            
+            viewModel.showRandomImage.value = ()
+        }
+
         BackButton()
         
         profileImage.layer.masksToBounds = true
@@ -137,8 +166,7 @@ final class ProfileSettingViewController: BaseViewController {
         nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
         
         textFieldLine.backgroundColor = .systemGray4
-        
-        statusLabel.textColor = CustomDesign.Colors.Red
+    
         statusLabel.font = .boldSystemFont(ofSize: 13)
         
         mbtiLabel.text = "MBTI"
@@ -149,15 +177,61 @@ final class ProfileSettingViewController: BaseViewController {
         clearButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
         clearButton.layer.masksToBounds = true
         clearButton.layer.cornerRadius = 20
+        
+        quitButton.setTitle("회원탈퇴", for: .normal)
+        quitButton.titleLabel?.font = .systemFont(ofSize: 18)
+        quitButton.setTitleColor(CustomDesign.Colors.Blue, for: .normal)
+        
     }
     
     override func configureAction() {
         profileImageButton.addTarget(self, action: #selector(profileImageButtonClicked), for: .touchUpInside)
         nicknameTextField.addTarget(self, action: #selector(nicknameChanged), for: .editingChanged)
         clearButton.addTarget(self, action: #selector(clearButtonClicked), for: .touchUpInside)
+        quitButton.addTarget(self, action: #selector(quitButtonClicked), for: .touchUpInside)
     }
     
 }
+
+extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return MBTI.allCases.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
+        
+        // for showing current mbti in EDIT PROFILE
+        
+        
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(#function)
+        viewModel.inputSelectedMBTI.value = indexPath.item
+    }
+    
+}
+
+extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.itemSize = CGSize(width: 43, height: 43)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        return layout
+    }
+}
+
 
 extension ProfileSettingViewController {
     
@@ -172,6 +246,7 @@ extension ProfileSettingViewController {
             UserInfo.shared.userName = viewModel.inputText.value!
             UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
             UserInfo.shared.MBTI = viewModel.mbtiArray
+            UserDefaultsManager.shared.mode = Mode.edit.rawValue
             
             transitionScreen(vc: vc, style: .presentFull)
         }
@@ -192,13 +267,25 @@ extension ProfileSettingViewController {
         print(#function)
     }
     
+    @objc func quitButtonClicked() {
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
+        
+        showAlert(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", completionHandler: initialize)
+    }
+    
     private func bindData() {
+        
         viewModel.outputImageNumber.bind { [weak self] value in
             self?.profileImage.image = UIImage(named: "profile_\(value)")
         }
         
         viewModel.outputText.bind { [weak self] value in
-            self?.statusLabel.text = value
+            guard let self else { return }
+            self.statusLabel.text = value
+//            print("here")
+//            self.statusLabel.textColor = self.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
         }
         
         viewModel.outputAllow.bind { [weak self] value in
@@ -208,6 +295,8 @@ extension ProfileSettingViewController {
         viewModel.outputSelectedMBTI.bind { [weak self] value in
             guard let value else { return }
             
+            print(value)
+            
             UIView.performWithoutAnimation {
                 self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value, section: 0)])
                 self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])
@@ -215,38 +304,15 @@ extension ProfileSettingViewController {
         }
     }
     
-}
-
-extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return MBTI.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
+    private func initialize() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-        cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
+        let rootViewcontroller = UINavigationController(rootViewController: OnBoardingViewController())
         
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.inputSelectedMBTI.value = indexPath.item
+        sceneDelegate?.window?.rootViewController = rootViewcontroller
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
 }
 
-extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        
-        layout.itemSize = CGSize(width: 43, height: 43)
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        
-        return layout
-    }
-}

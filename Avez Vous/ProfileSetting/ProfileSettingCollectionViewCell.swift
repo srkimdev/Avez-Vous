@@ -57,5 +57,17 @@ final class ProfileSettingCollectionViewCell: BaseCollectionViewCell {
         mbtiLabel.text = MBTI.allCases[transition].rawValue
     }
     
+    func designEditCell(transition: Int, mbtiArray: [Int]) {
+        for item in mbtiArray {
+            if transition == item {
+                backgroundScene.backgroundColor = CustomDesign.Colors.Blue
+                mbtiLabel.textColor = CustomDesign.Colors.White
+            } else if abs(transition - item) == 4 {
+                backgroundScene.backgroundColor = CustomDesign.Colors.White
+                mbtiLabel.textColor = CustomDesign.Colors.Gray
+            }
+        }
+    }
+    
 }
 
