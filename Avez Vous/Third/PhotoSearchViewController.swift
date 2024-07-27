@@ -69,7 +69,7 @@ final class PhotoSearchViewController: BaseViewController {
         
         imageCollectionView.snp.makeConstraints { make in
             make.top.equalTo(colorCollectionView.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(4)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -135,6 +135,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
             cell.designCell(transition: viewModel.outputResult.value[indexPath.item])
             
             return cell
+            
         } else {
             guard let cell = colorCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchColorCollectionViewCell.identifier, for: indexPath) as? PhotoSearchColorCollectionViewCell else { return UICollectionViewCell() }
             
@@ -148,6 +149,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == imageCollectionView {
             let vc = DetailViewController()
+            vc.hidesBottomBarWhenPushed = true
             vc.viewModel.inputFromSearch.value = viewModel.outputResult.value[indexPath.item]
             
             transitionScreen(vc: vc, style: .push)
@@ -163,7 +165,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
 extension PhotoSearchViewController: UICollectionViewDelegateFlowLayout {
     private func imageCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let width = (UIScreen.main.bounds.width - 27) / 2
+        let width = (UIScreen.main.bounds.width - 11) / 2
         layout.itemSize = CGSize(width: width, height: width * 1.3)
         layout.minimumLineSpacing = 3
         layout.minimumInteritemSpacing = 3
@@ -198,7 +200,12 @@ extension PhotoSearchViewController: UICollectionViewDataSourcePrefetching {
 extension PhotoSearchViewController {
 
     @objc func likeButtonClicked(_ sender: UIButton) {
-        viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
+        let data = viewModel.outputResult.value[sender.tag]
+        viewModel.inputLike.value = data
+        
+        downloadImage(from: data.urls.small) { value in
+            self.saveImageToDocument(image: value!, filename: data.id)
+        }
         
         UIView.performWithoutAnimation {
             imageCollectionView.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])

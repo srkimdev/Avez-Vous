@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class LikeCheckViewModel {
+final class LikeCheckViewModel {
     
     var inputLike: Observable<DBTable?> = Observable(nil)
     var inputColor: Observable<SearchColor> = Observable(.black)

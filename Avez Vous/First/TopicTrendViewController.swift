@@ -146,15 +146,4 @@ extension TopicTrendViewController {
         }
     }
     
-    private func profileImageButton(number: Int) -> UIButton {
-        let button = UIButton()
-        button.setImage(UIImage(named: "profile_\(number)"), for: .normal)
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 3
-        button.layer.borderColor = CustomDesign.Colors.Blue.cgColor
-        button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(profileButtonClicked), for: .touchUpInside)
-        return button
-    }
-    
 }

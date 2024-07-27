@@ -21,7 +21,6 @@ final class TopicTrendViewModel {
             self?.outputTableView.value = []
             
             let randomTopic = Topic.randomCases()
-            print(randomTopic)
             
             for item in randomTopic {
                 self?.fetchData(topicID: item.rawValue) { value in
