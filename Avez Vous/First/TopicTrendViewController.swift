@@ -120,8 +120,13 @@ extension TopicTrendViewController: UICollectionViewDelegate, UICollectionViewDa
 extension TopicTrendViewController {
     
     @objc func profileButtonClicked() {
-        print(#function)
-        transitionScreen(vc: ProfileSettingViewController(), style: .push)
+        let vc = ProfileSettingViewController()
+        
+        vc.selectedClosure = { [weak self] value in
+            self?.rightBarButton.setImage(UIImage(named: "profile_\(UserInfo.shared.profileNumber)"), for: .normal)
+        }
+        
+        transitionScreen(vc: vc, style: .push)
     }
     
     private func bindData() {
@@ -134,7 +139,6 @@ extension TopicTrendViewController {
     private func profileImageButton(number: Int) -> UIButton {
         let button = UIButton()
         button.setImage(UIImage(named: "profile_\(number)"), for: .normal)
-//        button.imageView?.contentMode = .scaleAspectFill
         button.layer.cornerRadius = 20
         button.layer.borderWidth = 3
         button.layer.borderColor = CustomDesign.Colors.Blue.cgColor

@@ -24,6 +24,7 @@ final class ProfileSettingViewController: BaseViewController {
     lazy var buttonCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     let viewModel = ProfileSettingViewModel()
+    var selectedClosure: ((Int) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,7 +135,7 @@ final class ProfileSettingViewController: BaseViewController {
             let item = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
             navigationItem.rightBarButtonItem = item
             
-            statusLabel.text = UserInfo.shared.userName
+            nicknameTextField.text = UserInfo.shared.userName
             clearButton.isHidden = true
             quitButton.isHidden = false
             
@@ -204,15 +205,14 @@ extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionVi
         
         cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
         
-        // for showing current mbti in EDIT PROFILE
-        
-        
+        if viewModel.outputMBTISetting.value {
+            cell.designEditCell(transition: indexPath.item, mbtiArray: viewModel.mbtiArray)
+        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(#function)
         viewModel.inputSelectedMBTI.value = indexPath.item
     }
     
@@ -264,7 +264,12 @@ extension ProfileSettingViewController {
     }
     
     @objc func saveButtonClicked() {
-        print(#function)
+        UserInfo.shared.userName = viewModel.inputText.value!
+        UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
+        UserInfo.shared.MBTI = viewModel.mbtiArray
+        selectedClosure?(UserInfo.shared.profileNumber)
+        
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func quitButtonClicked() {
@@ -294,9 +299,7 @@ extension ProfileSettingViewController {
         
         viewModel.outputSelectedMBTI.bind { [weak self] value in
             guard let value else { return }
-            
-            print(value)
-            
+
             UIView.performWithoutAnimation {
                 self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value, section: 0)])
                 self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])

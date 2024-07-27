@@ -22,9 +22,9 @@ final class ProfileSettingViewModel {
     
     var currentAllow: Observable<Void?> = Observable(nil)
     
-    var mbtiArray: [Int] = [-1, -1, -1, -1]
     var nicknameAllow: Bool = false
     var mbtiAllow: Bool = false
+    var mbtiArray: [Int] = [-1, -1, -1, -1]
     
     init() {
         showRandomImage.bind { value in
@@ -52,6 +52,8 @@ final class ProfileSettingViewModel {
             guard let value else { return }
             self.outputMBTISetting.value = true
         }
+        
+        mbtiSetting()
     }
     
     private func randomImage() {
@@ -107,6 +109,14 @@ final class ProfileSettingViewModel {
             mbtiAllow = true
         }
         currentAllow.value = ()
+    }
+    
+    private func mbtiSetting() {
+        if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
+            mbtiArray = UserInfo.shared.MBTI
+        } else {
+            mbtiArray = [-1, -1, -1, -1]
+        }
     }
     
 }
