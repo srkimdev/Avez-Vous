@@ -15,6 +15,7 @@ final class TopicTrendViewController: BaseViewController {
     let titleLabel = UILabel()
     
     let topicTableView = UITableView()
+    let refreshControl = UIRefreshControl()
     
     let viewModel = TopicTrendViewModel()
     
@@ -25,8 +26,9 @@ final class TopicTrendViewController: BaseViewController {
         topicTableView.dataSource = self
         topicTableView.register(TopicTrendTableViewCell.self, forCellReuseIdentifier: TopicTrendTableViewCell.identifier)
         topicTableView.rowHeight = 250
+        topicTableView.refreshControl = refreshControl
         
-//        viewModel.inputAPIRequest.value = ()
+        viewModel.inputAPIRequest.value = ()
         bindData()
     }
     
@@ -75,6 +77,7 @@ final class TopicTrendViewController: BaseViewController {
     
     override func configureAction() {
         rightBarButton.addTarget(self, action: #selector(profileButtonClicked), for: .touchUpInside)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
 
 }
@@ -94,7 +97,7 @@ extension TopicTrendViewController: UITableViewDataSource, UITableViewDelegate {
         cell.imageCollectionView.register(TopicTrendCollectionViewCell.self, forCellWithReuseIdentifier: TopicTrendCollectionViewCell.identifier)
         cell.imageCollectionView.reloadData()
         
-        cell.designCell(transition: viewModel.randomTopic[indexPath.row].description)
+        cell.designCell(transition: viewModel.randomTopics![indexPath.row].description)
         
         return cell
     }
@@ -129,6 +132,13 @@ extension TopicTrendViewController {
         transitionScreen(vc: vc, style: .push)
     }
     
+    @objc func refreshData() {
+        self.viewModel.inputAPIRequest.value = ()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.refreshControl.endRefreshing()
+        }
+    }
+
     private func bindData() {
         viewModel.outputTableView.bind { [weak self] value in
             guard value.count == 3 else { return }

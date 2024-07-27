@@ -12,13 +12,16 @@ final class TopicTrendViewModel {
     var inputAPIRequest: Observable<Void?> = Observable(nil)
     var outputTableView: Observable<[[Photos]]> = Observable([])
     
-    let randomTopic = Topic.randomCases()
     var list: [[Photos]] = []
+    var randomTopics: [Topic]?
     
     init() {
         inputAPIRequest.bind { [weak self] value in
             guard let value else { return }
-            guard let randomTopic = self?.randomTopic else { return }
+            self?.outputTableView.value = []
+            
+            let randomTopic = Topic.randomCases()
+            print(randomTopic)
             
             for item in randomTopic {
                 self?.fetchData(topicID: item.rawValue) { value in
@@ -26,6 +29,8 @@ final class TopicTrendViewModel {
                     self?.outputTableView.value.append(value)
                 }
             }
+            
+            self?.randomTopics = randomTopic
         }
     }
     
