@@ -28,7 +28,7 @@ final class TopicTrendViewController: BaseViewController {
         topicTableView.rowHeight = 250
         topicTableView.refreshControl = refreshControl
         
-        viewModel.inputAPIRequest.value = ()
+//        viewModel.inputAPIRequest.value = ()
         bindData()
     }
     
@@ -152,5 +152,6 @@ extension TopicTrendViewController {
             self?.topicTableView.reloadData()
         }
     }
+    
     
 }

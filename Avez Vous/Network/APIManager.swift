@@ -16,25 +16,22 @@ final class APIManager {
     
     func callRequest<T: Decodable>(router: RouterPattern, responseType: T.Type, completionHandler: @escaping (Result<T, APIError>) -> Void) {
         
-        print(router.endpoint)
-        AF.request(router.endpoint, method: router.method).responseDecodable(of: responseType) { response in
+        print(router)
+        
+        AF.request(router.endpoint,
+                   method: router.method,
+                   parameters: router.parameter,
+                   headers: router.header
+        ).responseDecodable(of: responseType) { response in
             switch response.result {
                 
             case .success(let value):
                 completionHandler(.success(value))
                 
-            case .failure(let error):
-                print(error)
-//                if let data = response.data,
-//                   let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-//                   let errorCode = json["errorCode"] as? String {
-//                    let apiError = APIError.from(errorCode: errorCode)
-//                    completionHandler(.failure(apiError))
-//                } else {
-//                    let statusCode = response.response?.statusCode ?? -1
-//                    let apiError = APIError.from(errorCode: "statusCode: \(statusCode)")
-//                    completionHandler(.failure(apiError))
-//                }
+            case .failure:
+                let statusCode: Int = response.response?.statusCode ?? 0
+                let error = APIError.from(statusCode: statusCode)
+                print("error: \(error.description)")
             }
         }
     }

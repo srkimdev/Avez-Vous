@@ -55,7 +55,7 @@ final class PhotoSearchColorCollectionViewCell: BaseCollectionViewCell {
         
     }
     
-    func designCell(transition: SearchColor, selectedCell: SearchColor) {
+    func designCell(transition: SearchColor, selectedCell: SearchColor?) {
         colorLabel.text = transition.rawValue
         colorImage.backgroundColor = transition.color
         

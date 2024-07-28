@@ -10,7 +10,7 @@ import Foundation
 final class PhotoSearchViewModel {
     
     var inputText: Observable<String?> = Observable(nil)
-    var inputColor: Observable<SearchColor> = Observable(.black)
+    var inputColor: Observable<SearchColor?> = Observable(nil)
     var inputArrayButton: Observable<Void?> = Observable(nil)
     var inputPage: Observable<Void?> = Observable(nil)
     var inputLike: Observable<Photos?> = Observable(nil)
@@ -41,7 +41,7 @@ final class PhotoSearchViewModel {
         }
         
         inputColor.bind { [weak self] value in
-//            guard let value else { return }
+            guard let value else { return }
             self?.colorFetchData(color: value)
         }
         
@@ -56,6 +56,7 @@ final class PhotoSearchViewModel {
     
     private func fetchData(keyword: String) {
         start = 1
+        
         let router = RouterPattern.search(keyword: keyword, page: start, order: outputArrayButton.value, color: inputColor.value)
         
         APIManager.shared.callRequest(router: router, responseType: PhotoTotal.self) { [weak self] response in

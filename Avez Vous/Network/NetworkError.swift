@@ -10,37 +10,49 @@ import Alamofire
 
 enum APIError: Error {
     
-//    case incorrectQueryRequest = "SE01"
-//    case invalidDisplayValue = "SE02"
-//    case invalidStartValue = "SE03"
-//    case invalidSortValue = "SE04"
-//    case malformedEncoding = "SE06"
-//    case invalidSearchAPI = "SE05"
-//    case systemError = "SE99"
-//    case unknown
-//    
-//    var description: String {
-//        switch self {
-//        case .incorrectQueryRequest:
-//            return "Incorrect query request."
-//        case .invalidDisplayValue:
-//            return "Invalid display value."
-//        case .invalidStartValue:
-//            return "Invalid start value."
-//        case .invalidSortValue:
-//            return "Invalid sort value."
-//        case .malformedEncoding:
-//            return "Malformed encoding."
-//        case .invalidSearchAPI:
-//            return "Invalid search API"
-//        case .systemError:
-//            return "System error"
-//        default:
-//            return "unknown error"
-//        }
-//    }
+    case ok
+    case badRequest
+    case unauthorized
+    case forbidden
+    case notFound
+    case serverError
+    case unknown
     
-//    static func from(errorCode: String) -> APIError {
-//        return APIError(rawValue: errorCode) ?? .unknown
-//    }
+    var description: String {
+        switch self {
+        case .ok:
+            return "Everything worked as expected."
+        case .badRequest:
+            return "The request was unacceptable, often due to missing a required parameter."
+        case .unauthorized:
+            return "Invalid Access Token."
+        case .forbidden:
+            return "Missing permissions to perform request."
+        case .notFound:
+            return "The requested resource doesn’t exist."
+        case .serverError:
+            return "Something went wrong on our end."
+        default:
+            return "An unknown error occurred."
+        }
+    }
+    
+    static func from(statusCode: Int) -> APIError {
+        switch statusCode {
+        case 200:
+            return .ok
+        case 400:
+            return .badRequest
+        case 401:
+            return .unauthorized
+        case 403:
+            return .forbidden
+        case 404:
+            return .notFound
+        case 500, 503:
+            return .serverError
+        default:
+            return .unknown
+        }
+    }
 }

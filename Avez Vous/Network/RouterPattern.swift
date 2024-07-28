@@ -11,28 +11,48 @@ import Alamofire
 enum RouterPattern {
     
     case topic(topicID: String)
-    case search(keyword: String, page: Int, order: SearchOrder, color: SearchColor)
+    case search(keyword: String, page: Int, order: SearchOrder, color: SearchColor?)
     case statistics(imageID: String)
     
     var baseURL: String {
         return "https://api.unsplash.com/"
     }
     
-    var baseKey: String {
-        return "client_id=\(APIKey.Id)"
+    var header: HTTPHeaders {
+        return ["Authorization": APIKey.Id]
     }
     
-    var endpoint: URL {
+    var endpoint: String {
         switch self {
         case .topic(let topicID):
-            return URL(string: baseURL + "topics/\(topicID)/photos?page=1&" + baseKey)!
+            return baseURL + "topics/\(topicID)/photos?page=1"
         case .search(let keyword, let page, let order, let color):
-            return URL(string: baseURL + "search/photos?query=\(keyword)&page=\(page)&per_page=20&order_by=\(order.rawValue)&color=\(color.rawValue)&" + baseKey)!
+            return baseURL + "search/photos"
         case .statistics(let imageID):
-            return URL(string: baseURL + "photos/\(imageID)/statistics?&" + baseKey)!
+            return baseURL + "photos/\(imageID)/statistics?"
         }
     }
     
+    var parameter: Parameters? {
+        switch self {
+        case .topic(let topicID):
+            return nil
+        case .search(let keyword, let page, let order_by, let color):
+            var parameters: Parameters = [
+                "query": keyword,
+                "page": page,
+                "per_page": 20,
+                "order_by": order_by.rawValue
+            ]
+            if let color = color {
+                parameters["color"] = color.rawValue
+            }
+            return parameters
+        case .statistics(let imageID):
+            return nil
+        }
+    }
+
     var method: HTTPMethod {
         return .get
     }
