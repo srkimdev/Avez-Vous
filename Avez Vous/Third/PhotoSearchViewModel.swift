@@ -143,10 +143,15 @@ final class PhotoSearchViewModel {
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.createItem(task)
             
+            FilesManager.shared.downloadImage(from: data.urls.small) { value in
+                FilesManager.shared.saveImageToDocument(image: value!, filename: data.id)
+            }
+            
         } else {
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.deleteItem(id: data.id)
             
+            FilesManager.shared.removeImageFromDocument(filename: data.id)
         }
     }
     

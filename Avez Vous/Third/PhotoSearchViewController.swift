@@ -107,12 +107,20 @@ final class PhotoSearchViewController: BaseViewController {
 
 extension PhotoSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if !NetworkManager.shared.isNetworkAvailable() {
+            view.endEditing(true)
+            NetworkManager.shared.showToast(message: "인터넷에 연결되지 않았습니다.\n연결 확인 후 다시 시도해 주세요.")
+            return
+        }
+        
         guard let text = searchBar.text, !text.contains(" ") else {
             searchStatusLabel.text = "사진을 검색해보세요."
             imageCollectionView.isHidden = true
             return
         }
         viewModel.inputText.value = text
+        view.endEditing(true)
     }
 }
 
@@ -203,9 +211,6 @@ extension PhotoSearchViewController {
         let data = viewModel.outputResult.value[sender.tag]
         viewModel.inputLike.value = data
         
-        downloadImage(from: data.urls.small) { value in
-            self.saveImageToDocument(image: value!, filename: data.id)
-        }
         
         UIView.performWithoutAnimation {
             imageCollectionView.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])

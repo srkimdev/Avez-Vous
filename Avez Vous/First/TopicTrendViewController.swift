@@ -133,6 +133,13 @@ extension TopicTrendViewController {
     }
     
     @objc func refreshData() {
+        
+        if !NetworkManager.shared.isNetworkAvailable() {
+            NetworkManager.shared.showToast(message: "인터넷에 연결되지 않았습니다.\n연결 확인 후 다시 시도해 주세요.")
+            refreshControl.endRefreshing()
+            return
+        }
+        
         self.viewModel.inputAPIRequest.value = ()
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.refreshControl.endRefreshing()

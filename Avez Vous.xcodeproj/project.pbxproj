@@ -20,6 +20,7 @@
 		DC2729762C5504A700E2815F /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2729752C5504A700E2815F /* UserDefaultsManager.swift */; };
 		DC27297B2C5548FE00E2815F /* TopicsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27297A2C5548FE00E2815F /* TopicsPhoto.swift */; };
 		DC27297D2C55519200E2815F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27297C2C55519200E2815F /* FileManager.swift */; };
+		DC27297F2C56128A00E2815F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27297E2C56128A00E2815F /* NetworkManager.swift */; };
 		DC2E51F12C4FB6460099CB0E /* ProfileSelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */; };
 		DC2E51F32C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */; };
 		DC2E51F52C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */; };
@@ -98,6 +99,7 @@
 		DC2729752C5504A700E2815F /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		DC27297A2C5548FE00E2815F /* TopicsPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsPhoto.swift; sourceTree = "<group>"; };
 		DC27297C2C55519200E2815F /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		DC27297E2C56128A00E2815F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DC2E51F02C4FB6460099CB0E /* ProfileSelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewController.swift; sourceTree = "<group>"; };
 		DC2E51F22C4FB7FE0099CB0E /* ProfileSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC2E51F42C4FBEEC0099CB0E /* ProfileSelectingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectingViewModel.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			children = (
 				DC97117E2C50CB26001DCC8F /* APIManager.swift */,
 				DC9711802C50CBC8001DCC8F /* RouterPattern.swift */,
+				DC27297E2C56128A00E2815F /* NetworkManager.swift */,
 				DC9711842C50D59F001DCC8F /* NetworkError.swift */,
 				DC9711822C50D108001DCC8F /* DummyData.swift */,
 			);
@@ -474,6 +477,7 @@
 				DC2729742C53B6FC00E2815F /* DateFormatterManager.swift in Sources */,
 				DC4A74B72C4E259E001C9208 /* APIKey.swift in Sources */,
 				DC2E51FE2C4FC6530099CB0E /* TopicTrendViewController.swift in Sources */,
+				DC27297F2C56128A00E2815F /* NetworkManager.swift in Sources */,
 				DC2729612C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift in Sources */,
 				DC9711832C50D108001DCC8F /* DummyData.swift in Sources */,
 				DC4A74C92C4E29B9001C9208 /* OnBoardingView.swift in Sources */,

@@ -23,7 +23,6 @@ final class LikeCheckViewController: BaseViewController {
         
         likeCollectionView.delegate = self
         likeCollectionView.dataSource = self
-        likeCollectionView.prefetchDataSource = self
         likeCollectionView.register(LikeCheckCollectionViewCell.self, forCellWithReuseIdentifier: LikeCheckCollectionViewCell.identifier)
         
         colorCollectionView.delegate = self
@@ -63,7 +62,7 @@ final class LikeCheckViewController: BaseViewController {
         
         likeCollectionView.snp.makeConstraints { make in
             make.top.equalTo(colorCollectionView.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(4)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -113,7 +112,7 @@ extension LikeCheckViewController: UICollectionViewDelegate, UICollectionViewDat
             
             cell.likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
             cell.likeButton.tag = indexPath.item
-            cell.designCell(transition: viewModel.outputResult.value[indexPath.item])
+            cell.designCell(transition: viewModel.outputImageFiles.value[indexPath.item])
             
             return cell
         } else {
@@ -144,7 +143,7 @@ extension LikeCheckViewController: UICollectionViewDelegate, UICollectionViewDat
 extension LikeCheckViewController: UICollectionViewDelegateFlowLayout {
     private func likeCheckCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let width = (UIScreen.main.bounds.width - 27) / 2
+        let width = (UIScreen.main.bounds.width - 11) / 2
         layout.itemSize = CGSize(width: width, height: width * 1.3)
         layout.minimumLineSpacing = 3
         layout.minimumInteritemSpacing = 3
@@ -164,26 +163,10 @@ extension LikeCheckViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension LikeCheckViewController: UICollectionViewDataSourcePrefetching {
-    
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for item in indexPaths {
-            if viewModel.outputResult.value.count - 4 == item.row {
-//                viewModel.inputPage.value = ()
-            }
-        }
-    }
-    
-}
-
 extension LikeCheckViewController {
 
     @objc func likeButtonClicked(_ sender: UIButton) {
-        print(#function)
-        
-        
         viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
-        
         likeCollectionView.reloadData()
     }
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 final class LikeCheckViewModel {
     
@@ -15,13 +16,21 @@ final class LikeCheckViewModel {
     var showLikeList: Observable<Void?> = Observable(nil)
     
     var outputResult: Observable<[DBTable]> = Observable([])
+    var outputImageFiles: Observable<[UIImage]> = Observable([])
     
     let realmrepository = RealmRepository()
     var realmToDummy: DBTable?
     
     init() {
-        showLikeList.bind { [weak self] _ in
-            self?.outputResult.value = self?.realmrepository.readAllItem() ?? []
+        showLikeList.bind { _ in
+            let data = self.realmrepository.readAllItem()
+            self.outputResult.value = data
+            
+            var uiImageData: [UIImage] = []
+            for item in data {
+                uiImageData.append(FilesManager.shared.loadImageToDocument(filename: item.id)!)
+            }
+            self.outputImageFiles.value = uiImageData
         }
         
         inputLike.bind { [weak self] value in
@@ -33,7 +42,9 @@ final class LikeCheckViewModel {
     
     private func likeCheck(data: DBTable) {
         UserInfo.shared.setLikeProduct(isLike: false, forkey: data.id)
+        FilesManager.shared.removeImageFromDocument(filename: data.id)
         realmrepository.deleteItem(id: data.id)
+        
         showLikeList.value = ()
         NotificationCenter.default.post(name: NSNotification.Name("update"), object: nil, userInfo: nil)
     }
