@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Toast
 
 final class TopicTrendViewController: BaseViewController {
     
@@ -29,6 +30,8 @@ final class TopicTrendViewController: BaseViewController {
         topicTableView.refreshControl = refreshControl
         
 //        viewModel.inputAPIRequest.value = ()
+        view.makeToastActivity(.center)
+        
         bindData()
     }
     
@@ -118,6 +121,14 @@ extension TopicTrendViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        vc.hidesBottomBarWhenPushed = true
+        vc.viewModel.inputFromSearch.value = viewModel.outputTableView.value[collectionView.tag][indexPath.item]
+        
+        transitionScreen(vc: vc, style: .push)
+    }
+    
 }
 
 extension TopicTrendViewController {
@@ -150,6 +161,7 @@ extension TopicTrendViewController {
         viewModel.outputTableView.bind { [weak self] value in
             guard value.count == 3 else { return }
             self?.topicTableView.reloadData()
+            self?.view.hideToastActivity()
         }
     }
     

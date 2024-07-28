@@ -66,28 +66,29 @@ final class ProfileSettingViewModel {
         guard let inputText = inputText.value else { return }
         
         if inputText.count < 2 || inputText.count >= 10 {
+            nicknameAllow = false
             outputText.value = validationError.isNotLength.rawValue
-            nicknameAllow = false
         } else if inputText.contains("@") {
+            nicknameAllow = false
             outputText.value = validationError.isNotAt.rawValue
-            nicknameAllow = false
         } else if inputText.contains("#") {
+            nicknameAllow = false
             outputText.value = validationError.isNotHash.rawValue
-            nicknameAllow = false
         } else if inputText.contains("$") {
+            nicknameAllow = false
             outputText.value = validationError.isNotDollar.rawValue
-            nicknameAllow = false
         } else if inputText.contains("%") {
+            nicknameAllow = false
             outputText.value = validationError.isNotPercent.rawValue
-            nicknameAllow = false
         } else if isDigit(input: inputText) {
-            outputText.value = validationError.isNotNumber.rawValue
             nicknameAllow = false
+            outputText.value = validationError.isNotNumber.rawValue
         } else if inputText.contains(" ") {
+            nicknameAllow = false
             outputText.value = validationError.isNotSpace.rawValue
         } else {
-            outputText.value = "사용할 수 있는 닉네임이에요"
             nicknameAllow = true
+            outputText.value = "사용할 수 있는 닉네임이에요"
         }
         currentAllow.value = ()
     }

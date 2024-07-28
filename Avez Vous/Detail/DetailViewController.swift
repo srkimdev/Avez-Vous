@@ -137,7 +137,6 @@ final class DetailViewController: BaseViewController {
         
         profileView.backgroundColor = .systemGray5
         
-        writerImage.backgroundColor = .lightGray
         writerImage.layer.masksToBounds = true
         writerImage.layer.cornerRadius = 15
     

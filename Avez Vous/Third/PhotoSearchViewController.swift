@@ -211,7 +211,6 @@ extension PhotoSearchViewController {
         let data = viewModel.outputResult.value[sender.tag]
         viewModel.inputLike.value = data
         
-        
         UIView.performWithoutAnimation {
             imageCollectionView.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
         }

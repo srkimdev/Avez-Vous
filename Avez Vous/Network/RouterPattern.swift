@@ -11,6 +11,7 @@ import Alamofire
 enum RouterPattern {
     
     case topic(topicID: String)
+    case random
     case search(keyword: String, page: Int, order: SearchOrder, color: SearchColor?)
     case statistics(imageID: String)
     
@@ -26,7 +27,9 @@ enum RouterPattern {
         switch self {
         case .topic(let topicID):
             return baseURL + "topics/\(topicID)/photos?page=1"
-        case .search(let keyword, let page, let order, let color):
+        case .random:
+            return baseURL + "photos/random?count=10"
+        case .search:
             return baseURL + "search/photos"
         case .statistics(let imageID):
             return baseURL + "photos/\(imageID)/statistics?"
@@ -35,7 +38,9 @@ enum RouterPattern {
     
     var parameter: Parameters? {
         switch self {
-        case .topic(let topicID):
+        case .topic:
+            return nil
+        case .random:
             return nil
         case .search(let keyword, let page, let order_by, let color):
             var parameters: Parameters = [
@@ -48,7 +53,7 @@ enum RouterPattern {
                 parameters["color"] = color.rawValue
             }
             return parameters
-        case .statistics(let imageID):
+        case .statistics:
             return nil
         }
     }

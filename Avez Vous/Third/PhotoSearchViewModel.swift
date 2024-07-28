@@ -18,7 +18,7 @@ final class PhotoSearchViewModel {
     var outputArrayButton: Observable<SearchOrder> = Observable(.relevant)
     var outputResult: Observable<[Photos]> = Observable([])
     var outputScrollToTop: Observable<Void?> = Observable(nil)
-    var outputLike: Observable<Bool> = Observable(false)
+//    var outputLike: Observable<Bool> = Observable(false)
     
     var arrayButtonStatus: Bool = false
     var start = 1

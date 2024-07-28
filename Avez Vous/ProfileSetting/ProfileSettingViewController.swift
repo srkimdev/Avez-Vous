@@ -120,7 +120,7 @@ final class ProfileSettingViewController: BaseViewController {
         quitButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.size.equalTo(100)
+            make.width.equalTo(100)
         }
         
         // clearButton issue
@@ -256,6 +256,7 @@ extension ProfileSettingViewController {
         let vc = ProfileSelectingViewController()
         vc.viewModel.inputSelectedImage.value = viewModel.outputImageNumber.value
         
+        // update profile image when you edit profile image
         vc.selectedClosure = { [weak self] value in
             self?.viewModel.outputImageNumber.value = value
         }
@@ -264,6 +265,8 @@ extension ProfileSettingViewController {
     }
     
     @objc func saveButtonClicked() {
+        
+        // save userInfo
         UserInfo.shared.userName = viewModel.inputText.value!
         UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
         UserInfo.shared.MBTI = viewModel.mbtiArray
@@ -289,8 +292,8 @@ extension ProfileSettingViewController {
         viewModel.outputText.bind { [weak self] value in
             guard let self else { return }
             self.statusLabel.text = value
-//            print("here")
-//            self.statusLabel.textColor = self.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
+
+            self.statusLabel.textColor = self.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
         }
         
         viewModel.outputAllow.bind { [weak self] value in

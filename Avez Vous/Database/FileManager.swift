@@ -62,7 +62,7 @@ final class FilesManager {
         if FileManager.default.fileExists(atPath: filePath) {
             return UIImage(contentsOfFile: filePath)
         } else {
-            return UIImage(systemName: "star.fill")
+            return CustomDesign.Images.placeholderImage
         }
     
     }

@@ -62,9 +62,16 @@ final class DetailViewModel {
             let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium, storeTime: Date())
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.createItem(task)
+            
+            FilesManager.shared.downloadImage(from: data.urls.small) { value in
+                FilesManager.shared.saveImageToDocument(image: value!, filename: data.id)
+            }
+            
         } else {
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.deleteItem(id: data.id)
+            
+            FilesManager.shared.removeImageFromDocument(filename: data.id)
         }
         
         outputLike.value = like
