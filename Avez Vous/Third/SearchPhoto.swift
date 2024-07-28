@@ -10,6 +10,7 @@ import UIKit
 enum SearchOrder: String {
     case latest
     case relevant
+    case past
     
     var title: String {
         switch self {
@@ -17,6 +18,8 @@ enum SearchOrder: String {
             return "최신순"
         case .relevant:
             return "관련순"
+        case .past:
+            return "과거순"
         }
     }
 }

@@ -51,6 +51,7 @@ enum CustomDesign {
         static let profileSetting: String = "PROFILE SETTING"
         static let profileSelecting: String = "EDIT PROFILE"
         static let searchPhoto: String = "SEARCH PHOTO"
+        static let likestore: String = "MY POLAROID"
     }
     
 }

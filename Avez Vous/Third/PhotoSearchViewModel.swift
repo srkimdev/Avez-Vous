@@ -22,26 +22,36 @@ final class PhotoSearchViewModel {
     
     var arrayButtonStatus: Bool = false
     var start = 1
+    var previousSearch: String = ""
+    var previousColor: SearchColor = .black
     let realmrepository = RealmRepository()
     
     init() {
         inputText.bind { [weak self] value in
+            if self?.previousSearch == value {
+                print("no need to communicate")
+                return
+            }
             guard let value else { return }
+            
+            self?.previousSearch = value
             self?.fetchData(keyword: value)
         }
         
         inputArrayButton.bind { [weak self] value in
             guard let value else { return }
+            
             self?.arrayButtonReversed()
         }
         
-        inputPage.bind { [weak self] value in
-            guard let value else { return }
-            self?.loadMoreData()
-        }
-        
         inputColor.bind { [weak self] value in
+            if self?.previousColor == value {
+                print("no need to communicate")
+                return
+            }
             guard let value else { return }
+            
+            self?.previousColor = value
             self?.colorFetchData(color: value)
         }
         
@@ -50,13 +60,18 @@ final class PhotoSearchViewModel {
             self?.likeCheck(data: value)
         }
         
+        inputPage.bind { [weak self] value in
+            guard let value else { return }
+            self?.loadMoreData()
+        }
+        
         realmrepository.detectRealmURL()
         
     }
     
     private func fetchData(keyword: String) {
         start = 1
-        
+
         let router = RouterPattern.search(keyword: keyword, page: start, order: outputArrayButton.value, color: inputColor.value)
         
         APIManager.shared.callRequest(router: router, responseType: PhotoTotal.self) { [weak self] response in
@@ -140,7 +155,7 @@ final class PhotoSearchViewModel {
         like.toggle()
         
         if like {
-            let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium)
+            let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium, storeTime: Date())
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.createItem(task)
             

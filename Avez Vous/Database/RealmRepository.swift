@@ -23,8 +23,13 @@ final class RealmRepository {
         }
     }
 
-    func readAllItem() -> [DBTable] {
-        let list = realm.objects(DBTable.self)
+    func readAllItemASC() -> [DBTable] {
+        let list = realm.objects(DBTable.self).sorted(byKeyPath: "storeTime", ascending: true)
+        return Array(list)
+    }
+    
+    func readAllItemDESC() -> [DBTable] {
+        let list = realm.objects(DBTable.self).sorted(byKeyPath: "storeTime", ascending: false)
         return Array(list)
     }
     

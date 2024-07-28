@@ -18,8 +18,9 @@ class DBTable: Object {
     @Persisted var likes: Int
     @Persisted var writerName: String
     @Persisted var writerImage: String
+    @Persisted var storeTime: Date
     
-    convenience init(id: String, created_at: String, width: Int, height: Int, urls: String, likes: Int, writerName: String, writerImage: String) {
+    convenience init(id: String, created_at: String, width: Int, height: Int, urls: String, likes: Int, writerName: String, writerImage: String, storeTime: Date) {
         self.init()
         self.id = id
         self.created_at = created_at
@@ -29,6 +30,7 @@ class DBTable: Object {
         self.likes = likes
         self.writerName = writerName
         self.writerImage = writerImage
+        self.storeTime = storeTime
     }
     
 }

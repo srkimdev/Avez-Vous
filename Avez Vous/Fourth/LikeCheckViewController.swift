@@ -73,12 +73,12 @@ final class LikeCheckViewController: BaseViewController {
     }
     
     override func configureUI() {
-        navigationItem.title = "MY POLAROID"
+        navigationItem.title = CustomDesign.navigationTitle.likestore
         
-        arrayButton.setTitle("관련순", for: .normal)
+        arrayButton.setTitle("최신순", for: .normal)
         arrayButton.setTitleColor(.black, for: .normal)
         arrayButton.titleLabel?.font = .systemFont(ofSize: 15)
-        arrayButton.setImage(UIImage(named: "sort"), for: .normal)
+        arrayButton.setImage(CustomDesign.Images.sort, for: .normal)
         arrayButton.layer.masksToBounds = true
         arrayButton.layer.cornerRadius = 15
         arrayButton.layer.borderWidth = 1
@@ -115,6 +115,7 @@ extension LikeCheckViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.designCell(transition: viewModel.outputImageFiles.value[indexPath.item])
             
             return cell
+            
         } else {
             guard let cell = colorCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchColorCollectionViewCell.identifier, for: indexPath) as? PhotoSearchColorCollectionViewCell else { return UICollectionViewCell() }
             
@@ -171,7 +172,7 @@ extension LikeCheckViewController {
     }
     
     @objc func arrayButtonClicked() {
-//        viewModel.inputArrayButton.value = ()
+        viewModel.inputArrayButton.value = ()
     }
     
     private func bindData() {
@@ -186,10 +187,10 @@ extension LikeCheckViewController {
             }
         }
         
-//        viewModel.outputArrayButton.bind { [weak self] value in
-//            self?.arrayButton.setTitle(value.title, for: .normal)
-//        }
-//        
+        viewModel.outputArrayButton.bind { [weak self] value in
+            self?.arrayButton.setTitle(value.title, for: .normal)
+        }
+       
 //        viewModel.outputScrollToTop.bind { [weak self] value in
 //            guard let value else { return }
 //            self?.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)

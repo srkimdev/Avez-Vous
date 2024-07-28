@@ -38,6 +38,7 @@ final class DetailViewModel {
             guard let value else { return }
             self?.likeCheck(data: value)
         }
+        
     }
     
     private func fetchData(imageID: String) {
@@ -58,7 +59,7 @@ final class DetailViewModel {
         like.toggle()
         
         if like {
-            let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium)
+            let task = DBTable(id: data.id, created_at: data.created_at, width: data.width, height: data.height, urls: data.urls.small, likes: data.likes, writerName: data.user.name, writerImage: data.user.profile_image.medium, storeTime: Date())
             UserInfo.shared.setLikeProduct(isLike: like, forkey: data.id)
             realmrepository.createItem(task)
         } else {
@@ -70,7 +71,7 @@ final class DetailViewModel {
         NotificationCenter.default.post(name: NSNotification.Name("update"), object: nil, userInfo: nil)
     }
     
-    func toPhotos(data: DBTable) -> Photos {
+    private func toPhotos(data: DBTable) -> Photos {
         let urlSize = UrlSize(raw: data.urls, small: data.urls)
         let profileSize = ProfileSize(medium: data.writerImage)
         let writerInfo = WriterInfo(name: data.writerName, profile_image: profileSize)
