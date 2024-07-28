@@ -124,6 +124,11 @@ extension RandomPictureViewController {
             self?.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
         
+        viewModel.outputLike.bind { [weak self] value in
+            guard let value else { return }
+            self?.imageCollectionView.reloadData()
+        }
+        
     }
     
 }

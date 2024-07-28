@@ -14,7 +14,7 @@ final class RandomPictureViewModel {
     var inputLike: Observable<Photos?> = Observable(nil)
     
     var outputRandomImage: Observable<[Photos]> = Observable([])
-    var outputLike: Observable<Bool> = Observable(false)
+    var outputLike: Observable<Void?> = Observable(nil)
     var scrollToTop: Observable<Void?> = Observable(nil)
     
     let realmrepository = RealmRepository()
@@ -28,6 +28,7 @@ final class RandomPictureViewModel {
         
         inputLike.bind { [weak self] value in
             guard let value else { return }
+            
             self?.likeCheck(data: value)
         }
         
@@ -66,6 +67,8 @@ final class RandomPictureViewModel {
             
             FilesManager.shared.removeImageFromDocument(filename: data.id)
         }
+        
+        outputLike.value = ()
     }
     
 }

@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,15 +14,58 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImage" translatesAutoresizingMaskIntoConstraints="NO" id="M1g-6d-yTZ">
+                                <rect key="frame" x="40" y="224" width="313" height="340"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="340" id="i2l-UQ-A03"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김성률" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuK-LE-Fr1">
+                                <rect key="frame" x="0.0" y="564" width="393" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="u8F-N8-LUm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avez Vous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw9-Va-Rxu">
+                                <rect key="frame" x="0.0" y="139" width="393" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="g2f-Mk-w5h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                <color key="textColor" red="0.20784312490000001" green="0.42745098469999998" blue="0.91764706370000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="M1g-6d-yTZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="3re-fP-g5m"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DuK-LE-Fr1" secondAttribute="trailing" id="JYk-Cx-TLE"/>
+                            <constraint firstItem="M1g-6d-yTZ" firstAttribute="top" secondItem="Pw9-Va-Rxu" secondAttribute="bottom" constant="45" id="RYl-Xn-J4S"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="M1g-6d-yTZ" secondAttribute="trailing" constant="40" id="Wpt-HA-nZy"/>
+                            <constraint firstItem="Pw9-Va-Rxu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="ccb-la-JSl"/>
+                            <constraint firstItem="Pw9-Va-Rxu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ht6-j8-BHy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pw9-Va-Rxu" secondAttribute="trailing" id="kHt-kb-BST"/>
+                            <constraint firstItem="DuK-LE-Fr1" firstAttribute="top" secondItem="M1g-6d-yTZ" secondAttribute="bottom" id="rHY-rX-YBz"/>
+                            <constraint firstItem="DuK-LE-Fr1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zuB-lc-Ls3"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launchImage" width="335" height="374"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -88,9 +88,9 @@ final class RandomPictureCollectionViewCell: BaseCollectionViewCell {
         createLabel.text = "\(DateFormatterManager.shared.changeDate(transition.created_at)) 게시물"
         
         if UserInfo.shared.getLikeProduct(forkey: transition.id) {
-            likeButton.setImage(CustomDesign.Images.likeCircleActive, for: .normal)
+            likeButton.setImage(CustomDesign.Images.likeActive, for: .normal)
         } else {
-            likeButton.setImage(CustomDesign.Images.likeCircleInactive, for: .normal)
+            likeButton.setImage(CustomDesign.Images.likeInactive, for: .normal)
         }
     }
     
