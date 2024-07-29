@@ -68,18 +68,9 @@ final class ProfileSettingViewModel {
         if inputText.count < 2 || inputText.count >= 10 {
             nicknameAllow = false
             outputText.value = validationError.isNotLength.rawValue
-        } else if inputText.contains("@") {
+        } else if inputText.contains("@") || inputText.contains("#") || inputText.contains("$") || inputText.contains("%"){
             nicknameAllow = false
-            outputText.value = validationError.isNotAt.rawValue
-        } else if inputText.contains("#") {
-            nicknameAllow = false
-            outputText.value = validationError.isNotHash.rawValue
-        } else if inputText.contains("$") {
-            nicknameAllow = false
-            outputText.value = validationError.isNotDollar.rawValue
-        } else if inputText.contains("%") {
-            nicknameAllow = false
-            outputText.value = validationError.isNotPercent.rawValue
+            outputText.value = validationError.isNotSign.rawValue
         } else if isDigit(input: inputText) {
             nicknameAllow = false
             outputText.value = validationError.isNotNumber.rawValue
@@ -104,11 +95,7 @@ final class ProfileSettingViewModel {
     }
     
     private func mbtiValidation() {
-        if mbtiArray.contains(-1) {
-            mbtiAllow = false
-        } else {
-            mbtiAllow = true
-        }
+        mbtiAllow = mbtiArray.contains(-1) ? false : true
         currentAllow.value = ()
     }
     
@@ -122,10 +109,7 @@ final class ProfileSettingViewModel {
     
     enum validationError: String, Error {
         case isNotLength = "2글자 이상 10글자 미만으로 입력해주세요."
-        case isNotAt = "닉네임에 @는 포함할 수 없어요."
-        case isNotHash = "닉네임에 #는 포함할 수 없어요."
-        case isNotDollar = "닉네임에 $는 포함할 수 없어요."
-        case isNotPercent = "닉네임에 %는 포함할 수 없어요."
+        case isNotSign = "닉네임에 @, #, $, % 는 포함할 수 없어요."
         case isNotNumber = "닉네임에 숫자는 포함할 수 없어요."
         case isNotSpace = "닉네임에 공백은 포함할 수 없어요."
     }

@@ -11,6 +11,8 @@ import Kingfisher
 
 final class DetailViewController: BaseViewController {
     
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     let profileView = UIView()
     let writerImage = UIImageView()
     let writerName = UILabel()
@@ -35,32 +37,43 @@ final class DetailViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
-        view.addSubview(profileView)
-        view.addSubview(writerImage)
-        view.addSubview(writerName)
-        view.addSubview(createLabel)
-        view.addSubview(likeButton)
-        view.addSubview(photoImage)
-        view.addSubview(informationLabel)
-        view.addSubview(sizeLabel)
-        view.addSubview(sizeValue)
-        view.addSubview(seeLabel)
-        view.addSubview(seeValue)
-        view.addSubview(downloadLabel)
-        view.addSubview(downloadValue)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(profileView)
+        contentView.addSubview(writerImage)
+        contentView.addSubview(writerName)
+        contentView.addSubview(createLabel)
+        contentView.addSubview(likeButton)
+        contentView.addSubview(photoImage)
+        contentView.addSubview(informationLabel)
+        contentView.addSubview(sizeLabel)
+        contentView.addSubview(sizeValue)
+        contentView.addSubview(seeLabel)
+        contentView.addSubview(seeValue)
+        contentView.addSubview(downloadLabel)
+        contentView.addSubview(downloadValue)
     }
     
     override func configureLayout() {
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.width.equalTo(scrollView.snp.width)
+            make.verticalEdges.equalTo(scrollView)
+        }
+        
         profileView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(contentView.snp.top)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
             make.height.equalTo(58)
         }
         
         writerImage.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.top.equalTo(contentView.snp.top).offset(16)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
             make.size.equalTo(30)
         }
         
@@ -77,20 +90,22 @@ final class DetailViewController: BaseViewController {
         }
         
         likeButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.top.equalTo(contentView.snp.top).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).inset(16)
             make.size.equalTo(30)
         }
         
         photoImage.snp.makeConstraints { make in
             make.top.equalTo(writerImage.snp.bottom).offset(12)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(180)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
+            make.height.equalTo(
+                CGFloat(viewModel.outputDetailPhoto.value!.height) / CGFloat(viewModel.outputDetailPhoto.value!.width) * UIScreen.main.bounds.width
+            )
         }
         
         informationLabel.snp.makeConstraints { make in
             make.top.equalTo(photoImage.snp.bottom).offset(16)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
             make.height.equalTo(24)
         }
         
@@ -102,7 +117,7 @@ final class DetailViewController: BaseViewController {
         
         sizeValue.snp.makeConstraints { make in
             make.top.equalTo(photoImage.snp.bottom).offset(16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.trailing.equalTo(contentView.snp.trailing).inset(16)
             make.height.equalTo(24)
         }
         
@@ -114,7 +129,7 @@ final class DetailViewController: BaseViewController {
         
         seeValue.snp.makeConstraints { make in
             make.top.equalTo(sizeValue.snp.bottom).offset(12)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.trailing.equalTo(contentView.snp.trailing).inset(16)
             make.height.equalTo(24)
         }
         
@@ -126,8 +141,9 @@ final class DetailViewController: BaseViewController {
         
         downloadValue.snp.makeConstraints { make in
             make.top.equalTo(seeValue.snp.bottom).offset(12)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.trailing.equalTo(contentView.snp.trailing).inset(16)
             make.height.equalTo(24)
+            make.bottom.equalToSuperview()
         }
     }
     

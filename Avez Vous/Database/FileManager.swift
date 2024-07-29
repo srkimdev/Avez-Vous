@@ -94,16 +94,5 @@ final class FilesManager {
         }
     
     }
-
-    //if let image = photoImageView.image {
-    //    saveImageToDocument(image: image, filename: "\(data.id)") // id 값으로 파일 이름 설정
-    //}
-
-    //cell.thumbnailImageView.image = loadImageToDocument(filename: "\(data.id)")
-
-    //let data = list[indexPath.row] // -> 이렇게 하지 않았을 때의 이슈 (인덱스)
-    //removeImageFromDocument(filename: "\(data.id)")
-
-    
     
 }

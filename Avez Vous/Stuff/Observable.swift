@@ -27,7 +27,7 @@ final class Observable<T> {
     }
     
     deinit {
-        print(value)
+//        print(value)
     }
     
 }

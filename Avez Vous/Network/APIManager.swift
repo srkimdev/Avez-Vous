@@ -30,7 +30,7 @@ final class APIManager {
 
             case .failure:
                 let statusCode: Int = response.response?.statusCode ?? 0
-                let error = APIError.from(statusCode: statusCode)
+                let error = APIError.statusCodeCheck(statusCode: statusCode)
                 print("error: \(error.description)")
             }
         }

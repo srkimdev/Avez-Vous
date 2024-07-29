@@ -37,7 +37,7 @@ enum APIError: Error {
         }
     }
     
-    static func from(statusCode: Int) -> APIError {
+    static func statusCodeCheck(statusCode: Int) -> APIError {
         switch statusCode {
         case 200:
             return .ok
