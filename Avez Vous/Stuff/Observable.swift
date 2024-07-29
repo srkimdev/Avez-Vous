@@ -26,4 +26,8 @@ final class Observable<T> {
         self.closure = closure
     }
     
+    deinit {
+        print(value)
+    }
+    
 }

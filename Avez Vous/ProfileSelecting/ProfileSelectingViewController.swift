@@ -45,13 +45,13 @@ final class ProfileSelectingViewController: BaseViewController {
     override func configureLayout() {
         selectedImage.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view.self)
+            make.centerX.equalToSuperview()
             make.size.equalTo(100)
         }
         
         selectedImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view.self)
+            make.centerX.equalToSuperview()
             make.size.equalTo(100)
         }
         

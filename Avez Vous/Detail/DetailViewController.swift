@@ -147,16 +147,16 @@ final class DetailViewController: BaseViewController {
         
         createLabel.font = .systemFont(ofSize: 11, weight: .bold)
         
-        informationLabel.text = "정보"
+        informationLabel.text = CustomDesign.Name.information
         informationLabel.font = .systemFont(ofSize: 18, weight: .heavy)
         
-        sizeLabel.text = "크기"
+        sizeLabel.text = CustomDesign.Name.size
         sizeLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-        seeLabel.text = "조회수"
+        seeLabel.text = CustomDesign.Name.seeCount
         seeLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-        downloadLabel.text = "다운로드"
+        downloadLabel.text = CustomDesign.Name.download
         downloadLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
     }

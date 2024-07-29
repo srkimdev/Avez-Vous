@@ -11,7 +11,7 @@ import SnapKit
 final class PhotoSearchViewController: BaseViewController {
     
     let photoSearchBar = UISearchBar()
-    let arrayButton = UIButton()
+    let arrayButton = ArrayButton(title: CustomDesign.Buttons.relavant)
     let searchStatusLabel = UILabel()
     
     lazy var colorCollectionView = UICollectionView(frame: .zero, collectionViewLayout: colorCollectionViewLayout())
@@ -63,7 +63,7 @@ final class PhotoSearchViewController: BaseViewController {
         colorCollectionView.snp.makeConstraints { make in
             make.top.equalTo(photoSearchBar.snp.bottom).offset(8)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)
-            make.trailing.equalTo(arrayButton.snp.leading).offset(-10)
+            make.trailing.equalTo(arrayButton.snp.leading)
             make.height.equalTo(30)
         }
         
@@ -83,21 +83,12 @@ final class PhotoSearchViewController: BaseViewController {
     override func configureUI() {
         navigationItem.title = CustomDesign.NavigationTitle.searchPhoto
         photoSearchBar.searchBarStyle = .minimal
-        
-        arrayButton.setTitle(CustomDesign.Buttons.relavant, for: .normal)
-        arrayButton.setTitleColor(.black, for: .normal)
-        arrayButton.titleLabel?.font = .systemFont(ofSize: 15)
-        arrayButton.setImage(CustomDesign.Images.sort, for: .normal)
-        arrayButton.layer.masksToBounds = true
-        arrayButton.layer.cornerRadius = 15
-        arrayButton.layer.borderWidth = CustomDesign.BorderWidths.Width1
-        arrayButton.layer.borderColor = UIColor.lightGray.cgColor
-        
+
         searchStatusLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         
         imageCollectionView.isHidden = true
     }
-    
+     
     override func configureAction() {
         arrayButton.addTarget(self, action: #selector(arrayButtonClicked), for: .touchUpInside)
     }
@@ -116,7 +107,7 @@ extension PhotoSearchViewController: UISearchBarDelegate {
         
         // text check
         guard let text = searchBar.text, !text.contains(" ") else {
-            searchStatusLabel.text = "사진을 검색해보세요."
+            searchStatusLabel.text = CustomDesign.Placeholder.search
             imageCollectionView.isHidden = true
             return
         }
@@ -231,7 +222,7 @@ extension PhotoSearchViewController {
         
         viewModel.outputResult.bind { [weak self] value in
             if value.count == 0 {
-                self?.searchStatusLabel.text = "검색 결과가 없어요."
+                self?.searchStatusLabel.text = CustomDesign.Placeholder.noSearch
                 self?.imageCollectionView.isHidden = true
             } else {
                 self?.imageCollectionView.reloadData()

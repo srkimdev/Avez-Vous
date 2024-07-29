@@ -26,10 +26,9 @@ final class TopicTrendViewController: BaseViewController {
         topicTableView.delegate = self
         topicTableView.dataSource = self
         topicTableView.register(TopicTrendTableViewCell.self, forCellReuseIdentifier: TopicTrendTableViewCell.identifier)
-        topicTableView.rowHeight = 250
         topicTableView.refreshControl = refreshControl
         
-//        viewModel.inputAPIRequest.value = ()
+        viewModel.inputAPIRequest.value = ()
         view.makeToastActivity(.center)
         
         bindData()
@@ -43,7 +42,6 @@ final class TopicTrendViewController: BaseViewController {
     }
     
     override func configureLayout() {
-        
         rightBarButton.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.size.equalTo(40)
@@ -61,7 +59,6 @@ final class TopicTrendViewController: BaseViewController {
     }
     
     override func configureUI() {
-        
         let item = UIBarButtonItem(customView: rightBarButtonView)
         navigationItem.rightBarButtonItem = item
         
@@ -72,10 +69,10 @@ final class TopicTrendViewController: BaseViewController {
         rightBarButton.layer.masksToBounds = true
         
         topicTableView.separatorStyle = .none
+        topicTableView.rowHeight = 250
         
-        titleLabel.text = "OUR TOPIC"
+        titleLabel.text = CustomDesign.Name.topic
         titleLabel.font = .systemFont(ofSize: 28, weight: .bold)
-        
     }
     
     override func configureAction() {
@@ -96,8 +93,8 @@ extension TopicTrendViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.imageCollectionView.delegate = self
         cell.imageCollectionView.dataSource = self
-        cell.imageCollectionView.tag = indexPath.row
         cell.imageCollectionView.register(TopicTrendCollectionViewCell.self, forCellWithReuseIdentifier: TopicTrendCollectionViewCell.identifier)
+        cell.imageCollectionView.tag = indexPath.row
         cell.imageCollectionView.reloadData()
         
         cell.designCell(transition: viewModel.randomTopics![indexPath.row].description)
@@ -145,12 +142,14 @@ extension TopicTrendViewController {
     
     @objc func refreshData() {
         
+        // network check
         if !NetworkManager.shared.isNetworkAvailable() {
             NetworkManager.shared.showToast(message: CustomDesign.ToastMessage.noConnected)
             refreshControl.endRefreshing()
             return
         }
         
+        // API request
         self.viewModel.inputAPIRequest.value = ()
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.refreshControl.endRefreshing()
@@ -164,6 +163,5 @@ extension TopicTrendViewController {
             self?.view.hideToastActivity()
         }
     }
-    
     
 }

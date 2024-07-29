@@ -10,7 +10,7 @@ import SnapKit
 
 final class LikeCheckViewController: BaseViewController {
     
-    let arrayButton = UIButton()
+    let arrayButton = ArrayButton(title: CustomDesign.Buttons.latest)
     let searchStatusLabel = UILabel()
     
     let viewModel = LikeCheckViewModel()
@@ -75,16 +75,7 @@ final class LikeCheckViewController: BaseViewController {
     override func configureUI() {
         navigationItem.title = CustomDesign.NavigationTitle.likestore
         
-        arrayButton.setTitle(CustomDesign.Buttons.latest, for: .normal)
-        arrayButton.setTitleColor(.black, for: .normal)
-        arrayButton.titleLabel?.font = .systemFont(ofSize: 15)
-        arrayButton.setImage(CustomDesign.Images.sort, for: .normal)
-        arrayButton.layer.masksToBounds = true
-        arrayButton.layer.cornerRadius = 15
-        arrayButton.layer.borderWidth = CustomDesign.BorderWidths.Width1
-        arrayButton.layer.borderColor = UIColor.lightGray.cgColor
-        
-        searchStatusLabel.text = "저장된 사진이 없어요"
+        searchStatusLabel.text = CustomDesign.Placeholder.noStore
         searchStatusLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         
         likeCollectionView.isHidden = true
@@ -134,7 +125,6 @@ extension LikeCheckViewController: UICollectionViewDelegate, UICollectionViewDat
             transitionScreen(vc: vc, style: .push)
             
         } else {
-//            viewModel.inputColor.value = SearchColor.allCases[indexPath.item]
             colorCollectionView.reloadData()
         }
     }
@@ -179,7 +169,7 @@ extension LikeCheckViewController {
         
         viewModel.outputResult.bind { [weak self] value in
             if value.count == 0 {
-                self?.searchStatusLabel.text = "저장된 사진이 없어요."
+                self?.searchStatusLabel.text = CustomDesign.Placeholder.noStore
                 self?.likeCollectionView.isHidden = true
             } else {
                 self?.likeCollectionView.reloadData()
@@ -190,11 +180,6 @@ extension LikeCheckViewController {
         viewModel.outputArrayButton.bind { [weak self] value in
             self?.arrayButton.setTitle(value.title, for: .normal)
         }
-       
-//        viewModel.outputScrollToTop.bind { [weak self] value in
-//            guard let value else { return }
-//            self?.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//        }
         
     }
 }

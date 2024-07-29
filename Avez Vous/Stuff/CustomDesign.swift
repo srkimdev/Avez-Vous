@@ -30,14 +30,24 @@ enum CustomDesign {
         static let likeActive: UIImage = UIImage(named: "like")!
         static let likeInactive: UIImage = UIImage(named: "like_inactive")!
         static let sort: UIImage = UIImage(named: "sort")!
+        static let trend: UIImage = UIImage(named: "tab_trend")!
+        static let trendInactive: UIImage = UIImage(named: "tab_trend_inactive")!
+        static let random: UIImage = UIImage(named: "tab_random")!
+        static let randomInactive: UIImage = UIImage(named: "tab_random_inactive")!
+        static let search: UIImage = UIImage(named: "tab_search")!
+        static let searchInactive: UIImage = UIImage(named: "tab_search_inactive")!
+        static let tabLike: UIImage = UIImage(named: "tab_like")!
+        static let tabLikeInactive: UIImage = UIImage(named: "tab_like_inactive")!
     }
     
     enum Buttons {
         static let start: String = "시작하기"
-        static let save: String = "완료"
+        static let clear: String = "완료"
         static let latest: String = "최신순"
         static let relavant: String = "관련순"
         static let past: String = "과거순"
+        static let save: String = "저장"
+        static let quit: String = "회원탈퇴"
     }
     
     enum BorderWidths {
@@ -61,11 +71,26 @@ enum CustomDesign {
         static let noConnected: String = "인터넷에 연결되지 않았습니다.\n연결 확인 후 다시 시도해 주세요."
     }
     
-//    enum
+    enum AlertMessage {
+        static let quit: String = "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?"
+    }
     
     enum Name {
         static let appName: String = "Avez Vous"
         static let userName: String = "김성률"
+        static let mbti: String = "MBTI"
+        static let topic: String = "OUR TOPIC"
+        static let information: String = "정보"
+        static let size: String = "크기"
+        static let seeCount: String = "조회수"
+        static let download: String = "다운로드"
+    }
+    
+    enum Placeholder {
+        static let nickname: String = "닉네임을 입력해주세요 :)"
+        static let noStore: String = "저장된 사진이 없어요"
+        static let noSearch: String = "검색 결과가 없어요."
+        static let search: String = "사진을 검색해보세요."
     }
     
 }

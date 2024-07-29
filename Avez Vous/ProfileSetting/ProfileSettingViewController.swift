@@ -125,10 +125,9 @@ final class ProfileSettingViewController: BaseViewController {
     }
     
     override func configureUI() {
-    
         if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
             navigationItem.title = CustomDesign.NavigationTitle.profileSelecting
-            let item = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
+            let item = UIBarButtonItem(title: CustomDesign.Buttons.save, style: .plain, target: self, action: #selector(saveButtonClicked))
             navigationItem.rightBarButtonItem = item
             
             nicknameTextField.text = UserInfo.shared.userName
@@ -137,6 +136,8 @@ final class ProfileSettingViewController: BaseViewController {
             
             viewModel.outputImageNumber.value = UserInfo.shared.profileNumber
             viewModel.inputText.value = UserInfo.shared.userName
+            
+            // show current MBTI Trigger
             viewModel.inputMBTISetting.value = ()
             
         } else {
@@ -161,22 +162,22 @@ final class ProfileSettingViewController: BaseViewController {
         cameraImage.image = CustomDesign.Images.camera
         cameraImage.tintColor = .white
         
-        nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
+        nicknameTextField.placeholder = CustomDesign.Placeholder.nickname
         
         textFieldLine.backgroundColor = .systemGray4
     
         statusLabel.font = .boldSystemFont(ofSize: 13)
         
-        mbtiLabel.text = "MBTI"
+        mbtiLabel.text = CustomDesign.Name.mbti
         mbtiLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         
-        clearButton.setTitle(CustomDesign.Buttons.save, for: .normal)
+        clearButton.setTitle(CustomDesign.Buttons.clear, for: .normal)
         clearButton.setTitleColor(.white, for: .normal)
         clearButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
         clearButton.layer.masksToBounds = true
         clearButton.layer.cornerRadius = 20
         
-        quitButton.setTitle("회원탈퇴", for: .normal)
+        quitButton.setTitle(CustomDesign.Buttons.quit, for: .normal)
         quitButton.titleLabel?.font = .systemFont(ofSize: 18)
         quitButton.setTitleColor(CustomDesign.Colors.Blue, for: .normal)
         
@@ -202,6 +203,7 @@ extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionVi
         
         cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
         
+        // show current MBTI when you click the edit profile
         if viewModel.outputMBTISetting.value {
             cell.designEditCell(transition: indexPath.item, mbtiArray: viewModel.mbtiArray)
         }
@@ -219,16 +221,13 @@ extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        
         layout.itemSize = CGSize(width: 43, height: 43)
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        
         return layout
     }
 }
-
 
 extension ProfileSettingViewController {
     
@@ -240,6 +239,7 @@ extension ProfileSettingViewController {
         if viewModel.outputAllow.value {
             let vc = TabBarViewController()
             
+            // save userInfo
             UserInfo.shared.userName = viewModel.inputText.value!
             UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
             UserInfo.shared.MBTI = viewModel.mbtiArray
@@ -273,11 +273,13 @@ extension ProfileSettingViewController {
     }
     
     @objc func quitButtonClicked() {
+        
+        // reset all userDefaults
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
         }
         
-        showAlert(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", completionHandler: initialize)
+        showAlert(title: "탈퇴하기", message: CustomDesign.AlertMessage.quit, completionHandler: initialize)
     }
     
     private func bindData() {
@@ -289,7 +291,6 @@ extension ProfileSettingViewController {
         viewModel.outputText.bind { [weak self] value in
             guard let self else { return }
             self.statusLabel.text = value
-
             self.statusLabel.textColor = self.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
         }
         

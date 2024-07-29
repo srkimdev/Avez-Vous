@@ -10,7 +10,7 @@ import SnapKit
 
 final class ProfileSelectingCollectionViewCell: BaseCollectionViewCell {
     
-    let profileImage = UIImageView()
+    private let profileImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

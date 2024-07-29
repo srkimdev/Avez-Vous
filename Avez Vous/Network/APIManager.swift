@@ -27,7 +27,7 @@ final class APIManager {
                 
             case .success(let value):
                 completionHandler(.success(value))
-                
+
             case .failure:
                 let statusCode: Int = response.response?.statusCode ?? 0
                 let error = APIError.from(statusCode: statusCode)

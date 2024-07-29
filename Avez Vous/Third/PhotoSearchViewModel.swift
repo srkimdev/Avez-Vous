@@ -23,7 +23,7 @@ final class PhotoSearchViewModel {
     var arrayButtonStatus: Bool = false
     var start = 1
     var previousSearch: String = ""
-    var previousColor: SearchColor = .black
+    var previousColor: SearchColor?
     let realmrepository = RealmRepository()
     
     init() {
@@ -117,7 +117,7 @@ final class PhotoSearchViewModel {
     }
     
     private func loadMoreData() {
-        start += 20
+        start += 1
         
         let router = RouterPattern.search(keyword: inputText.value!, page: start, order: outputArrayButton.value, color: inputColor.value)
         

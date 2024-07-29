@@ -10,7 +10,7 @@ import Foundation
 final class ProfileSettingViewModel {
     
     var showRandomImage: Observable<Void?> = Observable(nil)
-    var inputText: Observable<String?> = Observable("")
+    var inputText: Observable<String?> = Observable(nil)
     var inputSelectedMBTI: Observable<Int?> = Observable(nil)
     var inputMBTISetting: Observable<Void?> = Observable(nil)
     
