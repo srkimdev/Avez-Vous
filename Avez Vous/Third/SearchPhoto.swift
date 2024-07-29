@@ -15,11 +15,11 @@ enum SearchOrder: String {
     var title: String {
         switch self {
         case .latest:
-            return "최신순"
+            return CustomDesign.Buttons.latest
         case .relevant:
-            return "관련순"
+            return CustomDesign.Buttons.relavant
         case .past:
-            return "과거순"
+            return CustomDesign.Buttons.past
         }
     }
 }

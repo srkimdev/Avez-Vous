@@ -7,6 +7,7 @@
 
 import UIKit
 
+// for using hex color
 extension UIColor {
     convenience init(hex: String) {
         var hexFormatted = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

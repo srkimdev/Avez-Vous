@@ -7,16 +7,6 @@
 
 import Foundation
 
-enum validationError: String, Error {
-    case isNotLength = "2글자 이상 10글자 미만으로 입력해주세요."
-    case isNotAt = "닉네임에 @는 포함할 수 없어요."
-    case isNotHash = "닉네임에 #는 포함할 수 없어요."
-    case isNotDollar = "닉네임에 $는 포함할 수 없어요."
-    case isNotPercent = "닉네임에 %는 포함할 수 없어요."
-    case isNotNumber = "닉네임에 숫자는 포함할 수 없어요."
-    case isNotSpace = "닉네임에 공백은 포함할 수 없어요."
-}
-
 enum MBTI: String, CaseIterable {
     case E
     case S
@@ -41,11 +31,6 @@ enum profileImages: Int, CaseIterable {
     case profile_9
     case profile_10
     case profile_11
-}
-
-struct Section {
-    let title: String
-    let query: String
 }
 
 enum Mode: String {

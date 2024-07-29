@@ -81,19 +81,18 @@ final class PhotoSearchViewController: BaseViewController {
     }
     
     override func configureUI() {
-        navigationItem.title = CustomDesign.navigationTitle.searchPhoto
+        navigationItem.title = CustomDesign.NavigationTitle.searchPhoto
         photoSearchBar.searchBarStyle = .minimal
         
-        arrayButton.setTitle("관련순", for: .normal)
+        arrayButton.setTitle(CustomDesign.Buttons.relavant, for: .normal)
         arrayButton.setTitleColor(.black, for: .normal)
         arrayButton.titleLabel?.font = .systemFont(ofSize: 15)
         arrayButton.setImage(CustomDesign.Images.sort, for: .normal)
         arrayButton.layer.masksToBounds = true
         arrayButton.layer.cornerRadius = 15
-        arrayButton.layer.borderWidth = 1
+        arrayButton.layer.borderWidth = CustomDesign.BorderWidths.Width1
         arrayButton.layer.borderColor = UIColor.lightGray.cgColor
         
-//        searchStatusLabel.text = "사진을 검색해보세요."
         searchStatusLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         
         imageCollectionView.isHidden = true
@@ -108,17 +107,21 @@ final class PhotoSearchViewController: BaseViewController {
 extension PhotoSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
+        // Network check
         if !NetworkManager.shared.isNetworkAvailable() {
             view.endEditing(true)
-            NetworkManager.shared.showToast(message: "인터넷에 연결되지 않았습니다.\n연결 확인 후 다시 시도해 주세요.")
+            NetworkManager.shared.showToast(message: CustomDesign.ToastMessage.noConnected)
             return
         }
         
+        // text check
         guard let text = searchBar.text, !text.contains(" ") else {
             searchStatusLabel.text = "사진을 검색해보세요."
             imageCollectionView.isHidden = true
             return
         }
+        
+        // trigger
         viewModel.inputText.value = text
         view.endEditing(true)
     }

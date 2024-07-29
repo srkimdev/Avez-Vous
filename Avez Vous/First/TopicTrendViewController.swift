@@ -67,7 +67,7 @@ final class TopicTrendViewController: BaseViewController {
         
         rightBarButton.setImage(UIImage(named: "profile_\(UserInfo.shared.profileNumber)"), for: .normal)
         rightBarButton.layer.cornerRadius = 20
-        rightBarButton.layer.borderWidth = 3
+        rightBarButton.layer.borderWidth = CustomDesign.BorderWidths.Width3
         rightBarButton.layer.borderColor = CustomDesign.Colors.Blue.cgColor
         rightBarButton.layer.masksToBounds = true
         
@@ -146,7 +146,7 @@ extension TopicTrendViewController {
     @objc func refreshData() {
         
         if !NetworkManager.shared.isNetworkAvailable() {
-            NetworkManager.shared.showToast(message: "인터넷에 연결되지 않았습니다.\n연결 확인 후 다시 시도해 주세요.")
+            NetworkManager.shared.showToast(message: CustomDesign.ToastMessage.noConnected)
             refreshControl.endRefreshing()
             return
         }

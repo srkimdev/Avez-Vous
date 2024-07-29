@@ -18,16 +18,6 @@ extension UIViewController {
         case push
     }
     
-    func BackButton() {
-        let item = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonClicked))
-        item.tintColor = CustomDesign.Colors.Black
-        navigationItem.leftBarButtonItem = item
-    }
-    
-    @objc func backButtonClicked() {
-        navigationController?.popViewController(animated: true)
-    }
-    
     func transitionScreen<T: UIViewController>(vc: T, style: TransitionStyle) {
         switch style {
         case .present:
@@ -62,4 +52,15 @@ extension UIViewController {
             
         present(alert, animated: true)
     }
+    
+    func BackButton() {
+        let item = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonClicked))
+        item.tintColor = CustomDesign.Colors.Black
+        navigationItem.leftBarButtonItem = item
+    }
+    
+    @objc func backButtonClicked() {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }

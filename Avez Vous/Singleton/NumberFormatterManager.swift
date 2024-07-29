@@ -18,7 +18,7 @@ final class NumberFormatterManager {
         format.numberStyle = .decimal
         
         let result = format.string(for: number)
-        guard let decimalNumber = result else { return ""}
+        guard let decimalNumber = result else { return "" }
         
         return decimalNumber
     }

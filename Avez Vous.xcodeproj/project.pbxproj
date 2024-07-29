@@ -59,6 +59,7 @@
 		DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */; };
 		DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */; };
 		DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74DA2C4E63A8001C9208 /* Observable.swift */; };
+		DC88AF242C571D55005ED44C /* CustomArrayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88AF232C571D55005ED44C /* CustomArrayButton.swift */; };
 		DC97117F2C50CB26001DCC8F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC97117E2C50CB26001DCC8F /* APIManager.swift */; };
 		DC9711812C50CBC8001DCC8F /* RouterPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711802C50CBC8001DCC8F /* RouterPattern.swift */; };
 		DC9711832C50D108001DCC8F /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711822C50D108001DCC8F /* DummyData.swift */; };
@@ -134,6 +135,7 @@
 		DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC4A74DA2C4E63A8001C9208 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		DC88AF232C571D55005ED44C /* CustomArrayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomArrayButton.swift; sourceTree = "<group>"; };
 		DC97117E2C50CB26001DCC8F /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		DC9711802C50CBC8001DCC8F /* RouterPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterPattern.swift; sourceTree = "<group>"; };
 		DC9711822C50D108001DCC8F /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				DC4A74B62C4E259E001C9208 /* APIKey.swift */,
 				DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */,
 				DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */,
+				DC88AF232C571D55005ED44C /* CustomArrayButton.swift */,
 				DC4A74DA2C4E63A8001C9208 /* Observable.swift */,
 				DCE8F2722C4F34C0001C8856 /* Enums.swift */,
 			);
@@ -468,6 +471,7 @@
 				DC27296B2C53719800E2815F /* LikeCheckCollectionViewCell.swift in Sources */,
 				DC2729722C53992400E2815F /* PhotoStatistics.swift in Sources */,
 				DC97118C2C50FDD5001DCC8F /* NumberFormatterManager.swift in Sources */,
+				DC88AF242C571D55005ED44C /* CustomArrayButton.swift in Sources */,
 				DC2E51F82C4FC5510099CB0E /* TabBarViewController.swift in Sources */,
 				DC27296E2C537EC300E2815F /* DetailViewController.swift in Sources */,
 				DC4A74C32C4E27CB001C9208 /* BaseCollectionViewCell.swift in Sources */,

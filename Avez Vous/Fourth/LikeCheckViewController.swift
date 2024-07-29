@@ -73,15 +73,15 @@ final class LikeCheckViewController: BaseViewController {
     }
     
     override func configureUI() {
-        navigationItem.title = CustomDesign.navigationTitle.likestore
+        navigationItem.title = CustomDesign.NavigationTitle.likestore
         
-        arrayButton.setTitle("최신순", for: .normal)
+        arrayButton.setTitle(CustomDesign.Buttons.latest, for: .normal)
         arrayButton.setTitleColor(.black, for: .normal)
         arrayButton.titleLabel?.font = .systemFont(ofSize: 15)
         arrayButton.setImage(CustomDesign.Images.sort, for: .normal)
         arrayButton.layer.masksToBounds = true
         arrayButton.layer.cornerRadius = 15
-        arrayButton.layer.borderWidth = 1
+        arrayButton.layer.borderWidth = CustomDesign.BorderWidths.Width1
         arrayButton.layer.borderColor = UIColor.lightGray.cgColor
         
         searchStatusLabel.text = "저장된 사진이 없어요"

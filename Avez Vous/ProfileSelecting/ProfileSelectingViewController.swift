@@ -32,7 +32,6 @@ final class ProfileSelectingViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         selectedImage.layer.cornerRadius = selectedImage.frame.width / 2
-        cameraImageView.layer.cornerRadius = cameraImageView.frame.width / 2
     }
     
     override func configureHierarchy() {
@@ -72,13 +71,11 @@ final class ProfileSelectingViewController: BaseViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(300)
         }
-        
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+
     }
     
     override func configureUI() {
-        navigationItem.title = CustomDesign.navigationTitle.profileSelecting
+        navigationItem.title = CustomDesign.NavigationTitle.profileSelecting
         BackButton()
         
         selectedImage.layer.masksToBounds = true
@@ -87,6 +84,7 @@ final class ProfileSelectingViewController: BaseViewController {
 
         cameraImageView.backgroundColor = CustomDesign.Colors.Blue
         cameraImageView.layer.masksToBounds = true
+        cameraImageView.layer.cornerRadius = 12
         
         cameraImage.image = CustomDesign.Images.camera
         cameraImage.tintColor = .white

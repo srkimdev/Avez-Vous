@@ -48,14 +48,14 @@ final class OnBoardingView: BaseView {
     }
     
     override func configureUI() {
-        titleLabel.text = Literal.onBoarding.appName
+//        titleLabel.text = Literal.onBoarding.appName
         titleLabel.textColor = CustomDesign.Colors.Blue
         titleLabel.textAlignment = .center
         titleLabel.font = .systemFont(ofSize: 40, weight: .heavy)
         
         imageLabel.image = CustomDesign.Images.launchImage
         
-        nameLabel.text = Literal.onBoarding.userName
+//        nameLabel.text = Literal.onBoarding.userName
         nameLabel.textAlignment = .center
         nameLabel.font = .systemFont(ofSize: 20, weight: .heavy)
         

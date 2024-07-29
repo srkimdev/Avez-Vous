@@ -35,6 +35,9 @@ enum CustomDesign {
     enum Buttons {
         static let start: String = "시작하기"
         static let save: String = "완료"
+        static let latest: String = "최신순"
+        static let relavant: String = "관련순"
+        static let past: String = "과거순"
     }
     
     enum BorderWidths {
@@ -47,26 +50,24 @@ enum CustomDesign {
         static let alphaOne: CGFloat = 1
     }
     
-    enum navigationTitle {
+    enum NavigationTitle {
         static let profileSetting: String = "PROFILE SETTING"
         static let profileSelecting: String = "EDIT PROFILE"
         static let searchPhoto: String = "SEARCH PHOTO"
         static let likestore: String = "MY POLAROID"
     }
     
-}
-
-enum Literal {
+    enum ToastMessage {
+        static let noConnected: String = "인터넷에 연결되지 않았습니다.\n연결 확인 후 다시 시도해 주세요."
+    }
     
-    enum onBoarding {
+//    enum
+    
+    enum Name {
         static let appName: String = "Avez Vous"
         static let userName: String = "김성률"
     }
     
-    enum profileSetting {
-        
-    }
-    
-    
 }
+
 

@@ -39,7 +39,6 @@ final class ProfileSettingViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
-        cameraImageView.layer.cornerRadius = cameraImageView.frame.width / 2
     }
     
     override func configureHierarchy() {
@@ -59,13 +58,13 @@ final class ProfileSettingViewController: BaseViewController {
     override func configureLayout() {
         profileImage.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view.self)
+            make.centerX.equalToSuperview()
             make.size.equalTo(100)
         }
         
         profileImageButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view.self)
+            make.centerX.equalToSuperview()
             make.size.equalTo(100)
         }
         
@@ -123,15 +122,12 @@ final class ProfileSettingViewController: BaseViewController {
             make.width.equalTo(100)
         }
         
-        // clearButton issue
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
     }
     
     override func configureUI() {
     
         if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
-            navigationItem.title = CustomDesign.navigationTitle.profileSelecting
+            navigationItem.title = CustomDesign.NavigationTitle.profileSelecting
             let item = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
             navigationItem.rightBarButtonItem = item
             
@@ -144,7 +140,7 @@ final class ProfileSettingViewController: BaseViewController {
             viewModel.inputMBTISetting.value = ()
             
         } else {
-            navigationItem.title = CustomDesign.navigationTitle.profileSetting
+            navigationItem.title = CustomDesign.NavigationTitle.profileSetting
             
             clearButton.isHidden = false
             quitButton.isHidden = true
@@ -160,6 +156,7 @@ final class ProfileSettingViewController: BaseViewController {
 
         cameraImageView.backgroundColor = CustomDesign.Colors.Blue
         cameraImageView.layer.masksToBounds = true
+        cameraImageView.layer.cornerRadius = 12
         
         cameraImage.image = CustomDesign.Images.camera
         cameraImage.tintColor = .white
