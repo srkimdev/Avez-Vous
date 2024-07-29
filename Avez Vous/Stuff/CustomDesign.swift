@@ -73,6 +73,7 @@ enum CustomDesign {
     
     enum AlertMessage {
         static let quit: String = "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?"
+        static let nick: String = "닉네임이 맞지 않습니다."
     }
     
     enum Name {

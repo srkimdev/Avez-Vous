@@ -263,22 +263,21 @@ extension ProfileSettingViewController {
     
     @objc func saveButtonClicked() {
         
-        // save userInfo
-        UserInfo.shared.userName = viewModel.inputText.value!
-        UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
-        UserInfo.shared.MBTI = viewModel.mbtiArray
-        selectedClosure?(UserInfo.shared.profileNumber)
+        if viewModel.outputAllow.value {
+            // save userInfo
+            UserInfo.shared.userName = viewModel.inputText.value!
+            UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
+            UserInfo.shared.MBTI = viewModel.mbtiArray
+            selectedClosure?(UserInfo.shared.profileNumber)
+            
+            navigationController?.popViewController(animated: true)
+        } else {
+            showAlertForNickname(title: CustomDesign.AlertMessage.nick)
+        }
         
-        navigationController?.popViewController(animated: true)
     }
     
     @objc func quitButtonClicked() {
-        
-        // reset all userDefaults
-        if let appDomain = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: appDomain)
-        }
-        
         showAlert(title: "탈퇴하기", message: CustomDesign.AlertMessage.quit, completionHandler: initialize)
     }
     
@@ -309,6 +308,12 @@ extension ProfileSettingViewController {
     }
     
     private func initialize() {
+        
+        // reset all userDefaults
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
+        
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         

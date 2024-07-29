@@ -91,10 +91,6 @@ final class ProfileSettingViewModel {
     
     private func mbtiSave(value: Int) {
         mbtiArray[value % 4] = value
-        mbtiValidation()
-    }
-    
-    private func mbtiValidation() {
         mbtiAllow = mbtiArray.contains(-1) ? false : true
         currentAllow.value = ()
     }
@@ -102,6 +98,7 @@ final class ProfileSettingViewModel {
     private func mbtiSetting() {
         if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
             mbtiArray = UserInfo.shared.MBTI
+            mbtiAllow = true
         } else {
             mbtiArray = [-1, -1, -1, -1]
         }

@@ -53,6 +53,21 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
+    func showAlertForNickname(title: String) {
+        
+        let alert = UIAlertController(
+            title: title,
+            message: nil,
+            preferredStyle: .alert)
+            
+        let check = UIAlertAction(title: "확인", style: .default)
+
+        alert.addAction(check)
+            
+        present(alert, animated: true)
+        
+    }
+    
     func BackButton() {
         let item = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonClicked))
         item.tintColor = CustomDesign.Colors.Black
