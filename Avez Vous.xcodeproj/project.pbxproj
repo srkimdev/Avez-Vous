@@ -89,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DC08D1E02C579CF70070C7D0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DC2729602C5292D100E2815F /* PhotoSearchColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC2729622C5358AE00E2815F /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		DC2729642C5359B600E2815F /* DBTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTable.swift; sourceTree = "<group>"; };
@@ -243,6 +244,7 @@
 		DC4A747C2C4E2278001C9208 = {
 			isa = PBXGroup;
 			children = (
+				DC08D1E02C579CF70070C7D0 /* README.md */,
 				DC4A74B32C4E257C001C9208 /* .gitignore */,
 				DC4A74872C4E2278001C9208 /* Avez Vous */,
 				DC4A74862C4E2278001C9208 /* Products */,
@@ -659,6 +661,7 @@
 				DEVELOPMENT_TEAM = VC8Q8WBRQ3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Avez Vous/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "김성률";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -690,6 +693,7 @@
 				DEVELOPMENT_TEAM = VC8Q8WBRQ3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Avez Vous/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "김성률";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

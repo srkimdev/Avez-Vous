@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserInfo {
+final class UserInfo {
     
     static let shared = UserInfo()
     let userDefault = UserDefaults.standard

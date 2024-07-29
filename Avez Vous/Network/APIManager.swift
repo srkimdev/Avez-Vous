@@ -22,7 +22,9 @@ final class APIManager {
                    method: router.method,
                    parameters: router.parameter,
                    headers: router.header
-        ).responseDecodable(of: responseType) { response in
+        )
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: responseType) { response in
             switch response.result {
                 
             case .success(let value):

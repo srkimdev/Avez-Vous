@@ -219,4 +219,5 @@ extension DetailViewController {
     @objc func likeButtonClicked() {
         viewModel.inputLike.value = viewModel.inputFromSearch.value
     }
+
 }

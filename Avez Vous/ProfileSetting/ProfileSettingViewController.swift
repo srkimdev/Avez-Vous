@@ -321,6 +321,7 @@ extension ProfileSettingViewController {
         
         sceneDelegate?.window?.rootViewController = rootViewcontroller
         sceneDelegate?.window?.makeKeyAndVisible()
+        
     }
     
 }

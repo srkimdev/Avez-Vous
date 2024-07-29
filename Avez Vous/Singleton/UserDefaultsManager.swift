@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserDefaultsManager {
+final class UserDefaultsManager {
     
     static let shared = UserDefaultsManager()
 
@@ -22,5 +22,4 @@ class UserDefaultsManager {
         }
     }
         
-    
 }

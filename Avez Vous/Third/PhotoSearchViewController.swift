@@ -142,7 +142,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
             guard let cell = colorCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchColorCollectionViewCell.identifier, for: indexPath) as? PhotoSearchColorCollectionViewCell else { return UICollectionViewCell() }
             
             cell.designCell(transition: SearchColor.allCases[indexPath.item], selectedCell: viewModel.inputColor.value)
-            
+           
             return cell
         }
         

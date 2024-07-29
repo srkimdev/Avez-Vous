@@ -38,9 +38,8 @@ final class ProfileSettingViewModel {
         
         inputSelectedMBTI.bind { [weak self] value in
             guard let value else { return }
-            self?.mbtiSave(value: value)
             
-            print(self?.mbtiArray)
+            self?.mbtiSave(value: value)
             self?.outputSelectedMBTI.value = value
         }
         
@@ -82,7 +81,7 @@ final class ProfileSettingViewModel {
             outputText.value = "사용할 수 있는 닉네임이에요"
         }
         currentAllow.value = ()
-    }
+    } 
     
     private func isDigit(input: String) -> Bool {
         let decimalCharacters = CharacterSet.decimalDigits
