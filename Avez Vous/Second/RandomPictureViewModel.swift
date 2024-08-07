@@ -10,12 +10,12 @@ import RealmSwift
 
 final class RandomPictureViewModel {
     
-    var inputRandomImage: Observable<Void?> = Observable(nil)
-    var inputLike: Observable<Photos?> = Observable(nil)
+    var inputRandomImage: CustomObservable<Void?> = CustomObservable(nil)
+    var inputLike: CustomObservable<Photos?> = CustomObservable(nil)
     
-    var outputRandomImage: Observable<[Photos]> = Observable([])
-    var outputLike: Observable<Void?> = Observable(nil)
-    var scrollToTop: Observable<Void?> = Observable(nil)
+    var outputRandomImage: CustomObservable<[Photos]> = CustomObservable([])
+    var outputLike: CustomObservable<Void?> = CustomObservable(nil)
+    var scrollToTop: CustomObservable<Void?> = CustomObservable(nil)
     
     let realmrepository = RealmRepository()
     

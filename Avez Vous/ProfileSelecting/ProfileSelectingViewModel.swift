@@ -9,8 +9,8 @@ import Foundation
 
 final class ProfileSelectingViewModel {
     
-    var inputSelectedImage: Observable<Int> = Observable(-1)
-    var outputSelectedImage: Observable<Int> = Observable(-1)
+    var inputSelectedImage: CustomObservable<Int> = CustomObservable(-1)
+    var outputSelectedImage: CustomObservable<Int> = CustomObservable(-1)
     
     init() {
         inputSelectedImage.bind { [weak self] value in

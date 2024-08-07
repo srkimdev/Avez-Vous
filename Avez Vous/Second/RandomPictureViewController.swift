@@ -12,7 +12,7 @@ final class RandomPictureViewController: BaseViewController {
     
     lazy var imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: imageCollectionViewLayout())
     
-    let refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
     let viewModel = RandomPictureViewModel()
     
     override func viewDidLoad() {

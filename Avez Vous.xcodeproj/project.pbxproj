@@ -58,7 +58,7 @@
 		DC4A74D32C4E3700001C9208 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */; };
 		DC4A74D52C4E3E3A001C9208 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */; };
 		DC4A74D92C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */; };
-		DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74DA2C4E63A8001C9208 /* Observable.swift */; };
+		DC4A74DB2C4E63A8001C9208 /* CustomObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A74DA2C4E63A8001C9208 /* CustomObservable.swift */; };
 		DC88AF242C571D55005ED44C /* CustomArrayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88AF232C571D55005ED44C /* CustomArrayButton.swift */; };
 		DC97117F2C50CB26001DCC8F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC97117E2C50CB26001DCC8F /* APIManager.swift */; };
 		DC9711812C50CBC8001DCC8F /* RouterPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711802C50CBC8001DCC8F /* RouterPattern.swift */; };
@@ -71,6 +71,8 @@
 		DC9711922C51309A001DCC8F /* SearchPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9711912C51309A001DCC8F /* SearchPhoto.swift */; };
 		DCBCF7412C5675B80087819F /* RandomPictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBCF7402C5675B80087819F /* RandomPictureViewModel.swift */; };
 		DCBCF7432C5677C60087819F /* RandomPictureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBCF7422C5677C60087819F /* RandomPictureCollectionViewCell.swift */; };
+		DCBE72B32C636064008ACE46 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DCBE72B22C636064008ACE46 /* RxCocoa */; };
+		DCBE72B52C636064008ACE46 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DCBE72B42C636064008ACE46 /* RxSwift */; };
 		DCE8F2732C4F34C0001C8856 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE8F2722C4F34C0001C8856 /* Enums.swift */; };
 /* End PBXBuildFile section */
 
@@ -135,7 +137,7 @@
 		DC4A74D22C4E3700001C9208 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		DC4A74D42C4E3E3A001C9208 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		DC4A74D82C4E5949001C9208 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
-		DC4A74DA2C4E63A8001C9208 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		DC4A74DA2C4E63A8001C9208 /* CustomObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomObservable.swift; sourceTree = "<group>"; };
 		DC88AF232C571D55005ED44C /* CustomArrayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomArrayButton.swift; sourceTree = "<group>"; };
 		DC97117E2C50CB26001DCC8F /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		DC9711802C50CBC8001DCC8F /* RouterPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterPattern.swift; sourceTree = "<group>"; };
@@ -156,12 +158,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBE72B52C636064008ACE46 /* RxSwift in Frameworks */,
 				DC4A74B02C4E248B001C9208 /* IQKeyboardManagerSwift in Frameworks */,
 				DC4A74A42C4E2442001C9208 /* Alamofire in Frameworks */,
 				DC4A74A72C4E245B001C9208 /* Reachability in Frameworks */,
 				DC4A74A12C4E2432001C9208 /* Kingfisher in Frameworks */,
 				DC4A74AD2C4E247E001C9208 /* SnapKit in Frameworks */,
 				DC4A74AA2C4E2468001C9208 /* Toast in Frameworks */,
+				DCBE72B32C636064008ACE46 /* RxCocoa in Frameworks */,
 				DC4A749E2C4E2426001C9208 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,8 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				DC2E52012C4FC6D80099CB0E /* LikeCheckViewController.swift */,
-				DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */,
 				DC27296A2C53719800E2815F /* LikeCheckCollectionViewCell.swift */,
+				DC2729682C5365AB00E2815F /* LikeCheckViewModel.swift */,
 			);
 			path = Fourth;
 			sourceTree = "<group>";
@@ -293,7 +297,7 @@
 				DC4A74C62C4E28E0001C9208 /* ReusableProtocol.swift */,
 				DC4A74CA2C4E2C72001C9208 /* CustomDesign.swift */,
 				DC88AF232C571D55005ED44C /* CustomArrayButton.swift */,
-				DC4A74DA2C4E63A8001C9208 /* Observable.swift */,
+				DC4A74DA2C4E63A8001C9208 /* CustomObservable.swift */,
 				DCE8F2722C4F34C0001C8856 /* Enums.swift */,
 			);
 			path = Stuff;
@@ -396,6 +400,8 @@
 				DC4A74A92C4E2468001C9208 /* Toast */,
 				DC4A74AC2C4E247E001C9208 /* SnapKit */,
 				DC4A74AF2C4E248B001C9208 /* IQKeyboardManagerSwift */,
+				DCBE72B22C636064008ACE46 /* RxCocoa */,
+				DCBE72B42C636064008ACE46 /* RxSwift */,
 			);
 			productName = "Avez Vous";
 			productReference = DC4A74852C4E2278001C9208 /* Avez Vous.app */;
@@ -433,6 +439,7 @@
 				DC4A74A82C4E2468001C9208 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				DC4A74AB2C4E247E001C9208 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DC4A74AE2C4E248B001C9208 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				DCBE72B12C636064008ACE46 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = DC4A74862C4E2278001C9208 /* Products */;
 			projectDirPath = "";
@@ -507,7 +514,7 @@
 				DC4A74C52C4E283D001C9208 /* BaseView.swift in Sources */,
 				DC2729762C5504A700E2815F /* UserDefaultsManager.swift in Sources */,
 				DC4A74BA2C4E2657001C9208 /* OnBoardingViewController.swift in Sources */,
-				DC4A74DB2C4E63A8001C9208 /* Observable.swift in Sources */,
+				DC4A74DB2C4E63A8001C9208 /* CustomObservable.swift in Sources */,
 				DC4A74CB2C4E2C72001C9208 /* CustomDesign.swift in Sources */,
 				DC2729632C5358AE00E2815F /* UserInfo.swift in Sources */,
 				DC4A74BF2C4E268B001C9208 /* BaseViewController.swift in Sources */,
@@ -795,6 +802,14 @@
 				minimumVersion = 7.1.1;
 			};
 		};
+		DCBE72B12C636064008ACE46 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -832,6 +847,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DC4A74AE2C4E248B001C9208 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		DCBE72B22C636064008ACE46 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCBE72B12C636064008ACE46 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		DCBE72B42C636064008ACE46 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCBE72B12C636064008ACE46 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

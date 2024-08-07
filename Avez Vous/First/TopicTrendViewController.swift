@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Toast
+import RxSwift
+import RxCocoa
 
 final class TopicTrendViewController: BaseViewController {
     
@@ -18,17 +20,15 @@ final class TopicTrendViewController: BaseViewController {
     let topicTableView = UITableView()
     let refreshControl = UIRefreshControl()
     
+    let pullToRefresh = PublishSubject<Void>()
     let viewModel = TopicTrendViewModel()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topicTableView.delegate = self
-        topicTableView.dataSource = self
         topicTableView.register(TopicTrendTableViewCell.self, forCellReuseIdentifier: TopicTrendTableViewCell.identifier)
         topicTableView.refreshControl = refreshControl
-        
-        viewModel.inputAPIRequest.value = ()
         view.makeToastActivity(.center)
         
         bindData()
@@ -82,52 +82,6 @@ final class TopicTrendViewController: BaseViewController {
 
 }
 
-extension TopicTrendViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.outputTableView.value.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = topicTableView.dequeueReusableCell(withIdentifier: TopicTrendTableViewCell.identifier, for: indexPath) as? TopicTrendTableViewCell else { return UITableViewCell() }
-        
-        cell.imageCollectionView.delegate = self
-        cell.imageCollectionView.dataSource = self
-        cell.imageCollectionView.register(TopicTrendCollectionViewCell.self, forCellWithReuseIdentifier: TopicTrendCollectionViewCell.identifier)
-        cell.imageCollectionView.tag = indexPath.row
-        cell.imageCollectionView.reloadData()
-        
-        cell.designCell(transition: viewModel.randomTopics![indexPath.row].description)
-        
-        return cell
-    }
-    
-}
-
-extension TopicTrendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.outputTableView.value[collectionView.tag].count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicTrendCollectionViewCell.identifier, for: indexPath) as? TopicTrendCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.designCell(transition: viewModel.outputTableView.value[collectionView.tag][indexPath.item])
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        vc.hidesBottomBarWhenPushed = true
-        vc.viewModel.inputFromSearch.value = viewModel.outputTableView.value[collectionView.tag][indexPath.item]
-        
-        transitionScreen(vc: vc, style: .push)
-    }
-    
-}
-
 extension TopicTrendViewController {
     
     @objc func profileButtonClicked() {
@@ -150,18 +104,41 @@ extension TopicTrendViewController {
         }
         
         // API request
-        self.viewModel.inputAPIRequest.value = ()
+        pullToRefresh.onNext(())
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.refreshControl.endRefreshing()
         }
+
     }
 
     private func bindData() {
-        viewModel.outputTableView.bind { [weak self] value in
-            guard value.count == 3 else { return }
-            self?.topicTableView.reloadData()
-            self?.view.hideToastActivity()
-        }
+        
+        let callRequest = PublishSubject<Void>()
+
+        let input = TopicTrendViewModel.Input(callRequest: callRequest, pullToRefresh: self.pullToRefresh)
+        let output = viewModel.transform(input: input)
+
+        callRequest.onNext(())
+        
+        output.tableViewList
+            .drive(topicTableView.rx.items(cellIdentifier: TopicTrendTableViewCell.identifier, cellType: TopicTrendTableViewCell.self)) { (row, element, cell) in
+
+                print(row)
+                cell.designName(transition: self.viewModel.randomTopics![row].description)
+                cell.designCell(transition: element)
+                
+            }
+            .disposed(by: disposeBag)
+        
+        output.tableViewList
+            .drive(with: self) { owner, value in
+                if value.count == 3 {
+                    owner.view.hideToastActivity()
+                }
+            }
+            .disposed(by: disposeBag)
+        
     }
     
 }
+

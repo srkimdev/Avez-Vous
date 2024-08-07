@@ -10,9 +10,9 @@ import SnapKit
 
 final class OnBoardingView: BaseView {
     
-    let titleLabel = UILabel()
-    let imageLabel = UIImageView()
-    let nameLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let imageLabel = UIImageView()
+    private let nameLabel = UILabel()
     let startButton = UIButton()
     
     override func configureHierarchy() {

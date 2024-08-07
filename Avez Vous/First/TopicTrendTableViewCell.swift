@@ -7,11 +7,18 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class TopicTrendTableViewCell: BaseTableViewCell {
     
     let titleLabel = UILabel()
     let imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     private static func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -25,6 +32,7 @@ final class TopicTrendTableViewCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        imageCollectionView.register(TopicTrendCollectionViewCell.self, forCellWithReuseIdentifier: TopicTrendCollectionViewCell.identifier)
     }
     
     override func configureHierarchy() {
@@ -49,8 +57,17 @@ final class TopicTrendTableViewCell: BaseTableViewCell {
         titleLabel.font = .systemFont(ofSize: 16, weight: .heavy)
     }
     
-    func designCell(transition: String) {
+    func designName(transition: String) {
         titleLabel.text = transition
+    }
+    
+    func designCell(transition: [Photos]) {
+        Observable.just(transition)
+            .bind(to: imageCollectionView.rx.items(cellIdentifier: TopicTrendCollectionViewCell.identifier, cellType: TopicTrendCollectionViewCell.self)) { (item, element, cell) in
+                
+                cell.designCell(transition: element)
+            }
+            .disposed(by: disposeBag)
     }
     
 }

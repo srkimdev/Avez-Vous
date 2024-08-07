@@ -9,15 +9,15 @@ import Foundation
 
 final class PhotoSearchViewModel {
     
-    var inputText: Observable<String?> = Observable(nil)
-    var inputColor: Observable<SearchColor?> = Observable(nil)
-    var inputArrayButton: Observable<Void?> = Observable(nil)
-    var inputPage: Observable<Void?> = Observable(nil)
-    var inputLike: Observable<Photos?> = Observable(nil)
+    var inputText: CustomObservable<String?> = CustomObservable(nil)
+    var inputColor: CustomObservable<SearchColor?> = CustomObservable(nil)
+    var inputArrayButton: CustomObservable<Void?> = CustomObservable(nil)
+    var inputPage: CustomObservable<Void?> = CustomObservable(nil)
+    var inputLike: CustomObservable<Photos?> = CustomObservable(nil)
     
-    var outputArrayButton: Observable<SearchOrder> = Observable(.relevant)
-    var outputResult: Observable<[Photos]> = Observable([])
-    var outputScrollToTop: Observable<Void?> = Observable(nil)
+    var outputArrayButton: CustomObservable<SearchOrder> = CustomObservable(.relevant)
+    var outputResult: CustomObservable<[Photos]> = CustomObservable([])
+    var outputScrollToTop: CustomObservable<Void?> = CustomObservable(nil)
     
     var arrayButtonStatus: Bool = false
     var start = 1

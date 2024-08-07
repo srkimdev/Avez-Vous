@@ -9,18 +9,18 @@ import Foundation
 
 final class ProfileSettingViewModel {
     
-    var showRandomImage: Observable<Void?> = Observable(nil)
-    var inputText: Observable<String?> = Observable(nil)
-    var inputSelectedMBTI: Observable<Int?> = Observable(nil)
-    var inputMBTISetting: Observable<Void?> = Observable(nil)
+    var showRandomImage: CustomObservable<Void?> = CustomObservable(nil)
+    var inputText: CustomObservable<String?> = CustomObservable(nil)
+    var inputSelectedMBTI: CustomObservable<Int?> = CustomObservable(nil)
+    var inputMBTISetting: CustomObservable<Void?> = CustomObservable(nil)
     
-    var outputImageNumber: Observable<Int> = Observable(0)
-    var outputText: Observable<String> = Observable("")
-    var outputAllow: Observable<Bool> = Observable(false)
-    var outputSelectedMBTI: Observable<Int?> = Observable(nil)
-    var outputMBTISetting: Observable<Bool> = Observable(false)
+    var outputImageNumber: CustomObservable<Int> = CustomObservable(0)
+    var outputText: CustomObservable<String> = CustomObservable("")
+    var outputAllow: CustomObservable<Bool> = CustomObservable(false)
+    var outputSelectedMBTI: CustomObservable<Int?> = CustomObservable(nil)
+    var outputMBTISetting: CustomObservable<Bool> = CustomObservable(false)
     
-    var currentAllow: Observable<Void?> = Observable(nil)
+    var currentAllow: CustomObservable<Void?> = CustomObservable(nil)
     
     var nicknameAllow: Bool = false
     var mbtiAllow: Bool = false

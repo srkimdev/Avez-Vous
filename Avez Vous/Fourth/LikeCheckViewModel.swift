@@ -11,14 +11,14 @@ import UIKit
 
 final class LikeCheckViewModel {
     
-    var inputLike: Observable<DBTable?> = Observable(nil)
-    var inputColor: Observable<SearchColor?> = Observable(nil)
-    var inputArrayButton: Observable<Void?> = Observable(nil)
-    var showLikeList: Observable<Void?> = Observable(nil)
+    var inputLike: CustomObservable<DBTable?> = CustomObservable(nil)
+    var inputColor: CustomObservable<SearchColor?> = CustomObservable(nil)
+    var inputArrayButton: CustomObservable<Void?> = CustomObservable(nil)
+    var showLikeList: CustomObservable<Void?> = CustomObservable(nil)
     
-    var outputResult: Observable<[DBTable]> = Observable([])
-    var outputImageFiles: Observable<[UIImage]> = Observable([])
-    var outputArrayButton: Observable<SearchOrder> = Observable(.latest)
+    var outputResult: CustomObservable<[DBTable]> = CustomObservable([])
+    var outputImageFiles: CustomObservable<[UIImage]> = CustomObservable([])
+    var outputArrayButton: CustomObservable<SearchOrder> = CustomObservable(.latest)
     
     let realmrepository = RealmRepository()
     var realmToDummy: DBTable?

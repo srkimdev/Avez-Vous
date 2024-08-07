@@ -10,13 +10,13 @@ import RealmSwift
 
 final class DetailViewModel {
     
-    var inputFromSearch: Observable<Photos?> = Observable(nil)
-    var inputFromLike: Observable<DBTable?> = Observable(nil)
-    var inputLike: Observable<Photos?> = Observable(nil)
+    var inputFromSearch: CustomObservable<Photos?> = CustomObservable(nil)
+    var inputFromLike: CustomObservable<DBTable?> = CustomObservable(nil)
+    var inputLike: CustomObservable<Photos?> = CustomObservable(nil)
     
-    var outputDetailPhoto: Observable<Photos?> = Observable(nil)
-    var outputStatistics: Observable<PhotoStatistics?> = Observable(nil)
-    var outputLike: Observable<Bool?> = Observable(nil)
+    var outputDetailPhoto: CustomObservable<Photos?> = CustomObservable(nil)
+    var outputStatistics: CustomObservable<PhotoStatistics?> = CustomObservable(nil)
+    var outputLike: CustomObservable<Bool?> = CustomObservable(nil)
     
     let realmrepository = RealmRepository()
     
