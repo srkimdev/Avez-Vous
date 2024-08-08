@@ -7,25 +7,27 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class RandomPictureViewController: BaseViewController {
     
     lazy var imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: imageCollectionViewLayout())
     
     private let refreshControl = UIRefreshControl()
+    
     let viewModel = RandomPictureViewModel()
+    let disposeBag = DisposeBag()
+    let pullToRefresh = PublishSubject<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imageCollectionView.isPagingEnabled = true
-        imageCollectionView.delegate = self
-        imageCollectionView.dataSource = self
-        imageCollectionView.register(RandomPictureCollectionViewCell.self, forCellWithReuseIdentifier: RandomPictureCollectionViewCell.identifier)
         imageCollectionView.showsVerticalScrollIndicator = false
+        imageCollectionView.register(RandomPictureCollectionViewCell.self, forCellWithReuseIdentifier: RandomPictureCollectionViewCell.identifier)
         imageCollectionView.refreshControl = refreshControl
         
-        viewModel.inputRandomImage.value = ()
         bindData()
     }
     
@@ -56,32 +58,6 @@ final class RandomPictureViewController: BaseViewController {
     
 }
 
-extension RandomPictureViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.outputRandomImage.value.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: RandomPictureCollectionViewCell.identifier, for: indexPath) as? RandomPictureCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.designCell(transition: viewModel.outputRandomImage.value[indexPath.item])
-        cell.likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
-        cell.likeButton.tag = indexPath.item
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        vc.hidesBottomBarWhenPushed = true
-        vc.viewModel.inputFromSearch.value = viewModel.outputRandomImage.value[indexPath.item]
-        
-        transitionScreen(vc: vc, style: .push)
-    }
-    
-}
-
 extension RandomPictureViewController: UICollectionViewDelegateFlowLayout {
     private func imageCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -95,11 +71,7 @@ extension RandomPictureViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension RandomPictureViewController {
-    
-    @objc func likeButtonClicked(_ sender: UIButton) {
-        viewModel.inputLike.value = viewModel.outputRandomImage.value[sender.tag]
-    }
-    
+
     @objc func refreshData() {
         
         if !NetworkManager.shared.isNetworkAvailable() {
@@ -108,26 +80,61 @@ extension RandomPictureViewController {
             return
         }
         
-        viewModel.inputRandomImage.value = ()
+        pullToRefresh.onNext(())
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.refreshControl.endRefreshing()
+            self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
     }
     
     private func bindData() {
-        viewModel.outputRandomImage.bind { [weak self] value in
-            self?.imageCollectionView.reloadData()
-        }
         
-        viewModel.scrollToTop.bind { [weak self] value in
-            guard let value else { return }
-            self?.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-        }
+        let callRequest = PublishSubject<Void>()
+        let likeButtonTap = PublishSubject<Photos>()
         
-        viewModel.outputLike.bind { [weak self] value in
-            guard let value else { return }
-            self?.imageCollectionView.reloadData()
-        }
+        let input = RandomPictureViewModel.Input(callRequest: callRequest, pullToRefresh: self.pullToRefresh, likeButtonTap: likeButtonTap)
+        let output = viewModel.transform(input: input)
+        
+        callRequest.onNext(())
+        
+        output.imageList
+            .drive(imageCollectionView.rx.items(cellIdentifier: RandomPictureCollectionViewCell.identifier, cellType: RandomPictureCollectionViewCell.self)) { (item, element, cell) in
+                
+                cell.designCell(transition: element)
+                
+                cell.likeButton.rx.tap
+                    .bind(with: self) { owner, _ in
+                        likeButtonTap.onNext(element)
+                    }
+                    .disposed(by: cell.disposeBag)
+                
+            }
+            .disposed(by: disposeBag)
+        
+        output.imageList
+            .drive(with: self) { owner, value in
+                if value.count == 10 {
+                    owner.imageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.reloadData
+            .bind(with: self) { owner, _ in
+                owner.imageCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        imageCollectionView.rx.modelSelected(Photos.self)
+            .bind(with: self) { owner, value in
+                
+                let vc = DetailViewController()
+                vc.hidesBottomBarWhenPushed = true
+                vc.viewModel.inputFromSearch.value = value
+                
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
         
     }
     

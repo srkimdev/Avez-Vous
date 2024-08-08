@@ -6,42 +6,45 @@
 //
 
 import Foundation
-import RealmSwift
+import RxSwift
+import RxCocoa
 
 final class RandomPictureViewModel {
     
-    var inputRandomImage: CustomObservable<Void?> = CustomObservable(nil)
-    var inputLike: CustomObservable<Photos?> = CustomObservable(nil)
-    
-    var outputRandomImage: CustomObservable<[Photos]> = CustomObservable([])
-    var outputLike: CustomObservable<Void?> = CustomObservable(nil)
-    var scrollToTop: CustomObservable<Void?> = CustomObservable(nil)
-    
+//    var inputRandomImage: CustomObservable<Void?> = CustomObservable(nil)
+//    var inputLike: CustomObservable<Photos?> = CustomObservable(nil)
+//    
+//    var outputRandomImage: CustomObservable<[Photos]> = CustomObservable([])
+//    var outputLike: CustomObservable<Void?> = CustomObservable(nil)
+//    var scrollToTop: CustomObservable<Void?> = CustomObservable(nil)
+//    
     let realmrepository = RealmRepository()
+//    
+//    init() {
+//        inputRandomImage.bind { [weak self] value in
+//            guard let value else { return }
+//            
+//            self?.fetchData()
+//        }
+//        
+//        inputLike.bind { [weak self] value in
+//            guard let value else { return }
+//            
+//            self?.likeCheck(data: value)
+//        }
+//        
+//    }
     
-    init() {
-        inputRandomImage.bind { [weak self] value in
-            guard let value else { return }
-            
-            self?.fetchData()
-        }
-        
-        inputLike.bind { [weak self] value in
-            guard let value else { return }
-            
-            self?.likeCheck(data: value)
-        }
-        
-    }
-    
-    private func fetchData() {
+    private func fetchData(transition: PublishSubject<[Photos]>) {
         let router = RouterPattern.random
         
         APIManager.shared.callRequest(router: router, responseType: [Photos].self) { response in
             switch response {
             case .success(let value):
-                self.outputRandomImage.value = value
-                self.scrollToTop.value = ()
+                print(value)
+//                self.outputRandomImage.value = value
+//                self.scrollToTop.value = ()
+                transition.onNext(value)
             case .failure(let error):
                 print(error)
             }
@@ -68,7 +71,47 @@ final class RandomPictureViewModel {
             FilesManager.shared.removeImageFromDocument(filename: data.id)
         }
         
-        outputLike.value = ()
+//        outputLike.value = ()
+    }
+    
+    let disposeBag = DisposeBag()
+    
+    struct Input {
+        let callRequest: PublishSubject<Void>
+        let pullToRefresh: PublishSubject<Void>
+        let likeButtonTap: PublishSubject<Photos>
+    }
+    
+    struct Output {
+        let imageList: SharedSequence<DriverSharingStrategy, [Photos]>
+        let reloadData: PublishSubject<Void>
+    }
+    
+    func transform(input: Input) -> Output {
+        
+        let imageList = PublishSubject<[Photos]>()
+        let reloadData = PublishSubject<Void>()
+        
+        input.callRequest
+            .bind(with: self) { owner, _ in
+                owner.fetchData(transition: imageList)
+            }
+            .disposed(by: disposeBag)
+        
+        input.pullToRefresh
+            .bind(with: self) { owner, _ in
+                owner.fetchData(transition: imageList)
+            }
+            .disposed(by: disposeBag)
+        
+        input.likeButtonTap
+            .bind(with: self) { owner, value in
+                owner.likeCheck(data: value)
+                reloadData.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(imageList: imageList.asDriver(onErrorJustReturn: []), reloadData: reloadData)
     }
     
 }

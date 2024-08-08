@@ -66,6 +66,7 @@ final class TopicTrendTableViewCell: BaseTableViewCell {
             .bind(to: imageCollectionView.rx.items(cellIdentifier: TopicTrendCollectionViewCell.identifier, cellType: TopicTrendCollectionViewCell.self)) { (item, element, cell) in
                 
                 cell.designCell(transition: element)
+                
             }
             .disposed(by: disposeBag)
     }

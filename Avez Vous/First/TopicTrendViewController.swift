@@ -123,7 +123,6 @@ extension TopicTrendViewController {
         output.tableViewList
             .drive(topicTableView.rx.items(cellIdentifier: TopicTrendTableViewCell.identifier, cellType: TopicTrendTableViewCell.self)) { (row, element, cell) in
 
-                print(row)
                 cell.designName(transition: self.viewModel.randomTopics![row].description)
                 cell.designCell(transition: element)
                 

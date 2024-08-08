@@ -31,7 +31,6 @@ final class TopicTrendViewModel {
         input.callRequest
             .bind(with: self) { owner, _ in
                 owner.createRandomTopic(transition: outputTemp)
-                print("here")
             }
             .disposed(by: disposeBag)
         
@@ -62,14 +61,21 @@ final class TopicTrendViewModel {
     
         outputTableView = []
         let randomTopic = Topic.randomCases()
+        let dispatchGroup = DispatchGroup()
         
         for item in randomTopic {
+            dispatchGroup.enter()
             fetchData(topicID: item.rawValue) { value in
                 guard let value else { return }
                 self.outputTableView.append(value)
-                transition.onNext(self.outputTableView)
+                dispatchGroup.leave()
             }
         }
+        
+        dispatchGroup.notify(queue: .main) { 
+            transition.onNext(self.outputTableView)
+        }
+        
         randomTopics = randomTopic
     }
     

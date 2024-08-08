@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import RxSwift
 
 final class RandomPictureCollectionViewCell: BaseCollectionViewCell {
     
@@ -17,6 +18,13 @@ final class RandomPictureCollectionViewCell: BaseCollectionViewCell {
     let createLabel = UILabel()
     let likeButton = UIButton()
     let photoImage = UIImageView()
+    
+    var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
