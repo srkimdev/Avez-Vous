@@ -8,11 +8,19 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import RxSwift
 
 final class LikeCheckCollectionViewCell: BaseCollectionViewCell {
     
     let photoImage = UIImageView()
     let likeButton = UIButton()
+    
+    var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

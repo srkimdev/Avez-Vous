@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class LikeCheckViewController: BaseViewController {
     
@@ -14,6 +15,8 @@ final class LikeCheckViewController: BaseViewController {
     let searchStatusLabel = UILabel()
     
     let viewModel = LikeCheckViewModel()
+    let disposeBag = DisposeBag()
+    let showList = PublishSubject<Void>()
     
     lazy var colorCollectionView = UICollectionView(frame: .zero, collectionViewLayout: colorCollectionViewLayout())
     lazy var likeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: likeCheckCollectionViewLayout())
@@ -21,20 +24,16 @@ final class LikeCheckViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        likeCollectionView.delegate = self
-        likeCollectionView.dataSource = self
         likeCollectionView.register(LikeCheckCollectionViewCell.self, forCellWithReuseIdentifier: LikeCheckCollectionViewCell.identifier)
-        
-        colorCollectionView.delegate = self
-        colorCollectionView.dataSource = self
-        colorCollectionView.register(PhotoSearchColorCollectionViewCell.self, forCellWithReuseIdentifier: PhotoSearchColorCollectionViewCell.identifier)
+//        colorCollectionView.register(PhotoSearchColorCollectionViewCell.self, forCellWithReuseIdentifier: PhotoSearchColorCollectionViewCell.identifier)
         
         bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.showLikeList.value = ()
+        
+//        showList.onNext(())
     }
     
     override func configureHierarchy() {
@@ -81,54 +80,6 @@ final class LikeCheckViewController: BaseViewController {
         likeCollectionView.isHidden = true
     }
     
-    override func configureAction() {
-        arrayButton.addTarget(self, action: #selector(arrayButtonClicked), for: .touchUpInside)
-    }
-    
-}
-
-extension LikeCheckViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == likeCollectionView {
-            return viewModel.outputResult.value.count
-        } else {
-            return SearchColor.allCases.count
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == likeCollectionView {
-            guard let cell = likeCollectionView.dequeueReusableCell(withReuseIdentifier: LikeCheckCollectionViewCell.identifier, for: indexPath) as? LikeCheckCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
-            cell.likeButton.tag = indexPath.item
-            cell.designCell(transition: viewModel.outputImageFiles.value[indexPath.item])
-            
-            return cell
-            
-        } else {
-            guard let cell = colorCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchColorCollectionViewCell.identifier, for: indexPath) as? PhotoSearchColorCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.designCell(transition: SearchColor.allCases[indexPath.item], selectedCell: viewModel.inputColor.value)
-            
-            return cell
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == likeCollectionView {
-            let vc = DetailViewController()
-            vc.viewModel.inputFromLike.value = viewModel.outputResult.value[indexPath.item]
-            
-            transitionScreen(vc: vc, style: .push)
-            
-        } else {
-            colorCollectionView.reloadData()
-        }
-    }
-    
 }
 
 extension LikeCheckViewController: UICollectionViewDelegateFlowLayout {
@@ -155,31 +106,57 @@ extension LikeCheckViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension LikeCheckViewController {
-
-    @objc func likeButtonClicked(_ sender: UIButton) {
-        viewModel.inputLike.value = viewModel.outputResult.value[sender.tag]
-        likeCollectionView.reloadData()
-    }
-    
-    @objc func arrayButtonClicked() {
-        viewModel.inputArrayButton.value = ()
-    }
     
     private func bindData() {
         
-        viewModel.outputResult.bind { [weak self] value in
-            if value.count == 0 {
-                self?.searchStatusLabel.text = CustomDesign.Placeholder.noStore
-                self?.likeCollectionView.isHidden = true
-            } else {
-                self?.likeCollectionView.reloadData()
-                self?.likeCollectionView.isHidden = false
-            }
-        }
+        let likeButtonTap = PublishSubject<DBTable>()
         
-        viewModel.outputArrayButton.bind { [weak self] value in
-            self?.arrayButton.setTitle(value.title, for: .normal)
-        }
+        let input = LikeCheckViewModel.Input(showList: showList, arrayButton: arrayButton.rx.tap, likeButton: likeButtonTap)
+        let output = viewModel.transform(input: input)
+        
+        output.imageList
+            .bind(to: likeCollectionView.rx.items(cellIdentifier: LikeCheckCollectionViewCell.identifier, cellType: LikeCheckCollectionViewCell.self)) { (item, element, cell) in
+            
+                cell.designCell(transition: element)
+                
+            }
+            .disposed(by: disposeBag)
+        
+//        output.imageInfoList
+//            .drive(likeCollectionView.rx.items(cellIdentifier: LikeCheckCollectionViewCell.identifier, cellType: LikeCheckCollectionViewCell.self)) { (item, element, cell) in
+//                
+//                cell.likeButton.rx.tap
+//                    .bind(with: self) { owner, _ in
+//                        likeButtonTap.onNext(element)
+//                    }
+//                    .disposed(by: cell.disposeBag)
+//                
+//            }
+//            .disposed(by: disposeBag)
+            
+        output.imageInfoList
+            .drive(with: self) { owner, value in
+                if value.count == 0 {
+                    owner.searchStatusLabel.text = CustomDesign.Placeholder.noStore
+                    owner.likeCollectionView.isHidden = true
+                } else {
+                    owner.likeCollectionView.isHidden = false
+                }
+                
+            }
+            .disposed(by: disposeBag)
+        
+        output.arrayButtonName
+            .bind(with: self) { owner, value in
+                owner.arrayButton.setTitle(value.title, for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        output.reloadData
+            .bind(with: self) { owner, _ in
+                owner.likeCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
         
     }
     

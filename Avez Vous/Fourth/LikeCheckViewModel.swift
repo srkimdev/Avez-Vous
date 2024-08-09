@@ -6,71 +6,88 @@
 //
 
 import Foundation
-import RealmSwift
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class LikeCheckViewModel {
-    
-    var inputLike: CustomObservable<DBTable?> = CustomObservable(nil)
-    var inputColor: CustomObservable<SearchColor?> = CustomObservable(nil)
-    var inputArrayButton: CustomObservable<Void?> = CustomObservable(nil)
-    var showLikeList: CustomObservable<Void?> = CustomObservable(nil)
-    
-    var outputResult: CustomObservable<[DBTable]> = CustomObservable([])
-    var outputImageFiles: CustomObservable<[UIImage]> = CustomObservable([])
-    var outputArrayButton: CustomObservable<SearchOrder> = CustomObservable(.latest)
-    
+
     let realmrepository = RealmRepository()
-    var realmToDummy: DBTable?
     
     var arrayButtonStatus = false
+    var data: [DBTable] = []
+    var uiImageData: [UIImage] = []
     
-    init() {
-        showLikeList.bind { _ in
-            
-            var data: [DBTable] = []
-            if self.arrayButtonStatus {
-                data = self.realmrepository.readAllItemASC()
-            } else {
-                data = self.realmrepository.readAllItemDESC()
-            }
-        
-            self.outputResult.value = data
-            
-            var uiImageData: [UIImage] = []
-            for item in data {
-                uiImageData.append(FilesManager.shared.loadImageToDocument(filename: item.id)!)
-            }
-            
-            self.outputImageFiles.value = uiImageData
-        }
-        
-        inputLike.bind { [weak self] value in
-            guard let value else { return }
-            self?.likeCheck(data: value)
-        }
-        
-        inputArrayButton.bind { [weak self] value in
-            guard let value else { return }
-            self?.arrayButtonReversed()
-        }
-        
+    let disposeBag = DisposeBag()
+    
+    struct Input {
+        let showList: PublishSubject<Void>
+        let arrayButton: ControlEvent<Void>
+        let likeButton: PublishSubject<DBTable>
     }
+    
+    struct Output {
+        let imageInfoList: SharedSequence<DriverSharingStrategy, [DBTable]>
+        let imageList: PublishSubject<[UIImage]>
+        let arrayButtonName: PublishSubject<SearchOrder>
+        let reloadData: PublishSubject<Void>
+    }
+    
+    func transform(input: Input) -> Output {
+        
+        let imageInfoList = PublishSubject<[DBTable]>()
+        let imageList = PublishSubject<[UIImage]>()
+        let arrayButtonName = PublishSubject<SearchOrder>()
+        let reloadData = PublishSubject<Void>()
+        
+        input.showList
+            .bind(with: self) { owner, _ in
+                
+                owner.data = owner.arrayButtonStatus ? owner.realmrepository.readAllItemASC() : owner.realmrepository.readAllItemDESC()
+                
+                imageInfoList.onNext(owner.data)
+                
+                // FileManager
+                owner.uiImageData = []
+                for item in owner.data {
+                    owner.uiImageData.append(FilesManager.shared.loadImageToDocument(filename: item.id)!)
+                }
+    
+                imageList.onNext(owner.uiImageData)
+                
+            }
+            .disposed(by: disposeBag)
+        
+        input.arrayButton
+            .bind(with: self) { owner, _ in
+                arrayButtonName.onNext(owner.arrayButtonReversed())
+                input.showList.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        input.likeButton
+            .bind(with: self) { owner, value in
+                owner.likeCheck(data: value)
+                reloadData.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(imageInfoList: imageInfoList.asDriver(onErrorJustReturn: []), imageList: imageList, arrayButtonName: arrayButtonName, reloadData: reloadData)
+    }
+    
     
     private func likeCheck(data: DBTable) {
         UserInfo.shared.setLikeProduct(isLike: false, forkey: data.id)
         FilesManager.shared.removeImageFromDocument(filename: data.id)
         realmrepository.deleteItem(id: data.id)
-        
-        showLikeList.value = ()
+
         NotificationCenter.default.post(name: NSNotification.Name("update"), object: nil, userInfo: nil)
     }
     
-    private func arrayButtonReversed() {
+    private func arrayButtonReversed() -> SearchOrder {
         arrayButtonStatus.toggle()
         let status = arrayButtonStatus ? SearchOrder.past : SearchOrder.latest
         
-        outputArrayButton.value = status
-        showLikeList.value = ()
+        return status
     }
 }
