@@ -14,7 +14,7 @@ final class RealmRepository {
         
     func createItem(_ data: DBTable) {
         do {
-            try! realm.write {
+            try realm.write {
                 realm.add(data)
                 print("Realm Create Succeed")
             }
@@ -36,10 +36,15 @@ final class RealmRepository {
     func deleteItem(id: String) {
         let filter = realm.objects(DBTable.self).first(where: {$0.id == id} )
         
-        try! realm.write {
-            realm.delete(filter!)
-            print("Realm Delete Succeed")
+        do {
+            try realm.write {
+                realm.delete(filter!)
+                print("Realm Delete Succeed")
+            }
+        } catch {
+            print("Realm Error")
         }
+        
     }
 
     func detectRealmURL() {

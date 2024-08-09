@@ -136,7 +136,6 @@ extension LikeCheckViewController {
                 } else {
                     owner.likeCollectionView.isHidden = false
                 }
-                
             }
             .disposed(by: disposeBag)
         

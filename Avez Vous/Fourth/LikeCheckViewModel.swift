@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import RxSwift
 import RxCocoa
 
@@ -27,14 +26,12 @@ final class LikeCheckViewModel {
     
     struct Output {
         let imageInfoList: SharedSequence<DriverSharingStrategy, [DBTable]>
-        let imageList: PublishSubject<[UIImage]>
         let arrayButtonName: PublishSubject<SearchOrder>
     }
     
     func transform(input: Input) -> Output {
         
         let imageInfoList = PublishSubject<[DBTable]>()
-        let imageList = PublishSubject<[UIImage]>()
         let arrayButtonName = PublishSubject<SearchOrder>()
         
         input.showList
@@ -59,7 +56,7 @@ final class LikeCheckViewModel {
             }
             .disposed(by: disposeBag)
         
-        return Output(imageInfoList: imageInfoList.asDriver(onErrorJustReturn: []), imageList: imageList, arrayButtonName: arrayButtonName)
+        return Output(imageInfoList: imageInfoList.asDriver(onErrorJustReturn: []), arrayButtonName: arrayButtonName)
     }
     
     

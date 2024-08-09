@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class DBTable: Object {
+final class DBTable: Object {
     
     @Persisted(primaryKey: true) var key: ObjectId
     @Persisted var id: String
