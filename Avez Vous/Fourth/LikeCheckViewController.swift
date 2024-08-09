@@ -33,7 +33,7 @@ final class LikeCheckViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        showList.onNext(())
+        showList.onNext(())
     }
     
     override func configureHierarchy() {
@@ -114,25 +114,19 @@ extension LikeCheckViewController {
         let input = LikeCheckViewModel.Input(showList: showList, arrayButton: arrayButton.rx.tap, likeButton: likeButtonTap)
         let output = viewModel.transform(input: input)
         
-        output.imageList
-            .bind(to: likeCollectionView.rx.items(cellIdentifier: LikeCheckCollectionViewCell.identifier, cellType: LikeCheckCollectionViewCell.self)) { (item, element, cell) in
-            
+        output.imageInfoList
+            .drive(likeCollectionView.rx.items(cellIdentifier: LikeCheckCollectionViewCell.identifier, cellType: LikeCheckCollectionViewCell.self)) { (item, element, cell) in
+                
                 cell.designCell(transition: element)
+                
+                cell.likeButton.rx.tap
+                    .bind(with: self) { owner, _ in
+                        likeButtonTap.onNext(element)
+                    }
+                    .disposed(by: cell.disposeBag)
                 
             }
             .disposed(by: disposeBag)
-        
-//        output.imageInfoList
-//            .drive(likeCollectionView.rx.items(cellIdentifier: LikeCheckCollectionViewCell.identifier, cellType: LikeCheckCollectionViewCell.self)) { (item, element, cell) in
-//                
-//                cell.likeButton.rx.tap
-//                    .bind(with: self) { owner, _ in
-//                        likeButtonTap.onNext(element)
-//                    }
-//                    .disposed(by: cell.disposeBag)
-//                
-//            }
-//            .disposed(by: disposeBag)
             
         output.imageInfoList
             .drive(with: self) { owner, value in
@@ -146,15 +140,20 @@ extension LikeCheckViewController {
             }
             .disposed(by: disposeBag)
         
-        output.arrayButtonName
+        likeCollectionView.rx.modelSelected(DBTable.self)
             .bind(with: self) { owner, value in
-                owner.arrayButton.setTitle(value.title, for: .normal)
+                let vc = DetailViewController()
+                vc.hidesBottomBarWhenPushed
+                vc.viewModel.inputFromLike.value = value
+                
+                owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
         
-        output.reloadData
-            .bind(with: self) { owner, _ in
-                owner.likeCollectionView.reloadData()
+        
+        output.arrayButtonName
+            .bind(with: self) { owner, value in
+                owner.arrayButton.setTitle(value.title, for: .normal)
             }
             .disposed(by: disposeBag)
         

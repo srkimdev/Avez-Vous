@@ -48,8 +48,8 @@ final class LikeCheckCollectionViewCell: BaseCollectionViewCell {
         likeButton.setImage(CustomDesign.Images.likeActive, for: .normal)
     }
     
-    func designCell(transition: UIImage) {
-        photoImage.image = transition
+    func designCell(transition: DBTable) {
+        photoImage.image = FilesManager.shared.loadImageToDocument(filename: transition.id)
     }
 
 }

@@ -10,7 +10,8 @@ import RealmSwift
 
 class DBTable: Object {
     
-    @Persisted(primaryKey: true) var id: String
+    @Persisted(primaryKey: true) var key: ObjectId
+    @Persisted var id: String
     @Persisted var created_at: String
     @Persisted var width: Int
     @Persisted var height: Int
