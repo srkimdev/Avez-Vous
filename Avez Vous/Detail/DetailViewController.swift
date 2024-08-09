@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import RxSwift
 
 final class DetailViewController: BaseViewController {
     
@@ -29,6 +30,10 @@ final class DetailViewController: BaseViewController {
     let downloadValue = UILabel()
     
     let viewModel = DetailViewModel()
+    let disposeBag = DisposeBag()
+    
+    let showImageInfoFromSearch = BehaviorSubject<Photos?>(value: nil)
+    let showImageInfoFromLike = BehaviorSubject<DBTable?>(value: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,9 +103,7 @@ final class DetailViewController: BaseViewController {
         photoImage.snp.makeConstraints { make in
             make.top.equalTo(writerImage.snp.bottom).offset(12)
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
-            make.height.equalTo(
-                CGFloat(viewModel.outputDetailPhoto.value!.height) / CGFloat(viewModel.outputDetailPhoto.value!.width) * UIScreen.main.bounds.width
-            )
+            make.height.equalTo(1)
         }
         
         informationLabel.snp.makeConstraints { make in
@@ -158,8 +161,8 @@ final class DetailViewController: BaseViewController {
     
         writerName.font = .systemFont(ofSize: 11)
         
-        let image = UserInfo.shared.getLikeProduct(forkey: viewModel.outputDetailPhoto.value!.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
-        likeButton.setImage(image, for: .normal)
+//        let image = UserInfo.shared.getLikeProduct(forkey: viewModel.outputDetailPhoto.value!.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
+//        likeButton.setImage(image, for: .normal)
         
         createLabel.font = .systemFont(ofSize: 11, weight: .bold)
         
@@ -176,48 +179,53 @@ final class DetailViewController: BaseViewController {
         downloadLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
     }
-    
-    override func configureAction() {
-        likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
-    }
-    
+
 }
 
 extension DetailViewController {
     
     private func bindData() {
+
+        let likeButtonTap = PublishSubject<Photos>()
         
-        viewModel.outputDetailPhoto.bind { [weak self] value in
-            guard let value else { return }
+        let input = DetailViewModel.Input(showImageInfoFromSearch: showImageInfoFromSearch, showImageInfoFromLike: showImageInfoFromLike, likeButtonTap: likeButtonTap)
+        let output = viewModel.transform(input: input)
+        
+        output.detailPhoto
+            .compactMap { $0 }
+            .bind(with: self) { owner, value in
+                
+                var url = URL(string: value.urls.small)
+                owner.photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
+                owner.sizeValue.text = "\(value.width) x \(value.height)"
+                owner.writerName.text = value.user.name
+                owner.createLabel.text = "\(DateFormatterManager.shared.changeDate(value.created_at)) 게시물"
     
-            var url = URL(string: value.urls.small)
-            self?.photoImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
-            self?.sizeValue.text = "\(value.width) x \(value.height)"
-            self?.writerName.text = value.user.name
-            self?.createLabel.text = "\(DateFormatterManager.shared.changeDate(value.created_at)) 게시물"
-            
-            url = URL(string: value.user.profile_image.medium)
-            self?.writerImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
-        }
+                owner.photoImage.snp.updateConstraints { make in
+                    make.height.equalTo(
+                        CGFloat(value.height) / CGFloat(value.width) * UIScreen.main.bounds.width
+                    )
+                }
+                
+                url = URL(string: value.user.profile_image.medium)
+                owner.writerImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
+            }
+            .disposed(by: disposeBag)
         
-        viewModel.outputStatistics.bind { [weak self] value in
-            guard let value else { return }
-            
-            self?.seeValue.text = NumberFormatterManager.shared.Comma(value.views.total)
-            self?.downloadValue.text = NumberFormatterManager.shared.Comma(value.downloads.total)
-        }
+        output.statisticsPhoto
+            .bind(with: self) { owner, value in
+                owner.seeValue.text = NumberFormatterManager.shared.Comma(value.views.total)
+                owner.downloadValue.text = NumberFormatterManager.shared.Comma(value.downloads.total)
+            }
+            .disposed(by: disposeBag)
         
-        viewModel.outputLike.bind { [weak self] value in
-            guard let value else { return }
-            
-            let image = value ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
-            self?.likeButton.setImage(image, for: .normal)
-        }
+        output.likeButtonStatus
+            .bind(with: self) { owner, value in
+                let image = value ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
+                owner.likeButton.setImage(image, for: .normal)
+            }
+            .disposed(by: disposeBag)
         
-    }
-    
-    @objc func likeButtonClicked() {
-        viewModel.inputLike.value = viewModel.inputFromSearch.value
     }
 
 }

@@ -142,9 +142,9 @@ extension LikeCheckViewController {
         likeCollectionView.rx.modelSelected(DBTable.self)
             .bind(with: self) { owner, value in
                 let vc = DetailViewController()
-                vc.hidesBottomBarWhenPushed
-                vc.viewModel.inputFromLike.value = value
+                vc.hidesBottomBarWhenPushed = true
                 
+                vc.showImageInfoFromLike.onNext(value)
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

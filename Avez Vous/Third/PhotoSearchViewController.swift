@@ -152,7 +152,7 @@ extension PhotoSearchViewController: UICollectionViewDelegate, UICollectionViewD
         if collectionView == imageCollectionView {
             let vc = DetailViewController()
             vc.hidesBottomBarWhenPushed = true
-            vc.viewModel.inputFromSearch.value = viewModel.outputResult.value[indexPath.item]
+//            vc.viewModel.inputFromSearch.value = viewModel.outputResult.value[indexPath.item]
             
             transitionScreen(vc: vc, style: .push)
             

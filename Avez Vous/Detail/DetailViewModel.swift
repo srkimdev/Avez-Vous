@@ -6,39 +6,56 @@
 //
 
 import Foundation
-import RealmSwift
+import RxSwift
+import RxCocoa
 
 final class DetailViewModel {
     
-    var inputFromSearch: CustomObservable<Photos?> = CustomObservable(nil)
-    var inputFromLike: CustomObservable<DBTable?> = CustomObservable(nil)
-    var inputLike: CustomObservable<Photos?> = CustomObservable(nil)
-    
-    var outputDetailPhoto: CustomObservable<Photos?> = CustomObservable(nil)
-    var outputStatistics: CustomObservable<PhotoStatistics?> = CustomObservable(nil)
-    var outputLike: CustomObservable<Bool?> = CustomObservable(nil)
+    let statisticsPhoto = PublishSubject<PhotoStatistics>()
     
     let realmrepository = RealmRepository()
+    let disposeBag = DisposeBag()
     
-    init() {
+    struct Input {
+        let showImageInfoFromSearch: BehaviorSubject<Photos?>
+        let showImageInfoFromLike: BehaviorSubject<DBTable?>
+        let likeButtonTap: PublishSubject<Photos>
+    }
+    
+    struct Output {
+        let detailPhoto: BehaviorSubject<Photos?>
+        let statisticsPhoto: PublishSubject<PhotoStatistics>
+        let likeButtonStatus: PublishSubject<Bool>
+    }
+    
+    func transform(input: Input) -> Output {
+
+        let detailPhoto = BehaviorSubject<Photos?>(value: nil)
+        let likeButtonStatus = PublishSubject<Bool>()
         
-        inputFromSearch.bind { [weak self] value in
-            guard let value else { return }
-            self?.outputDetailPhoto.value = value
-            self?.fetchData(imageID: value.id)
-        }
+        input.showImageInfoFromSearch
+            .compactMap { $0 }
+            .bind(with: self) { owner, value in
+                detailPhoto.onNext(value)
+                owner.fetchData(imageID: value.id)
+            }
+            .disposed(by: disposeBag)
         
-        inputFromLike.bind { [weak self] value in
-            guard let value else { return }
-            self?.outputDetailPhoto.value = self?.toPhotos(data: value)
-            self?.fetchData(imageID: value.id)
-        }
+        input.showImageInfoFromLike
+            .compactMap { $0 }
+            .bind(with: self) { owner, value in
+                detailPhoto.onNext(owner.toPhotos(data: value))
+                owner.fetchData(imageID: value.id)
+            }
+            .disposed(by: disposeBag)
         
-        inputLike.bind { [weak self] value in
-            guard let value else { return }
-            self?.likeCheck(data: value)
-        }
+        input.likeButtonTap
+            .bind(with: self) { owner, value in
+                likeButtonStatus.onNext(owner.likeCheck(data: value))
+            }
+            .disposed(by: disposeBag)
         
+        return Output(detailPhoto: detailPhoto, statisticsPhoto: statisticsPhoto, likeButtonStatus: likeButtonStatus)
     }
     
     private func fetchData(imageID: String) {
@@ -47,14 +64,14 @@ final class DetailViewModel {
         APIManager.shared.callRequest(router: router, responseType: PhotoStatistics.self) { response in
             switch response {
             case .success(let value):
-                self.outputStatistics.value = value
+                self.statisticsPhoto.onNext(value)
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    private func likeCheck(data: Photos) {
+    private func likeCheck(data: Photos) -> Bool {
         var like = UserInfo.shared.getLikeProduct(forkey: data.id)
         like.toggle()
         
@@ -73,9 +90,10 @@ final class DetailViewModel {
             
             FilesManager.shared.removeImageFromDocument(filename: data.id)
         }
-        
-        outputLike.value = like
+
         NotificationCenter.default.post(name: NSNotification.Name("update"), object: nil, userInfo: nil)
+        
+        return like
     }
     
     private func toPhotos(data: DBTable) -> Photos {

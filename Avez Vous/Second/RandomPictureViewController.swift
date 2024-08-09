@@ -130,7 +130,7 @@ extension RandomPictureViewController {
                 
                 let vc = DetailViewController()
                 vc.hidesBottomBarWhenPushed = true
-                vc.viewModel.inputFromSearch.value = value
+                vc.showImageInfoFromSearch.onNext(value)
                 
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
