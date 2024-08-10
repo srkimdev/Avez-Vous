@@ -25,7 +25,7 @@ final class LikeCheckViewModel {
     }
     
     struct Output {
-        let imageInfoList: SharedSequence<DriverSharingStrategy, [DBTable]>
+        let imageInfoList: Driver<[DBTable]>
         let arrayButtonName: PublishSubject<SearchOrder>
     }
     

@@ -21,7 +21,7 @@ final class RandomPictureViewModel {
     }
     
     struct Output {
-        let imageList: SharedSequence<DriverSharingStrategy, [Photos]>
+        let imageList: Driver<[Photos]>
         let reloadData: PublishSubject<Void>
     }
     

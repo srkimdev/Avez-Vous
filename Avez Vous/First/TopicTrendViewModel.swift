@@ -21,7 +21,7 @@ final class TopicTrendViewModel {
     }
     
     struct Output {
-        let tableViewList: SharedSequence<DriverSharingStrategy, [[Photos]]>
+        let tableViewList: Driver<[[Photos]]>
     }
     
     func transform(input: Input) -> Output {
