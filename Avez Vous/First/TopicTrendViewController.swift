@@ -126,6 +126,17 @@ extension TopicTrendViewController {
                 cell.designName(transition: self.viewModel.randomTopics![row].description)
                 cell.designCell(transition: element)
                 
+                cell.imageCollectionView.rx.modelSelected(Photos.self)
+                    .bind(with: self) { owner, value in
+                        
+                        let vc = DetailViewController()
+                        vc.hidesBottomBarWhenPushed = true
+                        
+                        vc.showImageInfoFromSearch.onNext(value)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    }
+                    .disposed(by: cell.disposeBag)
+                
             }
             .disposed(by: disposeBag)
         

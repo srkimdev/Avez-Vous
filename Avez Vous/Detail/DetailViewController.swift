@@ -161,9 +161,6 @@ final class DetailViewController: BaseViewController {
     
         writerName.font = .systemFont(ofSize: 11)
         
-//        let image = UserInfo.shared.getLikeProduct(forkey: viewModel.outputDetailPhoto.value!.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
-//        likeButton.setImage(image, for: .normal)
-        
         createLabel.font = .systemFont(ofSize: 11, weight: .bold)
         
         informationLabel.text = CustomDesign.Name.information
@@ -206,6 +203,9 @@ extension DetailViewController {
                         CGFloat(value.height) / CGFloat(value.width) * UIScreen.main.bounds.width
                     )
                 }
+                
+                let image = UserInfo.shared.getLikeProduct(forkey: value.id) ? CustomDesign.Images.likeActive : CustomDesign.Images.likeInactive
+                owner.likeButton.setImage(image, for: .normal)
                 
                 url = URL(string: value.user.profile_image.medium)
                 owner.writerImage.kf.setImage(with: url, placeholder: CustomDesign.Images.placeholderImage)
