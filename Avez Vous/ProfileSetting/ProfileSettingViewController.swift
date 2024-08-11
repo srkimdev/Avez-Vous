@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class ProfileSettingViewController: BaseViewController {
     
@@ -24,6 +25,8 @@ final class ProfileSettingViewController: BaseViewController {
     lazy var buttonCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     let viewModel = ProfileSettingViewModel()
+    let disposeBag = DisposeBag()
+    
     var selectedClosure: ((Int) -> Void)?
     
     override func viewDidLoad() {
@@ -283,16 +286,6 @@ extension ProfileSettingViewController {
     
     private func bindData() {
         
-        viewModel.outputImageNumber.bind { [weak self] value in
-            self?.profileImage.image = UIImage(named: "profile_\(value)")
-        }
-        
-        viewModel.outputText.bind { [weak self] value in
-            guard let self else { return }
-            self.statusLabel.text = value
-            self.statusLabel.textColor = self.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
-        }
-        
         viewModel.outputAllow.bind { [weak self] value in
             self?.clearButton.backgroundColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Gray
         }
@@ -305,6 +298,48 @@ extension ProfileSettingViewController {
                 self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])
             }
         }
+        
+        let randomImageTrigger = Observable<Void>.just(())
+        let showCurrentMBTI = Observable<Void>.just(())
+        
+        let input = ProfileSettingViewModel.Input(randomImageTrigger: randomImageTrigger, nickName: nicknameTextField.rx.text.orEmpty, showCurrentMBTI: showCurrentMBTI)
+        let output = viewModel.transform(input: input)
+        
+        output.showRandomImage
+            .map { UIImage(named: "profile_\($0)") }
+            .bind(to: profileImage.rx.image)
+            .disposed(by: disposeBag)
+        
+        output.nickNameStatus
+            .bind(with: self) { owner, value in
+                owner.statusLabel.text = value
+                owner.statusLabel.textColor = owner.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.just([0, 1, 2, 3, 4, 5, 6, 7])
+            .bind(to: buttonCollectionView.rx.items(cellIdentifier: ProfileSettingCollectionViewCell.identifier, cellType: ProfileSettingCollectionViewCell.self)) { (item, element, cell) in
+                
+                
+                
+            }
+            .disposed(by: disposeBag)
+        
+        
+        
+//        buttonCollectionView.rx.itemSelected
+//            .map { indexPath in indexPath.row }
+//            .bind(with: self) { owner, value in
+//                
+//                owner.viewModel.mbtiSave(value: value)
+//                
+//                UIView.performWithoutAnimation {
+//                    owner.buttonCollectionView.reloadItems(at: [IndexPath(item: value, section: 0)])
+//                    owner.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])
+//                }
+//            }
+//            .disposed(by: disposeBag)
+        
     }
     
     private func initialize() {

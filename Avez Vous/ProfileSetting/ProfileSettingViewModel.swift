@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 final class ProfileSettingViewModel {
     
@@ -27,14 +29,14 @@ final class ProfileSettingViewModel {
     var mbtiArray: [Int] = [-1, -1, -1, -1]
     
     init() {
-        showRandomImage.bind { value in
-            guard let value else { return }
-            self.randomImage()
-        }
-        
-        inputText.bind { value in
-            self.validation()
-        }
+//        showRandomImage.bind { value in
+//            guard let value else { return }
+//            self.randomImage()
+//        }
+//        
+//        inputText.bind { value in
+//            self.validation()
+//        }
         
         inputSelectedMBTI.bind { [weak self] value in
             guard let value else { return }
@@ -55,32 +57,83 @@ final class ProfileSettingViewModel {
         mbtiSetting()
     }
     
-    private func randomImage() {
-        let num = Int.random(in: 0...11)
-        outputImageNumber.value = num
+    let disposeBag = DisposeBag()
+    
+    struct Input {
+        let randomImageTrigger: Observable<Void>
+        let nickName: ControlProperty<String>
+        let showCurrentMBTI: Observable<Void>
+//        let mbtiButtonTap: Observable<Void>
+//        let selectMBTI: PublishSubject<ControlEvent<IndexPath>.Element>
     }
     
-    private func validation() {
+    struct Output {
+        let showRandomImage: Observable<Int>
+        let nickNameStatus: PublishSubject<String>
+        let showCurrentMBTI: PublishSubject<Bool>
+//        let showMBTI: PublishSubject<ControlEvent<IndexPath>.Element>
+    }
+    
+    func transform(input: Input) -> Output {
         
-        guard let inputText = inputText.value else { return }
+        let nickNameStatus = PublishSubject<String>()
+        let showCurrentMBTI = PublishSubject<Bool>()
+//        let showMBTI = PublishSubject<ControlEvent<IndexPath>.Element>()
+        
+        let showRandomImage = input.randomImageTrigger
+            .withUnretained(self)
+            .map { _ in self.randomImage() }
+        
+        input.nickName
+            .bind(with: self) { owner, value in
+                nickNameStatus.onNext(owner.validation(inputText: value))
+            }
+            .disposed(by: disposeBag)
+        
+        input.showCurrentMBTI
+            .bind(with: self) { owner, _ in
+                owner.mbtiSetting()
+                showCurrentMBTI.onNext(true)
+            }
+            .disposed(by: disposeBag)
+//        input
+        
+//        input.selectMBTI
+//            .map { Int($0) }
+//            .bind(with: self) { owner, value in
+//                owner.mbtiSave(value: value)
+//            }
+//            .disposed(by: disposeBag)
+        
+        
+        
+        return Output(showRandomImage: showRandomImage, nickNameStatus: nickNameStatus, showCurrentMBTI: showCurrentMBTI)
+    }
+    
+    private func randomImage() -> Int {
+        let num = Int.random(in: 0...11)
+        return num
+    }
+    
+    private func validation(inputText: String) -> String {
         
         if inputText.count < 2 || inputText.count >= 10 {
             nicknameAllow = false
-            outputText.value = validationError.isNotLength.rawValue
+            return validationError.isNotLength.rawValue
         } else if inputText.contains("@") || inputText.contains("#") || inputText.contains("$") || inputText.contains("%"){
             nicknameAllow = false
-            outputText.value = validationError.isNotSign.rawValue
+            return validationError.isNotSign.rawValue
         } else if isDigit(input: inputText) {
             nicknameAllow = false
-            outputText.value = validationError.isNotNumber.rawValue
+            return validationError.isNotNumber.rawValue
         } else if inputText.contains(" ") {
             nicknameAllow = false
-            outputText.value = validationError.isNotSpace.rawValue
+            return validationError.isNotSpace.rawValue
         } else {
             nicknameAllow = true
-            outputText.value = "사용할 수 있는 닉네임이에요"
+            return "사용할 수 있는 닉네임이에요"
         }
-        currentAllow.value = ()
+
     } 
     
     private func isDigit(input: String) -> Bool {
@@ -88,10 +141,10 @@ final class ProfileSettingViewModel {
         return input.rangeOfCharacter(from: decimalCharacters) != nil
     }
     
-    private func mbtiSave(value: Int) {
+    func mbtiSave(value: Int) {
         mbtiArray[value % 4] = value
         mbtiAllow = mbtiArray.contains(-1) ? false : true
-        currentAllow.value = ()
+//        currentAllow.value = ()
     }
     
     private func mbtiSetting() {
