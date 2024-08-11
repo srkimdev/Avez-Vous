@@ -32,8 +32,6 @@ final class ProfileSettingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonCollectionView.delegate = self
-        buttonCollectionView.dataSource = self
         buttonCollectionView.register(ProfileSettingCollectionViewCell.self, forCellWithReuseIdentifier: ProfileSettingCollectionViewCell.identifier)
         buttonCollectionView.isScrollEnabled = false
         
@@ -137,11 +135,11 @@ final class ProfileSettingViewController: BaseViewController {
             clearButton.isHidden = true
             quitButton.isHidden = false
             
-            viewModel.outputImageNumber.value = UserInfo.shared.profileNumber
-            viewModel.inputText.value = UserInfo.shared.userName
-            
-            // show current MBTI Trigger
-            viewModel.inputMBTISetting.value = ()
+//            viewModel.outputImageNumber.value = UserInfo.shared.profileNumber
+//            viewModel.inputText.value = UserInfo.shared.userName
+//            
+//            // show current MBTI Trigger
+//            viewModel.inputMBTISetting.value = ()
             
         } else {
             navigationItem.title = CustomDesign.NavigationTitle.profileSetting
@@ -149,7 +147,7 @@ final class ProfileSettingViewController: BaseViewController {
             clearButton.isHidden = false
             quitButton.isHidden = true
             
-            viewModel.showRandomImage.value = ()
+//            viewModel.showRandomImage.value = ()
         }
 
         BackButton()
@@ -188,37 +186,37 @@ final class ProfileSettingViewController: BaseViewController {
     
     override func configureAction() {
         profileImageButton.addTarget(self, action: #selector(profileImageButtonClicked), for: .touchUpInside)
-        nicknameTextField.addTarget(self, action: #selector(nicknameChanged), for: .editingChanged)
-        clearButton.addTarget(self, action: #selector(clearButtonClicked), for: .touchUpInside)
+//        nicknameTextField.addTarget(self, action: #selector(nicknameChanged), for: .editingChanged)
+//        clearButton.addTarget(self, action: #selector(clearButtonClicked), for: .touchUpInside)
         quitButton.addTarget(self, action: #selector(quitButtonClicked), for: .touchUpInside)
     }
     
 }
 
-extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return MBTI.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
-        
-        // show current MBTI when you click the edit profile
-        if viewModel.outputMBTISetting.value {
-            cell.designEditCell(transition: indexPath.item, mbtiArray: viewModel.mbtiArray)
-        }
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.inputSelectedMBTI.value = indexPath.item
-    }
-    
-}
+//extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+//    
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return MBTI.allCases.count
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
+//        
+//        cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
+//        
+//        // show current MBTI when you click the edit profile
+//        if viewModel.outputMBTISetting.value {
+//            cell.designEditCell(transition: indexPath.item, mbtiArray: viewModel.mbtiArray)
+//        }
+//        
+//        return cell
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        viewModel.inputSelectedMBTI.value = indexPath.item
+//    }
+//    
+//}
 
 extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
     
@@ -234,49 +232,31 @@ extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProfileSettingViewController {
     
-    @objc func nicknameChanged() {
-        viewModel.inputText.value = nicknameTextField.text
-    }
-    
-    @objc func clearButtonClicked() {
-        if viewModel.outputAllow.value {
-            let vc = TabBarViewController()
-            
-            // save userInfo
-            UserInfo.shared.userName = viewModel.inputText.value!
-            UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
-            UserInfo.shared.MBTI = viewModel.mbtiArray
-            UserDefaultsManager.shared.mode = Mode.edit.rawValue
-            
-            transitionScreen(vc: vc, style: .presentFull)
-        }
-    }
-    
     @objc func profileImageButtonClicked() {
         let vc = ProfileSelectingViewController()
-        vc.viewModel.inputSelectedImage.value = viewModel.outputImageNumber.value
+//        vc.viewModel.inputSelectedImage.value = viewModel.outputImageNumber.value
         
         // update profile image when you edit profile image
-        vc.selectedClosure = { [weak self] value in
-            self?.viewModel.outputImageNumber.value = value
-        }
+//        vc.selectedClosure = { [weak self] value in
+//            self?.viewModel.outputImageNumber.value = value
+//        }
         
         transitionScreen(vc: vc, style: .push)
     }
     
     @objc func saveButtonClicked() {
         
-        if viewModel.outputAllow.value {
-            // save userInfo
-            UserInfo.shared.userName = viewModel.inputText.value!
-            UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
-            UserInfo.shared.MBTI = viewModel.mbtiArray
-            selectedClosure?(UserInfo.shared.profileNumber)
-            
-            navigationController?.popViewController(animated: true)
-        } else {
-            showAlertForNickname(title: CustomDesign.AlertMessage.nick)
-        }
+//        if viewModel.outputAllow.value {
+//            // save userInfo
+//            UserInfo.shared.userName = viewModel.inputText.value!
+//            UserInfo.shared.profileNumber = viewModel.outputImageNumber.value
+//            UserInfo.shared.MBTI = viewModel.mbtiArray
+//            selectedClosure?(UserInfo.shared.profileNumber)
+//            
+//            navigationController?.popViewController(animated: true)
+//        } else {
+//            showAlertForNickname(title: CustomDesign.AlertMessage.nick)
+//        }
         
     }
     
@@ -286,23 +266,10 @@ extension ProfileSettingViewController {
     
     private func bindData() {
         
-        viewModel.outputAllow.bind { [weak self] value in
-            self?.clearButton.backgroundColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Gray
-        }
-        
-        viewModel.outputSelectedMBTI.bind { [weak self] value in
-            guard let value else { return }
-
-            UIView.performWithoutAnimation {
-                self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value, section: 0)])
-                self?.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])
-            }
-        }
-        
         let randomImageTrigger = Observable<Void>.just(())
         let showCurrentMBTI = Observable<Void>.just(())
         
-        let input = ProfileSettingViewModel.Input(randomImageTrigger: randomImageTrigger, nickName: nicknameTextField.rx.text.orEmpty, showCurrentMBTI: showCurrentMBTI)
+        let input = ProfileSettingViewModel.Input(randomImageTrigger: randomImageTrigger, nickName: nicknameTextField.rx.text.orEmpty, showCurrentMBTI: showCurrentMBTI, clearButtonTap: clearButton.rx.tap)
         let output = viewModel.transform(input: input)
         
         output.showRandomImage
@@ -311,34 +278,61 @@ extension ProfileSettingViewController {
             .disposed(by: disposeBag)
         
         output.nickNameStatus
+        
             .bind(with: self) { owner, value in
                 owner.statusLabel.text = value
-                owner.statusLabel.textColor = owner.viewModel.nicknameAllow ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
             }
             .disposed(by: disposeBag)
         
+        output.nickNameAllow
+            .bind(with: self) { owner, value in
+                owner.statusLabel.textColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Red
+            }
+            .disposed(by: disposeBag)
+        
+        
+        output.clearButtonTap
+            .bind(with: self) { owner, _ in
+//                if owner.viewModel.mbtiAllow.value() && owner.viewModel.nicknameAllow.value() {
+//                    let vc = TabBarViewController()
+//                    
+//                    // save userInfo
+//                    UserInfo.shared.userName = owner.nicknameTextField.text!
+//                    UserInfo.shared.profileNumber = owner.viewModel.randomImage()
+//                    UserInfo.shared.MBTI = owner.viewModel.mbtiArray
+//                    UserDefaultsManager.shared.mode = Mode.edit.rawValue
+//                    
+//                    owner.transitionScreen(vc: vc, style: .presentFull)
+//                }
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.zip(viewModel.mbtiAllow, viewModel.nicknameAllow)
+            .map { $0 && $1 }
+            .bind(with: self) { owner, value in
+                owner.clearButton.backgroundColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Gray
+            }
+            .disposed(by: disposeBag)
+            
         Observable.just([0, 1, 2, 3, 4, 5, 6, 7])
             .bind(to: buttonCollectionView.rx.items(cellIdentifier: ProfileSettingCollectionViewCell.identifier, cellType: ProfileSettingCollectionViewCell.self)) { (item, element, cell) in
                 
-                
+                cell.designCell(transition: item, mbtiArray: self.viewModel.mbtiArray)
                 
             }
             .disposed(by: disposeBag)
         
         
+        buttonCollectionView.rx.itemSelected
+            .map { indexPath in indexPath.row }
+            .bind(with: self) { owner, value in
+            
+                owner.viewModel.mbtiSave(value: value)
+                owner.buttonCollectionView.reloadData()
+
+            }
+            .disposed(by: disposeBag)
         
-//        buttonCollectionView.rx.itemSelected
-//            .map { indexPath in indexPath.row }
-//            .bind(with: self) { owner, value in
-//                
-//                owner.viewModel.mbtiSave(value: value)
-//                
-//                UIView.performWithoutAnimation {
-//                    owner.buttonCollectionView.reloadItems(at: [IndexPath(item: value, section: 0)])
-//                    owner.buttonCollectionView.reloadItems(at: [IndexPath(item: value > 3 ? value % 4 : value + 4, section: 0)])
-//                }
-//            }
-//            .disposed(by: disposeBag)
         
     }
     

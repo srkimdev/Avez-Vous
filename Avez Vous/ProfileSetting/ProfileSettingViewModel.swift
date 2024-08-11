@@ -11,51 +11,52 @@ import RxCocoa
 
 final class ProfileSettingViewModel {
     
-    var showRandomImage: CustomObservable<Void?> = CustomObservable(nil)
-    var inputText: CustomObservable<String?> = CustomObservable(nil)
-    var inputSelectedMBTI: CustomObservable<Int?> = CustomObservable(nil)
-    var inputMBTISetting: CustomObservable<Void?> = CustomObservable(nil)
+//    var showRandomImage: CustomObservable<Void?> = CustomObservable(nil)
+//    var inputText: CustomObservable<String?> = CustomObservable(nil)
+//    var inputSelectedMBTI: CustomObservable<Int?> = CustomObservable(nil)
+//    var inputMBTISetting: CustomObservable<Void?> = CustomObservable(nil)
+//    
+//    var outputImageNumber: CustomObservable<Int> = CustomObservable(0)
+//    var outputText: CustomObservable<String> = CustomObservable("")
+//    var outputAllow: CustomObservable<Bool> = CustomObservable(false)
+//    var outputSelectedMBTI: CustomObservable<Int?> = CustomObservable(nil)
+//    var outputMBTISetting: CustomObservable<Bool> = CustomObservable(false)
+//    
+//    var currentAllow: CustomObservable<Void?> = CustomObservable(nil)
+//    
+    var nicknameAllow = BehaviorSubject(value: false)
+    var mbtiAllow = BehaviorSubject(value: false)
     
-    var outputImageNumber: CustomObservable<Int> = CustomObservable(0)
-    var outputText: CustomObservable<String> = CustomObservable("")
-    var outputAllow: CustomObservable<Bool> = CustomObservable(false)
-    var outputSelectedMBTI: CustomObservable<Int?> = CustomObservable(nil)
-    var outputMBTISetting: CustomObservable<Bool> = CustomObservable(false)
-    
-    var currentAllow: CustomObservable<Void?> = CustomObservable(nil)
-    
-    var nicknameAllow: Bool = false
-    var mbtiAllow: Bool = false
     var mbtiArray: [Int] = [-1, -1, -1, -1]
     
-    init() {
-//        showRandomImage.bind { value in
+//    init() {
+////        showRandomImage.bind { value in
+////            guard let value else { return }
+////            self.randomImage()
+////        }
+////        
+////        inputText.bind { value in
+////            self.validation()
+////        }
+//        
+//        inputSelectedMBTI.bind { [weak self] value in
 //            guard let value else { return }
-//            self.randomImage()
+//            
+//            self?.mbtiSave(value: value)
+//            self?.outputSelectedMBTI.value = value
 //        }
 //        
-//        inputText.bind { value in
-//            self.validation()
+//        currentAllow.bind { _ in
+//            self.outputAllow.value = self.nicknameAllow && self.mbtiAllow
 //        }
-        
-        inputSelectedMBTI.bind { [weak self] value in
-            guard let value else { return }
-            
-            self?.mbtiSave(value: value)
-            self?.outputSelectedMBTI.value = value
-        }
-        
-        currentAllow.bind { _ in
-            self.outputAllow.value = self.nicknameAllow && self.mbtiAllow
-        }
-        
-        inputMBTISetting.bind { value in
-            guard let value else { return }
-            self.outputMBTISetting.value = true
-        }
-        
-        mbtiSetting()
-    }
+//        
+//        inputMBTISetting.bind { value in
+//            guard let value else { return }
+//            self.outputMBTISetting.value = true
+//        }
+//        
+//        mbtiSetting()
+//    }
     
     let disposeBag = DisposeBag()
     
@@ -63,22 +64,23 @@ final class ProfileSettingViewModel {
         let randomImageTrigger: Observable<Void>
         let nickName: ControlProperty<String>
         let showCurrentMBTI: Observable<Void>
-//        let mbtiButtonTap: Observable<Void>
-//        let selectMBTI: PublishSubject<ControlEvent<IndexPath>.Element>
+        let clearButtonTap: ControlEvent<Void>
+
     }
     
     struct Output {
         let showRandomImage: Observable<Int>
         let nickNameStatus: PublishSubject<String>
         let showCurrentMBTI: PublishSubject<Bool>
-//        let showMBTI: PublishSubject<ControlEvent<IndexPath>.Element>
+        let clearButtonTap: Observable<Void>
+        let nickNameAllow: BehaviorSubject<Bool>
     }
     
     func transform(input: Input) -> Output {
         
         let nickNameStatus = PublishSubject<String>()
         let showCurrentMBTI = PublishSubject<Bool>()
-//        let showMBTI = PublishSubject<ControlEvent<IndexPath>.Element>()
+        let clearButtonTap = Observable<Void>.just(())
         
         let showRandomImage = input.randomImageTrigger
             .withUnretained(self)
@@ -96,21 +98,11 @@ final class ProfileSettingViewModel {
                 showCurrentMBTI.onNext(true)
             }
             .disposed(by: disposeBag)
-//        input
         
-//        input.selectMBTI
-//            .map { Int($0) }
-//            .bind(with: self) { owner, value in
-//                owner.mbtiSave(value: value)
-//            }
-//            .disposed(by: disposeBag)
-        
-        
-        
-        return Output(showRandomImage: showRandomImage, nickNameStatus: nickNameStatus, showCurrentMBTI: showCurrentMBTI)
+        return Output(showRandomImage: showRandomImage, nickNameStatus: nickNameStatus, showCurrentMBTI: showCurrentMBTI, clearButtonTap: clearButtonTap, nickNameAllow: nicknameAllow)
     }
     
-    private func randomImage() -> Int {
+    func randomImage() -> Int {
         let num = Int.random(in: 0...11)
         return num
     }
@@ -118,19 +110,19 @@ final class ProfileSettingViewModel {
     private func validation(inputText: String) -> String {
         
         if inputText.count < 2 || inputText.count >= 10 {
-            nicknameAllow = false
+            nicknameAllow.onNext(false)
             return validationError.isNotLength.rawValue
         } else if inputText.contains("@") || inputText.contains("#") || inputText.contains("$") || inputText.contains("%"){
-            nicknameAllow = false
+            nicknameAllow.onNext(false)
             return validationError.isNotSign.rawValue
         } else if isDigit(input: inputText) {
-            nicknameAllow = false
+            nicknameAllow.onNext(false)
             return validationError.isNotNumber.rawValue
         } else if inputText.contains(" ") {
-            nicknameAllow = false
+            nicknameAllow.onNext(false)
             return validationError.isNotSpace.rawValue
         } else {
-            nicknameAllow = true
+            nicknameAllow.onNext(true)
             return "사용할 수 있는 닉네임이에요"
         }
 
@@ -143,16 +135,16 @@ final class ProfileSettingViewModel {
     
     func mbtiSave(value: Int) {
         mbtiArray[value % 4] = value
-        mbtiAllow = mbtiArray.contains(-1) ? false : true
-//        currentAllow.value = ()
+        mbtiAllow.onNext(mbtiArray.contains(-1) ? false : true)
     }
     
     private func mbtiSetting() {
         if UserDefaultsManager.shared.mode == Mode.edit.rawValue {
             mbtiArray = UserInfo.shared.MBTI
-            mbtiAllow = true
+            mbtiAllow.onNext(true)
         } else {
             mbtiArray = [-1, -1, -1, -1]
+            mbtiAllow.onNext(false)
         }
     }
     
