@@ -185,9 +185,6 @@ final class ProfileSettingViewController: BaseViewController {
     }
     
     override func configureAction() {
-        profileImageButton.addTarget(self, action: #selector(profileImageButtonClicked), for: .touchUpInside)
-//        nicknameTextField.addTarget(self, action: #selector(nicknameChanged), for: .editingChanged)
-//        clearButton.addTarget(self, action: #selector(clearButtonClicked), for: .touchUpInside)
         quitButton.addTarget(self, action: #selector(quitButtonClicked), for: .touchUpInside)
     }
     
@@ -232,18 +229,6 @@ extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProfileSettingViewController {
     
-    @objc func profileImageButtonClicked() {
-        let vc = ProfileSelectingViewController()
-//        vc.viewModel.inputSelectedImage.value = viewModel.outputImageNumber.value
-        
-        // update profile image when you edit profile image
-//        vc.selectedClosure = { [weak self] value in
-//            self?.viewModel.outputImageNumber.value = value
-//        }
-        
-        transitionScreen(vc: vc, style: .push)
-    }
-    
     @objc func saveButtonClicked() {
         
 //        if viewModel.outputAllow.value {
@@ -269,7 +254,7 @@ extension ProfileSettingViewController {
         let randomImageTrigger = Observable<Void>.just(())
         let showCurrentMBTI = Observable<Void>.just(())
         
-        let input = ProfileSettingViewModel.Input(randomImageTrigger: randomImageTrigger, nickName: nicknameTextField.rx.text.orEmpty, showCurrentMBTI: showCurrentMBTI, clearButtonTap: clearButton.rx.tap)
+        let input = ProfileSettingViewModel.Input(randomImageTrigger: randomImageTrigger, nickName: nicknameTextField.rx.text.orEmpty, showCurrentMBTI: showCurrentMBTI, clearButtonTap: clearButton.rx.tap, profileImageTap: profileImageButton.rx.tap)
         let output = viewModel.transform(input: input)
         
         output.showRandomImage
@@ -278,7 +263,6 @@ extension ProfileSettingViewController {
             .disposed(by: disposeBag)
         
         output.nickNameStatus
-        
             .bind(with: self) { owner, value in
                 owner.statusLabel.text = value
             }
@@ -290,25 +274,38 @@ extension ProfileSettingViewController {
             }
             .disposed(by: disposeBag)
         
-        
         output.clearButtonTap
-            .bind(with: self) { owner, _ in
-//                if owner.viewModel.mbtiAllow.value() && owner.viewModel.nicknameAllow.value() {
-//                    let vc = TabBarViewController()
-//                    
-//                    // save userInfo
-//                    UserInfo.shared.userName = owner.nicknameTextField.text!
-//                    UserInfo.shared.profileNumber = owner.viewModel.randomImage()
-//                    UserInfo.shared.MBTI = owner.viewModel.mbtiArray
-//                    UserDefaultsManager.shared.mode = Mode.edit.rawValue
-//                    
-//                    owner.transitionScreen(vc: vc, style: .presentFull)
-//                }
+            .bind(with: self) { owner, value in
+                if value {
+                    let vc = TabBarViewController()
+                    
+                    // save userInfo
+                    UserInfo.shared.userName = owner.nicknameTextField.text!
+                    UserInfo.shared.MBTI = owner.viewModel.mbtiArray
+                    UserInfo.shared.profileNumber = owner.viewModel.profileImage
+                    UserDefaultsManager.shared.mode = Mode.edit.rawValue
+                    
+                    owner.transitionScreen(vc: vc, style: .presentFull)
+                }
             }
             .disposed(by: disposeBag)
         
-        Observable.zip(viewModel.mbtiAllow, viewModel.nicknameAllow)
-            .map { $0 && $1 }
+        output.profileImageTap
+            .bind(with: self) { owner, value in
+                let vc = ProfileSelectingViewController()
+                
+                vc.viewModel.inputSelectedImage.value = value
+                
+//                vc.selectedClosure = { [weak self] value in
+//                    owner.viewModel.outputImageNumber.value = value
+//                }
+                
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(viewModel.mbtiAllow, viewModel.nicknameAllow)
+            .map { $0.0 && $0.1 }
             .bind(with: self) { owner, value in
                 owner.clearButton.backgroundColor = value ? CustomDesign.Colors.Blue : CustomDesign.Colors.Gray
             }

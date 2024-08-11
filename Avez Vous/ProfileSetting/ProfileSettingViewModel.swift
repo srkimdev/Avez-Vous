@@ -28,6 +28,7 @@ final class ProfileSettingViewModel {
     var mbtiAllow = BehaviorSubject(value: false)
     
     var mbtiArray: [Int] = [-1, -1, -1, -1]
+    var profileImage: Int = -1
     
 //    init() {
 ////        showRandomImage.bind { value in
@@ -65,26 +66,31 @@ final class ProfileSettingViewModel {
         let nickName: ControlProperty<String>
         let showCurrentMBTI: Observable<Void>
         let clearButtonTap: ControlEvent<Void>
-
+        let profileImageTap: ControlEvent<Void>
     }
     
     struct Output {
         let showRandomImage: Observable<Int>
         let nickNameStatus: PublishSubject<String>
         let showCurrentMBTI: PublishSubject<Bool>
-        let clearButtonTap: Observable<Void>
+        let clearButtonTap: PublishSubject<Bool>
         let nickNameAllow: BehaviorSubject<Bool>
+        let profileImageTap: Observable<Int>
     }
     
     func transform(input: Input) -> Output {
         
         let nickNameStatus = PublishSubject<String>()
         let showCurrentMBTI = PublishSubject<Bool>()
-        let clearButtonTap = Observable<Void>.just(())
+        let clearButtonTap = PublishSubject<Bool>()
+        let profileImageTap = PublishSubject<Int>()
         
         let showRandomImage = input.randomImageTrigger
             .withUnretained(self)
-            .map { _ in self.randomImage() }
+            .map { _ in
+                self.profileImage = self.randomImage()
+                return self.profileImage
+            }
         
         input.nickName
             .bind(with: self) { owner, value in
@@ -99,7 +105,21 @@ final class ProfileSettingViewModel {
             }
             .disposed(by: disposeBag)
         
-        return Output(showRandomImage: showRandomImage, nickNameStatus: nickNameStatus, showCurrentMBTI: showCurrentMBTI, clearButtonTap: clearButtonTap, nickNameAllow: nicknameAllow)
+        input.clearButtonTap
+            .withLatestFrom(Observable.combineLatest(nicknameAllow, mbtiAllow))
+            .map { $0.0 && $0.1 }
+            .bind(with: self) { owner, value in
+                clearButtonTap.onNext(value)
+            }
+            .disposed(by: disposeBag)
+        
+        input.profileImageTap
+            .bind(with: self) { owner, _ in
+                profileImageTap.onNext(owner.profileImage)
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(showRandomImage: showRandomImage, nickNameStatus: nickNameStatus, showCurrentMBTI: showCurrentMBTI, clearButtonTap: clearButtonTap, nickNameAllow: nicknameAllow, profileImageTap: profileImageTap)
     }
     
     func randomImage() -> Int {
