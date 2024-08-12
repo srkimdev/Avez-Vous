@@ -6,16 +6,28 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 final class ProfileSelectingViewModel {
     
-    var inputSelectedImage: CustomObservable<Int> = CustomObservable(-1)
-    var outputSelectedImage: CustomObservable<Int> = CustomObservable(-1)
+    var profileImage = BehaviorSubject<Int>(value: -1)
     
-    init() {
-        inputSelectedImage.bind { [weak self] value in
-            self?.outputSelectedImage.value = value
-        }
-    }
+//    struct Input {
+//        let selectedImage: ControlEvent<Void>
+//    }
+//    
+//    struct Output {
+//        let showImage: Observable<Int>
+//    }
+//    
+//    func transform(input: Input) -> Output {
+//        
+//        input.selectedImage
+//            
+//        
+//        
+//        return Output(showImage: <#T##Observable<Int>#>)
+//    }
 
 }

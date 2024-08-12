@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class ProfileSelectingViewController: BaseViewController {
     
@@ -19,6 +20,7 @@ final class ProfileSelectingViewController: BaseViewController {
     
     var selectedClosure: ((Int) -> Void)?
     let viewModel = ProfileSelectingViewModel()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,10 +133,29 @@ extension ProfileSelectingViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileSelectingViewController {
     
     private func bindData() {
-        viewModel.outputSelectedImage.bind { [weak self] value in
-            self?.selectedImage.image = UIImage(named: "profile_\(value)")
-            self?.imageCollectionView.reloadData()
-        }
+//        viewModel.outputSelectedImage.bind { [weak self] value in
+//            self?.selectedImage.image = UIImage(named: "profile_\(value)")
+//            self?.imageCollectionView.reloadData()
+//        }
+        
+        Observable<[Int]>.just(Array(1...12))
+            .bind(to: imageCollectionView.rx.items(cellIdentifier: ProfileSelectingCollectionViewCell.identifier, cellType: ProfileSelectingCollectionViewCell.self)) { (item, element, cell) in
+                
+                cell.designCell(transition: item, selectedImage: self.viewModel.profileImage)
+                
+            }
+            .disposed(by: disposeBag)
+        
+        imageCollectionView.rx.itemSelected
+            .map { indexPath in indexPath.row }
+            .bind(with: self) { owner, item in
+                owner.viewModel.profileImage = item
+                owner.selectedClosure?(item)
+                
+                owner.imageCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
     }
     
 }

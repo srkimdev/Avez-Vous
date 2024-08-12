@@ -190,31 +190,6 @@ final class ProfileSettingViewController: BaseViewController {
     
 }
 
-//extension ProfileSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//    
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return MBTI.allCases.count
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = buttonCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSettingCollectionViewCell.identifier, for: indexPath) as? ProfileSettingCollectionViewCell else { return UICollectionViewCell() }
-//        
-//        cell.designCell(transition: indexPath.item, selectedNumber: viewModel.outputSelectedMBTI.value ?? -1)
-//        
-//        // show current MBTI when you click the edit profile
-//        if viewModel.outputMBTISetting.value {
-//            cell.designEditCell(transition: indexPath.item, mbtiArray: viewModel.mbtiArray)
-//        }
-//        
-//        return cell
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        viewModel.inputSelectedMBTI.value = indexPath.item
-//    }
-//    
-//}
-
 extension ProfileSettingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionViewLayout() -> UICollectionViewLayout {
@@ -294,11 +269,13 @@ extension ProfileSettingViewController {
             .bind(with: self) { owner, value in
                 let vc = ProfileSelectingViewController()
                 
-                vc.viewModel.inputSelectedImage.value = value
+                vc.viewModel.profileImage
+                    .onNext(value)
                 
-//                vc.selectedClosure = { [weak self] value in
-//                    owner.viewModel.outputImageNumber.value = value
-//                }
+                vc.selectedClosure = { value in
+                    owner.viewModel.profileImage = value
+                    self.profileImage.image = UIImage(named: "profile_\(value)")
+                }
                 
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
