@@ -11,23 +11,6 @@ import RxCocoa
 
 final class ProfileSelectingViewModel {
     
-    var profileImage = BehaviorSubject<Int>(value: -1)
-    
-//    struct Input {
-//        let selectedImage: ControlEvent<Void>
-//    }
-//    
-//    struct Output {
-//        let showImage: Observable<Int>
-//    }
-//    
-//    func transform(input: Input) -> Output {
-//        
-//        input.selectedImage
-//            
-//        
-//        
-//        return Output(showImage: <#T##Observable<Int>#>)
-//    }
+    var profileImage = BehaviorRelay<Int>(value: -1)
 
 }

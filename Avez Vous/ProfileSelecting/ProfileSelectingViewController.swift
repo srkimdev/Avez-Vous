@@ -24,9 +24,7 @@ final class ProfileSelectingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageCollectionView.delegate = self
-        imageCollectionView.dataSource = self
+
         imageCollectionView.register(ProfileSelectingCollectionViewCell.self, forCellWithReuseIdentifier: ProfileSelectingCollectionViewCell.identifier)
         
         bindData()
@@ -94,27 +92,6 @@ final class ProfileSelectingViewController: BaseViewController {
     
 }
 
-extension ProfileSelectingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileImages.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileSelectingCollectionViewCell.identifier, for: indexPath) as? ProfileSelectingCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.designCell(transition: indexPath.item, selectedImage: viewModel.outputSelectedImage.value)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.inputSelectedImage.value = indexPath.item
-        selectedClosure?(indexPath.item)
-    }
-    
-}
-
 extension ProfileSelectingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionViewLayout() -> UICollectionViewLayout {
@@ -133,15 +110,17 @@ extension ProfileSelectingViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileSelectingViewController {
     
     private func bindData() {
-//        viewModel.outputSelectedImage.bind { [weak self] value in
-//            self?.selectedImage.image = UIImage(named: "profile_\(value)")
-//            self?.imageCollectionView.reloadData()
-//        }
+        
+        viewModel.profileImage
+            .bind(with: self) { owner, value in
+                owner.selectedImage.image = UIImage(named: "profile_\(value)")
+            }
+            .disposed(by: disposeBag)
         
         Observable<[Int]>.just(Array(1...12))
             .bind(to: imageCollectionView.rx.items(cellIdentifier: ProfileSelectingCollectionViewCell.identifier, cellType: ProfileSelectingCollectionViewCell.self)) { (item, element, cell) in
                 
-                cell.designCell(transition: item, selectedImage: self.viewModel.profileImage)
+                cell.designCell(transition: item, selectedImage: self.viewModel.profileImage.value)
                 
             }
             .disposed(by: disposeBag)
@@ -149,7 +128,9 @@ extension ProfileSelectingViewController {
         imageCollectionView.rx.itemSelected
             .map { indexPath in indexPath.row }
             .bind(with: self) { owner, item in
-                owner.viewModel.profileImage = item
+                
+                owner.viewModel.profileImage
+                    .accept(item)
                 owner.selectedClosure?(item)
                 
                 owner.imageCollectionView.reloadData()

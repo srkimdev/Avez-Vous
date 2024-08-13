@@ -270,7 +270,7 @@ extension ProfileSettingViewController {
                 let vc = ProfileSelectingViewController()
                 
                 vc.viewModel.profileImage
-                    .onNext(value)
+                    .accept(value)
                 
                 vc.selectedClosure = { value in
                     owner.viewModel.profileImage = value
